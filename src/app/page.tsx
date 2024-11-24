@@ -2,10 +2,11 @@ import Image from "next/image";
 import { Grid } from "./components/Grid/Grid";
 import clsx from "clsx";
 import Link from "next/link";
+import ReactLenis from "lenis/react";
 
 export default function Home() {
   return (
-    <>
+    <ReactLenis root>
       <Grid />
       <div className="grid-r font-[family-name:var(--font-geist-sans)]">
         <nav className="fixed inset-x-0 max-md:grid-r md:sticky md:inset-y-0 md:h-svh flex flex-col bg-foreground text-background">
@@ -20,6 +21,6 @@ export default function Home() {
           <p className="text-r-base font-bold">Act 1</p>
         </main>
       </div>
-    </>
+    </ReactLenis>
   );
 }
