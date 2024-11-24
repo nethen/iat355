@@ -18,6 +18,24 @@ const config: Config = {
         "4xl": "1920px",
         "5xl": "2560px",
       },
+      fontSize: {
+        "r-base": [
+          "1rem",
+          {
+            lineHeight: "1.125em",
+            letterSpacing: "-0.02em",
+            fontWeight: "400",
+          },
+        ],
+        "r-md": [
+          "2.5625em",
+          {
+            lineHeight: "1.1707em",
+            letterSpacing: "-0.03em",
+            fontWeight: "300",
+          },
+        ],
+      },
     },
   },
   plugins: [],
