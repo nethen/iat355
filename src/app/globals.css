@@ -19,3 +19,9 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@layer components {
+  .grid-r {
+    @apply grid auto-rows-min grid-cols-3 md:grid-cols-6 lg:grid-cols-9 px-8 gap-x-4 lg:gap-x-6;
+  }
+}
