@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Grid, GRID_STYLE } from "./components/Grid/Grid";
 import clsx from "clsx";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -12,58 +13,17 @@ export default function Home() {
           "font-[family-name:var(--font-geist-sans)]"
         )}
       >
-        <main className="col-span-full grid grid-cols-subgrid">
+        <nav className="sticky inset-y-0 md:h-svh flex flex-col">
+          <Link href="/">Prologue</Link>
+          <Link href="/">Prologue</Link>
+          <Link href="/">Prologue</Link>
+          <Link href="/">Prologue</Link>
+        </nav>
+        <main className="col-span-full md:col-span-5 lg:col-span-8 grid grid-cols-subgrid min-h-[200svh]">
           <h1 className="text-r-md">Population</h1>
           <p className="text-r-base">Act 1</p>
           <p className="text-r-base font-bold">Act 1</p>
         </main>
-        <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-          <a
-            className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-            href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              aria-hidden
-              src="/file.svg"
-              alt="File icon"
-              width={16}
-              height={16}
-            />
-            Learn
-          </a>
-          <a
-            className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-            href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              aria-hidden
-              src="/window.svg"
-              alt="Window icon"
-              width={16}
-              height={16}
-            />
-            Examples
-          </a>
-          <a
-            className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-            href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              aria-hidden
-              src="/globe.svg"
-              alt="Globe icon"
-              width={16}
-              height={16}
-            />
-            Go to nextjs.org →
-          </a>
-        </footer>
       </div>
     </>
   );
