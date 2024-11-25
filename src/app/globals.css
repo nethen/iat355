@@ -19,6 +19,11 @@ html.lenis body {
   height: auto;
 }
 
+/* .lenis > div {
+  Ensure the wrapper doesn't affect layout or appearance
+  display: contents;
+} */
+
 .lenis.lenis-smooth {
   scroll-behavior: auto !important;
 }

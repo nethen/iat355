@@ -1,9 +1,10 @@
 "use client";
+import Lenis from "lenis";
 import ReactLenis, { useLenis } from "lenis/react";
 import { circOut } from "motion";
-import { motion } from "motion/react";
+import { motion, cancelFrame, frame } from "motion/react";
 import Link from "next/link";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useBoolean, useEventListener, useMediaQuery } from "usehooks-ts";
 
 export const Nav = ({ sectionsInView }: { sectionsInView: boolean[] }) => {
@@ -14,6 +15,10 @@ export const Nav = ({ sectionsInView }: { sectionsInView: boolean[] }) => {
     [sectionsInView]
   );
 
+  useEffect(() => {
+    console.log(sectionsInView);
+  }, [sectionsInView]);
+
   useEventListener("keydown", (e) => {
     if (e.key === "a") {
       visible.toggle();
@@ -21,14 +26,41 @@ export const Nav = ({ sectionsInView }: { sectionsInView: boolean[] }) => {
   });
   useEventListener("resize", () => {
     visible.setFalse();
+    console.log(matches);
+    lenis?.start();
     if (matches) {
-      lenis?.start();
+      //   lenis?.stop();
     } else {
-      lenis;
     }
   });
 
   const lenis = useLenis();
+
+  const lenisRef = useRef(null);
+  const scrollContainerRef = useRef(null);
+
+  useEffect(() => {
+    if (!scrollContainerRef.current) return;
+
+    const lenis = new Lenis({
+      wrapper: scrollContainerRef.current,
+      orientation: "vertical",
+      smooth: true,
+      gestureOrientation: "both",
+    });
+
+    lenisRef.current = lenis;
+    const animate = (time) => {
+      lenis.raf(time);
+      requestAnimationFrame(animate);
+    };
+    requestAnimationFrame(animate);
+
+    return () => {
+      lenis.destroy();
+    };
+  }, [visible.value]);
+
   const toggleNav = () => {
     visible.toggle();
     if (!visible.value) {
@@ -46,7 +78,7 @@ export const Nav = ({ sectionsInView }: { sectionsInView: boolean[] }) => {
 
   return (
     <motion.nav
-      className="fixed inset-x-0 grid md:sticky md:inset-y-0 md:h-svh max-md:grid-rows-[min-content_auto] max-md:bg-foreground dark:max-md:bg-[#BD3C00] max-md:text-background overflow-hidden"
+      className="fixed z-50 inset-x-0 grid md:sticky md:inset-y-0 md:h-svh max-md:grid-rows-[min-content_auto] max-md:bg-foreground dark:max-md:bg-[#BD3C00] max-md:text-background overflow-hidden"
       initial={{ height: "4.5em" }}
       animate={{
         height: visible.value || matches ? "100vh" : "4.5em",
@@ -61,9 +93,12 @@ export const Nav = ({ sectionsInView }: { sectionsInView: boolean[] }) => {
         <div className="font-bold">Act I</div>
         <p>Population</p>
       </motion.div>
-      <ReactLenis className="col-span-full overflow-auto max-md:px-8 md:h-full">
+      <div
+        ref={scrollContainerRef}
+        className="flex flex-col overflow-hidden max-h-full"
+      >
         <motion.div
-          className="col-span-full flex flex-col gap-y-[1.125em] mb-[2.25em] md:mt-[2.25em]"
+          className="max-md:px-8 col-span-full flex flex-col gap-y-[1.125em] mb-[2.25em] md:mt-[2.25em]"
           // initial={{ height: 0 }}
           // animate={{ height: visible.value || matches ? "auto" : 0 }}
           // exit={{ height: 0 }}
@@ -117,7 +152,7 @@ export const Nav = ({ sectionsInView }: { sectionsInView: boolean[] }) => {
               <p>Practices</p>
             </motion.div>
           </Link>
-          {/* <div className="h-[150vh]" /> */}
+          <div className="h-[150vh]" />
           <Link href="/" className="md:mt-auto">
             <motion.div
               initial={{ opacity: 0 }}
@@ -129,7 +164,7 @@ export const Nav = ({ sectionsInView }: { sectionsInView: boolean[] }) => {
             </motion.div>
           </Link>
         </motion.div>
-      </ReactLenis>
+      </div>
     </motion.nav>
   );
 };
