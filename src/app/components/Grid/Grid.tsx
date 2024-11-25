@@ -11,7 +11,9 @@ export const Grid = () => {
   });
   return (
     <motion.div
+      initial={{ opacity: 0 }}
       animate={{ opacity: visible.value ? 1 : 0 }}
+      exit={{ opacity: 0 }}
       className="fixed inset-0 grid-r pointer-events-none"
     >
       {[...Array(9)].map((_, i) => (
