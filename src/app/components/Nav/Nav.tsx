@@ -1,10 +1,9 @@
 "use client";
-import Lenis from "lenis";
 import ReactLenis, { useLenis } from "lenis/react";
 import { circOut } from "motion";
-import { motion, cancelFrame, frame } from "motion/react";
+import { motion } from "motion/react";
 import Link from "next/link";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo } from "react";
 import { useBoolean, useEventListener, useMediaQuery } from "usehooks-ts";
 
 export const Nav = ({ sectionsInView }: { sectionsInView: boolean[] }) => {

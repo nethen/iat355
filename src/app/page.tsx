@@ -11,7 +11,12 @@ export default function Home() {
     React.createRef<HTMLDivElement>()
   );
 
-  const isInView = Array.from({ length: 4 }, (_, i) => useInView(viewRefs[i]));
+  const isInView = [
+    useInView(viewRefs[0]),
+    useInView(viewRefs[1]),
+    useInView(viewRefs[2]),
+    useInView(viewRefs[3]),
+  ];
 
   return (
     <ReactLenis root>
