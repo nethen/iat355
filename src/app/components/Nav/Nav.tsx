@@ -3,11 +3,17 @@ import ReactLenis, { useLenis } from "lenis/react";
 import { circOut } from "motion";
 import { motion } from "motion/react";
 import Link from "next/link";
+import { useEffect, useMemo } from "react";
 import { useBoolean, useEventListener, useMediaQuery } from "usehooks-ts";
 
 export const Nav = ({ sectionsInView }: { sectionsInView: boolean[] }) => {
   const visible = useBoolean(false);
   const matches = useMediaQuery("(min-width: 768px)");
+  const state = useMemo(
+    () => sectionsInView.findLastIndex((e) => e == true),
+    [sectionsInView]
+  );
+
   useEventListener("keydown", (e) => {
     if (e.key === "a") {
       visible.toggle();
@@ -15,7 +21,11 @@ export const Nav = ({ sectionsInView }: { sectionsInView: boolean[] }) => {
   });
   useEventListener("resize", () => {
     visible.setFalse();
-    lenis?.start();
+    if (matches) {
+      lenis?.start();
+    } else {
+      lenis;
+    }
   });
 
   const lenis = useLenis();
@@ -36,7 +46,7 @@ export const Nav = ({ sectionsInView }: { sectionsInView: boolean[] }) => {
 
   return (
     <motion.nav
-      className="fixed inset-x-0 max-md:grid-r md:sticky md:inset-y-0 md:h-svh flex flex-col max-md:bg-foreground dark:max-md:bg-[#BD3C00] max-md:text-background overflow-hidden"
+      className="fixed inset-x-0 grid md:sticky md:inset-y-0 md:h-svh max-md:grid-rows-[min-content_auto] max-md:bg-foreground dark:max-md:bg-[#BD3C00] max-md:text-background overflow-hidden"
       initial={{ height: "4.5em" }}
       animate={{
         height: visible.value || matches ? "100vh" : "4.5em",
@@ -51,91 +61,75 @@ export const Nav = ({ sectionsInView }: { sectionsInView: boolean[] }) => {
         <div className="font-bold">Act I</div>
         <p>Population</p>
       </motion.div>
-      {/* <ReactLenis className="overflow-y-scroll"> */}
-      <motion.div
-        className="col-span-full flex flex-col gap-y-[1.125em] mb-[2.25em] md:mt-[2.25em]"
-        // initial={{ height: 0 }}
-        // animate={{ height: visible.value || matches ? "auto" : 0 }}
-        // exit={{ height: 0 }}
-        // transition={{ duration: matches ? 0 : 0.3 }}
-      >
-        <Link href="#prologue" onClick={() => toggleNavOff()}>
-          <motion.div
-            className="font-bold"
-            initial={{ opacity: 0 }}
-            animate={{
-              opacity:
-                visible.value || matches ? (sectionsInView[0] ? 1 : 0.5) : 0,
-            }}
-            exit={{ opacity: 0 }}
-          >
-            Prologue
-          </motion.div>
-        </Link>
-        <Link href="#act1" onClick={() => toggleNavOff()}>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{
-              opacity:
-                visible.value || matches
-                  ? !sectionsInView[0] && sectionsInView[1]
-                    ? 1
-                    : 0.5
-                  : 0,
-            }}
-            exit={{ opacity: 0 }}
-          >
-            <div className="font-bold">Act I</div>
-            <p>Population</p>
-          </motion.div>
-        </Link>
-        <Link href="#act2" onClick={() => toggleNavOff()}>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{
-              opacity:
-                visible.value || matches
-                  ? !sectionsInView[1] && sectionsInView[2]
-                    ? 1
-                    : 0.5
-                  : 0,
-            }}
-            exit={{ opacity: 0 }}
-          >
-            <div className="font-bold">Act II</div>
-            <p>Program</p>
-          </motion.div>
-        </Link>
-        <Link href="#act3" onClick={() => toggleNavOff()}>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{
-              opacity:
-                visible.value || matches
-                  ? !sectionsInView[2] && sectionsInView[3]
-                    ? 1
-                    : 0.5
-                  : 0,
-            }}
-            exit={{ opacity: 0 }}
-          >
-            <div className="font-bold">Act III</div>
-            <p>Practices</p>
-          </motion.div>
-        </Link>
-        {/* <div className="h-[150vh]" /> */}
-        <Link href="/" className="md:mt-auto">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: visible.value || matches ? 1 : 0 }}
-            exit={{ opacity: 0 }}
-            className="font-bold"
-          >
-            Sources
-          </motion.div>
-        </Link>
-      </motion.div>
-      {/* </ReactLenis> */}
+      <ReactLenis className="col-span-full overflow-auto max-md:px-8 md:h-full">
+        <motion.div
+          className="col-span-full flex flex-col gap-y-[1.125em] mb-[2.25em] md:mt-[2.25em]"
+          // initial={{ height: 0 }}
+          // animate={{ height: visible.value || matches ? "auto" : 0 }}
+          // exit={{ height: 0 }}
+          // transition={{ duration: matches ? 0 : 0.3 }}
+        >
+          <Link href="#prologue" onClick={() => toggleNavOff()}>
+            <motion.div
+              className="font-bold"
+              initial={{ opacity: 0 }}
+              animate={{
+                opacity: visible.value || matches ? (state == 0 ? 1 : 0.5) : 0,
+              }}
+              exit={{ opacity: 0 }}
+            >
+              Prologue
+            </motion.div>
+          </Link>
+          <Link href="#act1" onClick={() => toggleNavOff()}>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{
+                opacity: visible.value || matches ? (state == 1 ? 1 : 0.5) : 0,
+              }}
+              exit={{ opacity: 0 }}
+            >
+              <div className="font-bold">Act I</div>
+              <p>Population</p>
+            </motion.div>
+          </Link>
+          <Link href="#act2" onClick={() => toggleNavOff()}>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{
+                opacity: visible.value || matches ? (state == 2 ? 1 : 0.5) : 0,
+              }}
+              exit={{ opacity: 0 }}
+            >
+              <div className="font-bold">Act II</div>
+              <p>Program</p>
+            </motion.div>
+          </Link>
+          <Link href="#act3" onClick={() => toggleNavOff()}>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{
+                opacity: visible.value || matches ? (state == 3 ? 1 : 0.5) : 0,
+              }}
+              exit={{ opacity: 0 }}
+            >
+              <div className="font-bold">Act III</div>
+              <p>Practices</p>
+            </motion.div>
+          </Link>
+          {/* <div className="h-[150vh]" /> */}
+          <Link href="/" className="md:mt-auto">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: visible.value || matches ? 1 : 0 }}
+              exit={{ opacity: 0 }}
+              className="font-bold"
+            >
+              Sources
+            </motion.div>
+          </Link>
+        </motion.div>
+      </ReactLenis>
     </motion.nav>
   );
 };

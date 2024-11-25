@@ -11,7 +11,7 @@ export default function Home() {
     React.createRef<HTMLDivElement>()
   );
 
-  const isInView = Array.from({ length: 4 }, (e, i) => useInView(viewRefs[i]));
+  const isInView = Array.from({ length: 4 }, (_, i) => useInView(viewRefs[i]));
 
   return (
     <ReactLenis root>
@@ -22,7 +22,7 @@ export default function Home() {
           className="fixed top-4 right-4 size-16 rounded-full"
           style={{ background: isInView[1] ? "blue" : "red" }}
         ></div> */}
-        <main className="max-md:pt-[5.625em] col-span-full py-[1.125em] md:col-span-5 lg:col-span-8 grid grid-cols-subgrid auto-rows-min gap-y-[1.125em]">
+        <main className="max-md:pt-[4.5em] col-span-full py-[1.125em] md:col-span-5 lg:col-span-8 grid grid-cols-subgrid auto-rows-min gap-y-[1.125em]">
           <section
             id="prologue"
             className="col-span-full grid grid-cols-subgrid gap-[inherit] pt-[2.25em] pb-[4.5em]"
