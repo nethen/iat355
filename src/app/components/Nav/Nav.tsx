@@ -62,13 +62,13 @@ export const Nav = ({ sectionsInView }: { sectionsInView: boolean[] }) => {
   //   }, [visible.value]);
 
   const toggleNav = () => {
-    visible.toggle();
     if (!visible.value) {
       lenis?.stop();
       console.log("stop");
     } else {
       lenis?.start();
     }
+    visible.toggle();
   };
 
   const toggleNavOff = () => {
@@ -95,7 +95,7 @@ export const Nav = ({ sectionsInView }: { sectionsInView: boolean[] }) => {
       </motion.div>
       <ReactLenis
         // ref={scrollContainerRef}
-        className="flex flex-col overflow-hidden max-h-full"
+        className="flex flex-col overflow-y-auto max-h-full"
       >
         <motion.div
           className="max-md:px-8 col-span-full flex flex-col gap-y-[1.125em] mb-[2.25em] md:mt-[2.25em]"
