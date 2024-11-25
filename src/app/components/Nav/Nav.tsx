@@ -13,7 +13,7 @@ export const Nav = () => {
       visible.toggle();
     }
   });
-  useEventListener("resize", (e) => {
+  useEventListener("resize", () => {
     visible.setFalse();
     lenis?.start();
   });
