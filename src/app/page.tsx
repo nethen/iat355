@@ -1,6 +1,5 @@
 // import Image from "next/image";
 import { Grid } from "./components/Grid/Grid";
-import Link from "next/link";
 import ReactLenis from "lenis/react";
 import { VisContainer } from "./components/Visualization/VisContainer";
 import { Nav } from "./components/Nav/Nav";
