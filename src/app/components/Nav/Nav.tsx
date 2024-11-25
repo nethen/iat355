@@ -36,30 +36,30 @@ export const Nav = ({ sectionsInView }: { sectionsInView: boolean[] }) => {
 
   const lenis = useLenis();
 
-  const lenisRef = useRef(null);
-  const scrollContainerRef = useRef(null);
+  //   const lenisRef = useRef(null);
+  //   const scrollContainerRef = useRef(null);
 
-  useEffect(() => {
-    if (!scrollContainerRef.current) return;
+  //   useEffect(() => {
+  //     if (!scrollContainerRef.current) return;
 
-    const lenis = new Lenis({
-      wrapper: scrollContainerRef.current,
-      orientation: "vertical",
-      smooth: true,
-      gestureOrientation: "both",
-    });
+  //     const lenis = new Lenis({
+  //       wrapper: scrollContainerRef.current,
+  //       orientation: "vertical",
+  //       smooth: true,
+  //       gestureOrientation: "both",
+  //     });
 
-    lenisRef.current = lenis;
-    const animate = (time) => {
-      lenis.raf(time);
-      requestAnimationFrame(animate);
-    };
-    requestAnimationFrame(animate);
+  //     lenisRef.current = lenis;
+  //     const animate = (time) => {
+  //       lenis.raf(time);
+  //       requestAnimationFrame(animate);
+  //     };
+  //     requestAnimationFrame(animate);
 
-    return () => {
-      lenis.destroy();
-    };
-  }, [visible.value]);
+  //     return () => {
+  //       lenis.destroy();
+  //     };
+  //   }, [visible.value]);
 
   const toggleNav = () => {
     visible.toggle();
@@ -93,8 +93,8 @@ export const Nav = ({ sectionsInView }: { sectionsInView: boolean[] }) => {
         <div className="font-bold">Act I</div>
         <p>Population</p>
       </motion.div>
-      <div
-        ref={scrollContainerRef}
+      <ReactLenis
+        // ref={scrollContainerRef}
         className="flex flex-col overflow-hidden max-h-full"
       >
         <motion.div
@@ -164,7 +164,7 @@ export const Nav = ({ sectionsInView }: { sectionsInView: boolean[] }) => {
             </motion.div>
           </Link>
         </motion.div>
-      </div>
+      </ReactLenis>
     </motion.nav>
   );
 };
