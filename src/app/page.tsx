@@ -3,33 +3,15 @@ import { Grid } from "./components/Grid/Grid";
 import Link from "next/link";
 import ReactLenis from "lenis/react";
 import { VisContainer } from "./components/Visualization/VisContainer";
+import { Nav } from "./components/Nav/Nav";
 
 export default function Home() {
   return (
     <ReactLenis root>
       <Grid />
       <div className="grid-r font-[family-name:var(--font-geist-sans)]">
-        <nav className="fixed inset-x-0 py-[1.125em] md:py-[2.25em] max-md:grid-r md:sticky md:inset-y-0 md:h-svh flex flex-col max-md:bg-foreground max-md:text-background gap-y-[1.125em]">
-          <Link href="/">
-            <div className="font-bold">Prologue</div>
-          </Link>
-          <Link href="/">
-            <div className="font-bold">Act I</div>
-            <p>Population</p>
-          </Link>
-          <Link href="/">
-            <div className="font-bold">Act II</div>
-            <p>Program</p>
-          </Link>
-          <Link href="/">
-            <div className="font-bold">Act III</div>
-            <p>Practices</p>
-          </Link>
-          <Link href="/" className="mt-auto">
-            <div className="font-bold">Sources</div>
-          </Link>
-        </nav>
-        <main className="max-md:pt-[72px] col-span-full py-[1.125em] md:py-[2.25em] md:col-span-5 lg:col-span-8 grid grid-cols-subgrid auto-rows-min min-h-[200svh] gap-y-[1.125em]">
+        <Nav />
+        <main className="max-md:pt-[5.625em] col-span-full py-[1.125em] md:py-[2.25em] md:col-span-5 lg:col-span-8 grid grid-cols-subgrid auto-rows-min min-h-[200svh] gap-y-[1.125em]">
           <section className="col-span-full grid grid-cols-subgrid gap-[inherit] pb-[4.5em]">
             <div className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-center">
               <h2 className="text-r-md">Prologue</h2>
