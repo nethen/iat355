@@ -15,6 +15,7 @@ export const Nav = () => {
   });
   useEventListener("resize", (e) => {
     visible.setFalse();
+    lenis?.start();
   });
 
   const lenis = useLenis();
