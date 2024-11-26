@@ -1,9 +1,10 @@
 "use client";
+import clsx from "clsx";
 import ReactLenis, { useLenis } from "lenis/react";
 import { circOut } from "motion";
 import { motion } from "motion/react";
 import Link from "next/link";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useBoolean, useEventListener, useMediaQuery } from "usehooks-ts";
 
 export const Nav = ({ sectionsInView }: { sectionsInView: boolean[] }) => {
@@ -33,10 +34,12 @@ export const Nav = ({ sectionsInView }: { sectionsInView: boolean[] }) => {
     }
   });
 
-  const lenis = useLenis();
+  const lenis = useLenis((lenis) => {
+    console.log("lenis");
+  });
 
   //   const lenisRef = useRef(null);
-  //   const scrollContainerRef = useRef(null);
+  const scrollContainerRef = useRef(null);
 
   //   useEffect(() => {
   //     if (!scrollContainerRef.current) return;
@@ -78,11 +81,12 @@ export const Nav = ({ sectionsInView }: { sectionsInView: boolean[] }) => {
   return (
     <motion.nav
       className="fixed z-50 inset-x-0 grid md:sticky md:inset-y-0 md:h-svh max-md:grid-rows-[min-content_auto] max-md:bg-foreground dark:max-md:bg-[#BD3C00] max-md:text-background overflow-hidden"
-      initial={{ height: "4.5em" }}
+      initial={{ height: "4.5em", opacity: 0 }}
       animate={{
         height: visible.value || matches ? "100vh" : "4.5em",
+        opacity: 1,
       }}
-      exit={{ height: "4.5em" }}
+      exit={{ height: "4.5em", opacity: 0 }}
       transition={{ ease: circOut }}
     >
       <motion.div
@@ -94,7 +98,12 @@ export const Nav = ({ sectionsInView }: { sectionsInView: boolean[] }) => {
       </motion.div>
       <ReactLenis
         // ref={scrollContainerRef}
-        className="flex flex-col overflow-y-auto max-h-full"
+        options={{ prevent: (node) => node.hasAttribute("data-scroll-locked") }}
+        data-scroll-locked={visible.value}
+        className={clsx(
+          "flex flex-col overflow-y-auto max-h-full"
+          //   matches && "lenis-stopped"
+        )}
       >
         <motion.div
           className="max-md:px-8 col-span-full flex flex-col gap-y-[1.125em] mb-[2.25em] md:mt-[2.25em]"
@@ -103,7 +112,11 @@ export const Nav = ({ sectionsInView }: { sectionsInView: boolean[] }) => {
           // exit={{ height: 0 }}
           // transition={{ duration: matches ? 0 : 0.3 }}
         >
-          <Link href="#prologue" onClick={() => toggleNavOff()}>
+          <Link
+            href="#prologue"
+            onClick={() => toggleNavOff()}
+            className="pointer-events-auto"
+          >
             <motion.div
               className="font-bold"
               initial={{ opacity: 0 }}
@@ -115,7 +128,11 @@ export const Nav = ({ sectionsInView }: { sectionsInView: boolean[] }) => {
               Prologue
             </motion.div>
           </Link>
-          <Link href="#act1" onClick={() => toggleNavOff()}>
+          <Link
+            href="#act1"
+            onClick={() => toggleNavOff()}
+            className="pointer-events-auto"
+          >
             <motion.div
               initial={{ opacity: 0 }}
               animate={{
@@ -127,7 +144,11 @@ export const Nav = ({ sectionsInView }: { sectionsInView: boolean[] }) => {
               <p>Population</p>
             </motion.div>
           </Link>
-          <Link href="#act2" onClick={() => toggleNavOff()}>
+          <Link
+            href="#act2"
+            onClick={() => toggleNavOff()}
+            className="pointer-events-auto"
+          >
             <motion.div
               initial={{ opacity: 0 }}
               animate={{
@@ -139,7 +160,11 @@ export const Nav = ({ sectionsInView }: { sectionsInView: boolean[] }) => {
               <p>Program</p>
             </motion.div>
           </Link>
-          <Link href="#act3" onClick={() => toggleNavOff()}>
+          <Link
+            href="#act3"
+            onClick={() => toggleNavOff()}
+            className="pointer-events-auto"
+          >
             <motion.div
               initial={{ opacity: 0 }}
               animate={{
@@ -152,7 +177,7 @@ export const Nav = ({ sectionsInView }: { sectionsInView: boolean[] }) => {
             </motion.div>
           </Link>
           <div className="h-[150vh]" />
-          <Link href="/" className="md:mt-auto">
+          <Link href="/" className="md:mt-auto pointer-events-auto">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: visible.value || matches ? 1 : 0 }}
