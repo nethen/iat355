@@ -21,7 +21,7 @@ export const ScrollyVisContainer = () => {
           style={{ scale: scale }}
         ></motion.div>
       </div>
-      <figure className="col-span-full max-w-full aspect-square lg:aspect-video bg-foreground rounded-lg">
+      <figure className="col-span-full max-w-full aspect-square lg:aspect-video bg-diagram rounded-lg">
         {/* <div>{scale.get()}</div> */}
       </figure>
     </article>
