@@ -10,7 +10,9 @@ const config: Config = {
     extend: {
       colors: {
         background: "var(--background)",
+        midground: "var(--midground)",
         foreground: "var(--foreground)",
+        diagram: "var(--diagram)",
       },
       screens: {
         "2xl": "1440px",

@@ -16,13 +16,13 @@ export default function Home() {
               <h2 className="text-r-md">Prologue</h2>
             </div>
             <VisContainer />
-            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3">
+            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
               When considering the design schools around the Lower Mainland,
               SIAT is a rare breed. With a jack of all trades mindset, students
               are exposed to a variety of disciplines in their first and second
               years.
             </p>
-            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3">
+            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
               When considering the design schools around the Lower Mainland,
               SIAT is a rare breed. With a jack of all trades mindset, students
               are exposed to a variety of disciplines in their first and second
