@@ -41,6 +41,7 @@ export const Nav = ({ sectionsInView }: NavProps) => {
     console.log(matches);
     lenis?.start();
     lenisRef.current?.destroy();
+    locker.unlock();
   });
 
   const lenis = useLenis(() => {
@@ -90,6 +91,7 @@ export const Nav = ({ sectionsInView }: NavProps) => {
   const toggleNavOff = () => {
     visible.setFalse();
     lenis?.start();
+    locker.unlock();
   };
 
   return (
