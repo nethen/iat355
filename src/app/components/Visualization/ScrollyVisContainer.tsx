@@ -1,5 +1,5 @@
 import { motion, MotionValue, useScroll, useTransform } from "motion/react";
-import React, { cloneElement, useContext } from "react";
+import React, { useContext } from "react";
 import { useRef } from "react";
 
 type VisContainerProps = {

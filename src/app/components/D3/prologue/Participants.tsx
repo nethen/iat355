@@ -2,9 +2,6 @@ import { motion, MotionValue, useTransform } from "motion/react";
 import { useEffect } from "react";
 import { useScrollYProgress } from "../../Visualization/ScrollyVisContainer";
 
-type VisualizationsProps = {
-  scrollYProgress?: MotionValue<number>;
-};
 export const Participants = () => {
   const scrollYProgress = useScrollYProgress();
   const scale = useTransform(scrollYProgress, [0.25, 1], [0, 1]);
