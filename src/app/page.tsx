@@ -7,6 +7,7 @@ import { ScrollyVisContainer } from "./components/Visualization/ScrollyVisContai
 import { Nav } from "./components/Nav/Nav";
 import React from "react";
 import { useInView } from "motion/react";
+import { Participants } from "./components/D3/prologue/Participants";
 export default function Home() {
   const viewRefs = Array.from({ length: 4 }, () =>
     React.createRef<HTMLDivElement>()
@@ -37,10 +38,12 @@ export default function Home() {
             <div className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-center">
               <h2 className="text-r-md">Prologue</h2>
             </div>
+            <ScrollyVisContainer>
+              <Participants />
+            </ScrollyVisContainer>
+            {/* <ScrollyVisContainer />
             <ScrollyVisContainer />
-            <ScrollyVisContainer />
-            <ScrollyVisContainer />
-            <ScrollyVisContainer />
+            <ScrollyVisContainer /> */}
             <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3">
               When considering the design schools around the Lower Mainland,
               SIAT is a rare breed. With a jack of all trades mindset, students

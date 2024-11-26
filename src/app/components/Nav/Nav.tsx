@@ -42,9 +42,7 @@ export const Nav = ({ sectionsInView }: { sectionsInView: boolean[] }) => {
     }
   });
 
-  const lenis = useLenis(() => {
-    console.log("lenis");
-  });
+  const lenis = useLenis();
 
   const lenisRef = useRef<Lenis | null>(null);
   const scrollContainerRef = useRef(null);
