@@ -19,7 +19,7 @@ export default function Home() {
   ];
 
   return (
-    <ReactLenis root>
+    <ReactLenis root options={{ syncTouch: true }}>
       <Grid />
       <div className="grid-r font-[family-name:var(--font-geist-sans)]">
         <Nav sectionsInView={isInView} />
