@@ -35,6 +35,7 @@ export const Nav = ({ sectionsInView }: { sectionsInView: boolean[] }) => {
     visible.setFalse();
     console.log(matches);
     lenis?.start();
+    lenisRef.current?.destroy();
     if (matches) {
       //   lenis?.stop();
     } else {
@@ -112,7 +113,10 @@ export const Nav = ({ sectionsInView }: { sectionsInView: boolean[] }) => {
           //   matches && "lenis-stopped"
         )}
       > */}
-      <motion.div className="max-md:px-8 col-span-full flex flex-col gap-y-[1.125em] mb-[2.25em] md:mt-[2.25em] h-full overflow-auto no-scrollbar">
+      <motion.div
+        ref={scrollContainerRef}
+        className="max-md:px-8 col-span-full flex flex-col gap-y-[1.125em] mb-[2.25em] md:mt-[2.25em] h-full overflow-auto no-scrollbar"
+      >
         <Link
           href="#prologue"
           onClick={() => toggleNavOff()}
