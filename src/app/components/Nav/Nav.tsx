@@ -93,10 +93,10 @@ export const Nav = ({ sectionsInView }: { sectionsInView: boolean[] }) => {
   return (
     <motion.nav
       {...(!matches && isClient && { "data-lenis-prevent": true })}
-      className="text-r-base fixed z-50 inset-x-0 grid md:sticky md:inset-y-0 md:h-svh max-md:grid-rows-[min-content_auto] max-md:bg-foreground dark:max-md:bg-[#BD3C00] max-md:text-background overflow-hidden"
+      className="text-r-base fixed z-50 inset-x-0 grid md:sticky md:inset-y-0 md:!h-svh max-md:grid-rows-[min-content_auto] max-md:bg-foreground dark:max-md:bg-[#BD3C00] max-md:text-background overflow-hidden"
       initial={{ height: "4.5em", opacity: 0 }}
       animate={{
-        height: visible.value || matches ? "100vh" : "4.5em",
+        height: (visible.value || matches) && isClient ? "100vh" : "4.5em",
         opacity: 1,
       }}
       exit={{ height: "4.5em", opacity: 0 }}
@@ -186,7 +186,7 @@ export const Nav = ({ sectionsInView }: { sectionsInView: boolean[] }) => {
             <p>Practices</p>
           </motion.div>
         </Link>
-        {/* <div className="h-[150vh]" /> */}
+        {/* <div className="min-h-[150vh]" /> */}
         <Link href="/" className="md:mt-auto pointer-events-auto mb-[5.75em]">
           <motion.div
             initial={{ opacity: 0 }}
