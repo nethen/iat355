@@ -52,23 +52,27 @@ export const Nav = ({ sectionsInView }: { sectionsInView: boolean[] }) => {
   useEffect(() => {
     if (!scrollContainerRef.current) return;
 
-    const lenis = new Lenis({
-      wrapper: scrollContainerRef.current,
-      orientation: "vertical",
-      smoothWheel: true,
-      gestureOrientation: "both",
-    });
+    if (visible.value) {
+      const lenis = new Lenis({
+        wrapper: scrollContainerRef.current,
+        orientation: "vertical",
+        smoothWheel: true,
+        gestureOrientation: "both",
+      });
 
-    lenisRef.current = lenis;
-    const animate = (time: number) => {
-      lenis.raf(time);
+      lenisRef.current = lenis;
+      const animate = (time: number) => {
+        lenis.raf(time);
+        requestAnimationFrame(animate);
+      };
       requestAnimationFrame(animate);
-    };
-    requestAnimationFrame(animate);
 
-    return () => {
-      lenis.destroy();
-    };
+      return () => {
+        lenis.destroy();
+      };
+    } else {
+      lenisRef.current?.destroy();
+    }
   }, [visible.value]);
 
   const toggleNav = () => {
