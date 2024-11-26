@@ -1,15 +1,22 @@
 "use client";
-import clsx from "clsx";
-import ReactLenis, { useLenis } from "lenis/react";
+// import clsx from "clsx";
+import Lenis from "lenis";
+import { useLenis } from "lenis/react";
 import { circOut } from "motion";
 import { motion } from "motion/react";
 import Link from "next/link";
 import { useEffect, useMemo, useRef } from "react";
-import { useBoolean, useEventListener, useMediaQuery } from "usehooks-ts";
+import {
+  useBoolean,
+  useEventListener,
+  useMediaQuery,
+  useIsClient,
+} from "usehooks-ts";
 
 export const Nav = ({ sectionsInView }: { sectionsInView: boolean[] }) => {
   const visible = useBoolean(false);
   const matches = useMediaQuery("(min-width: 768px)");
+  const isClient = useIsClient();
   const state = useMemo(
     () => sectionsInView.findLastIndex((e) => e == true),
     [sectionsInView]
@@ -34,34 +41,34 @@ export const Nav = ({ sectionsInView }: { sectionsInView: boolean[] }) => {
     }
   });
 
-  const lenis = useLenis((lenis) => {
+  const lenis = useLenis(() => {
     console.log("lenis");
   });
 
-  //   const lenisRef = useRef(null);
+  const lenisRef = useRef<Lenis | null>(null);
   const scrollContainerRef = useRef(null);
 
-  //   useEffect(() => {
-  //     if (!scrollContainerRef.current) return;
+  useEffect(() => {
+    if (!scrollContainerRef.current) return;
 
-  //     const lenis = new Lenis({
-  //       wrapper: scrollContainerRef.current,
-  //       orientation: "vertical",
-  //       smooth: true,
-  //       gestureOrientation: "both",
-  //     });
+    const lenis = new Lenis({
+      wrapper: scrollContainerRef.current,
+      orientation: "vertical",
+      smoothWheel: true,
+      gestureOrientation: "both",
+    });
 
-  //     lenisRef.current = lenis;
-  //     const animate = (time) => {
-  //       lenis.raf(time);
-  //       requestAnimationFrame(animate);
-  //     };
-  //     requestAnimationFrame(animate);
+    lenisRef.current = lenis;
+    const animate = (time: number) => {
+      lenis.raf(time);
+      requestAnimationFrame(animate);
+    };
+    requestAnimationFrame(animate);
 
-  //     return () => {
-  //       lenis.destroy();
-  //     };
-  //   }, [visible.value]);
+    return () => {
+      lenis.destroy();
+    };
+  }, [visible.value]);
 
   const toggleNav = () => {
     if (!visible.value) {
@@ -80,7 +87,8 @@ export const Nav = ({ sectionsInView }: { sectionsInView: boolean[] }) => {
 
   return (
     <motion.nav
-      className="fixed z-50 inset-x-0 grid md:sticky md:inset-y-0 md:h-svh max-md:grid-rows-[min-content_auto] max-md:bg-foreground dark:max-md:bg-[#BD3C00] max-md:text-background overflow-hidden"
+      {...(!matches && isClient && { "data-lenis-prevent": true })}
+      className="text-r-base fixed z-50 inset-x-0 grid md:sticky md:inset-y-0 md:h-svh max-md:grid-rows-[min-content_auto] max-md:bg-foreground dark:max-md:bg-[#BD3C00] max-md:text-background overflow-hidden"
       initial={{ height: "4.5em", opacity: 0 }}
       animate={{
         height: visible.value || matches ? "100vh" : "4.5em",
@@ -96,99 +104,95 @@ export const Nav = ({ sectionsInView }: { sectionsInView: boolean[] }) => {
         <div className="font-bold">Act I</div>
         <p>Population</p>
       </motion.div>
-      <ReactLenis
-        // ref={scrollContainerRef}
-        options={{ prevent: (node) => node.hasAttribute("data-scroll-locked") }}
-        data-scroll-locked={visible.value}
+      {/* <motion.div
+        ref={scrollContainerRef}
+        data-scroll-locked
         className={clsx(
-          "flex flex-col overflow-y-auto max-h-full"
+          "flex flex-col overflow-y-auto max-h-full no-scrollbar"
           //   matches && "lenis-stopped"
         )}
-      >
-        <motion.div
-          className="max-md:px-8 col-span-full flex flex-col gap-y-[1.125em] mb-[2.25em] md:mt-[2.25em]"
-          // initial={{ height: 0 }}
-          // animate={{ height: visible.value || matches ? "auto" : 0 }}
-          // exit={{ height: 0 }}
-          // transition={{ duration: matches ? 0 : 0.3 }}
+      > */}
+      <motion.div className="max-md:px-8 col-span-full flex flex-col gap-y-[1.125em] mb-[2.25em] md:mt-[2.25em] h-full overflow-auto no-scrollbar">
+        <Link
+          href="#prologue"
+          onClick={() => toggleNavOff()}
+          className="pointer-events-auto"
         >
-          <Link
-            href="#prologue"
-            onClick={() => toggleNavOff()}
-            className="pointer-events-auto"
+          <motion.div
+            className="font-bold"
+            initial={{ opacity: 0 }}
+            animate={{
+              opacity: visible.value || matches ? (state == 0 ? 1 : 0.5) : 0,
+            }}
+            exit={{ opacity: 0 }}
           >
-            <motion.div
-              className="font-bold"
-              initial={{ opacity: 0 }}
-              animate={{
-                opacity: visible.value || matches ? (state == 0 ? 1 : 0.5) : 0,
-              }}
-              exit={{ opacity: 0 }}
-            >
-              Prologue
-            </motion.div>
-          </Link>
-          <Link
-            href="#act1"
-            onClick={() => toggleNavOff()}
-            className="pointer-events-auto"
+            Prologue
+          </motion.div>
+        </Link>
+        <Link
+          href="#act1"
+          onClick={() => toggleNavOff()}
+          className="pointer-events-auto"
+        >
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{
+              opacity: visible.value || matches ? (state == 1 ? 1 : 0.5) : 0,
+            }}
+            exit={{ opacity: 0 }}
           >
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{
-                opacity: visible.value || matches ? (state == 1 ? 1 : 0.5) : 0,
-              }}
-              exit={{ opacity: 0 }}
-            >
-              <div className="font-bold">Act I</div>
-              <p>Population</p>
-            </motion.div>
-          </Link>
-          <Link
-            href="#act2"
-            onClick={() => toggleNavOff()}
-            className="pointer-events-auto"
+            <div className="font-bold">Act I</div>
+            <p>Population</p>
+          </motion.div>
+        </Link>
+        <Link
+          href="#act2"
+          onClick={() => toggleNavOff()}
+          className="pointer-events-auto"
+        >
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{
+              opacity: visible.value || matches ? (state == 2 ? 1 : 0.5) : 0,
+            }}
+            exit={{ opacity: 0 }}
           >
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{
-                opacity: visible.value || matches ? (state == 2 ? 1 : 0.5) : 0,
-              }}
-              exit={{ opacity: 0 }}
-            >
-              <div className="font-bold">Act II</div>
-              <p>Program</p>
-            </motion.div>
-          </Link>
-          <Link
-            href="#act3"
-            onClick={() => toggleNavOff()}
-            className="pointer-events-auto"
+            <div className="font-bold">Act II</div>
+            <p>Program</p>
+          </motion.div>
+        </Link>
+        <Link
+          href="#act3"
+          onClick={() => toggleNavOff()}
+          className="pointer-events-auto"
+        >
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{
+              opacity: visible.value || matches ? (state == 3 ? 1 : 0.5) : 0,
+            }}
+            exit={{ opacity: 0 }}
           >
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{
-                opacity: visible.value || matches ? (state == 3 ? 1 : 0.5) : 0,
-              }}
-              exit={{ opacity: 0 }}
-            >
-              <div className="font-bold">Act III</div>
-              <p>Practices</p>
-            </motion.div>
-          </Link>
-          <div className="h-[150vh]" />
-          <Link href="/" className="md:mt-auto pointer-events-auto">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: visible.value || matches ? 1 : 0 }}
-              exit={{ opacity: 0 }}
-              className="font-bold"
-            >
-              Sources
-            </motion.div>
-          </Link>
-        </motion.div>
-      </ReactLenis>
+            <div className="font-bold">Act III</div>
+            <p>Practices</p>
+          </motion.div>
+        </Link>
+        {/* <div className="h-[150vh]" /> */}
+        <Link
+          href="/"
+          className="mt-[150vh] md:mt-auto pointer-events-auto mb-[5.75em]"
+        >
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: visible.value || matches ? 1 : 0 }}
+            exit={{ opacity: 0 }}
+            className="font-bold"
+          >
+            Sources
+          </motion.div>
+        </Link>
+      </motion.div>
+      {/* </motion.div> */}
     </motion.nav>
   );
 };
