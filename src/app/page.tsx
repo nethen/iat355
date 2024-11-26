@@ -23,6 +23,11 @@ export default function Home() {
     <ReactLenis root>
       <Grid />
       <div className="grid-r font-[family-name:var(--font-geist-sans)]">
+        <header className="col-span-full min-h-[87.5svh] grid grid-cols-subgrid content-center">
+          <h1 className="col-span-full lg:col-start-3 lg:col-span-5 text-center text-m-lg lg:text-r-lg">
+            A Design Confidence Index
+          </h1>
+        </header>
         <Nav sectionsInView={isInView} />
         {/* <div
           className="fixed top-4 right-4 size-16 rounded-full"
@@ -31,7 +36,7 @@ export default function Home() {
         <main className="max-md:pt-[4.5em] col-span-full py-[1.125em] md:col-span-5 lg:col-span-8 grid grid-cols-subgrid auto-rows-min gap-y-[1.125em]">
           <section
             id="prologue"
-            className="col-span-full grid grid-cols-subgrid gap-[inherit] pt-[2.25em] pb-[4.5em]"
+            className="col-span-full grid grid-cols-subgrid gap-[inherit] pb-[4.5em]"
             ref={viewRefs[0]}
           >
             <div className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-center">

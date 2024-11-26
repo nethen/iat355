@@ -37,6 +37,22 @@ const config: Config = {
             fontWeight: "300",
           },
         ],
+        "m-lg": [
+          "2.5625em",
+          {
+            lineHeight: "1.1707em",
+            letterSpacing: "-0.03em",
+            fontWeight: "700",
+          },
+        ],
+        "r-lg": [
+          "6em",
+          {
+            lineHeight: "1.1667em",
+            letterSpacing: "-0.05em",
+            fontWeight: "700",
+          },
+        ],
       },
     },
   },
