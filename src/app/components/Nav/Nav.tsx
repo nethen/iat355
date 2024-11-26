@@ -11,12 +11,14 @@ import {
   useEventListener,
   useMediaQuery,
   useIsClient,
+  useScrollLock,
 } from "usehooks-ts";
 
 export const Nav = ({ sectionsInView }: { sectionsInView: boolean[] }) => {
   const visible = useBoolean(false);
   const matches = useMediaQuery("(min-width: 768px)");
   const isClient = useIsClient();
+  const locker = useScrollLock({ autoLock: false });
   const state = useMemo(
     () => sectionsInView.findLastIndex((e) => e == true),
     [sectionsInView]
@@ -79,11 +81,20 @@ export const Nav = ({ sectionsInView }: { sectionsInView: boolean[] }) => {
     if (!visible.value) {
       lenis?.stop();
       console.log("stop");
+      // alert(locker.isLocked);
+      locker.lock();
     } else {
       lenis?.start();
+      // alert(locker.isLocked);
+      locker.unlock();
     }
     visible.toggle();
   };
+
+  // useEffect(() => {
+  //   document.body.style.overflow = "hidden";
+  //   return () => (document.body.style.overflow = "unset");
+  // }, []);
 
   const toggleNavOff = () => {
     visible.setFalse();
@@ -93,7 +104,7 @@ export const Nav = ({ sectionsInView }: { sectionsInView: boolean[] }) => {
   return (
     <motion.nav
       {...(!matches && isClient && { "data-lenis-prevent": true })}
-      className="text-r-base fixed z-50 inset-x-0 grid md:sticky md:inset-y-0 md:!h-svh max-md:grid-rows-[min-content_auto] max-md:bg-foreground dark:max-md:bg-[#BD3C00] max-md:text-background overflow-hidden"
+      className="text-r-base fixed z-50 inset-x-0 grid md:sticky md:inset-y-0 md:!h-svh max-md:grid-rows-[min-content_auto] max-md:bg-[#BD3C00] max-md:text-background overflow-hidden"
       initial={{ height: "4.5em", opacity: 0 }}
       animate={{
         height: (visible.value || matches) && isClient ? "100vh" : "4.5em",
@@ -186,7 +197,7 @@ export const Nav = ({ sectionsInView }: { sectionsInView: boolean[] }) => {
             <p>Practices</p>
           </motion.div>
         </Link>
-        {/* <div className="min-h-[150vh]" /> */}
+        <div className="min-h-[150vh]" />
         <Link href="/" className="md:mt-auto pointer-events-auto mb-[5.75em]">
           <motion.div
             initial={{ opacity: 0 }}
