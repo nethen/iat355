@@ -3,6 +3,7 @@
 import { Grid } from "./components/Grid/Grid";
 import ReactLenis from "lenis/react";
 import { VisContainer } from "./components/Visualization/VisContainer";
+import { ScrollyVisContainer } from "./components/Visualization/ScrollyVisContainer";
 import { Nav } from "./components/Nav/Nav";
 import React from "react";
 import { useInView } from "motion/react";
@@ -36,7 +37,10 @@ export default function Home() {
             <div className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-center">
               <h2 className="text-r-md">Prologue</h2>
             </div>
-            <VisContainer />
+            <ScrollyVisContainer />
+            <ScrollyVisContainer />
+            <ScrollyVisContainer />
+            <ScrollyVisContainer />
             <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3">
               When considering the design schools around the Lower Mainland,
               SIAT is a rare breed. With a jack of all trades mindset, students
