@@ -1,4 +1,4 @@
-import { motion, MotionValue, useTransform } from "motion/react";
+import { motion, useTransform } from "motion/react";
 import { useEffect } from "react";
 import { useScrollYProgress } from "../../Visualization/ScrollyVisContainer";
 
