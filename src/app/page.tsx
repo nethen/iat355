@@ -1,6 +1,5 @@
 // import Image from "next/image";
 import { Grid } from "./components/Grid/Grid";
-import ReactLenis from "lenis/react";
 import { VisContainer } from "./components/Visualization/VisContainer";
 import { ScrollyVisContainer } from "./components/Visualization/ScrollyVisContainer";
 import { Nav } from "./components/Nav/Nav";
@@ -9,6 +8,8 @@ import { Nav } from "./components/Nav/Nav";
 import { Participants } from "./components/D3/prologue/Participants";
 import { csvParse } from "d3";
 import { promises as fs } from "fs";
+import { SmoothScroll } from "./components/SmoothScroll/SmoothScroll";
+
 export default async function Home() {
   // const viewRefs = Array.from({ length: 4 }, () => createRef<HTMLDivElement>());
 
@@ -34,7 +35,7 @@ export default async function Home() {
   // }, []);
 
   return (
-    <ReactLenis root>
+    <SmoothScroll>
       <Grid />
       <div className="grid-r font-[family-name:var(--font-geist-sans)]">
         <header className="col-span-full min-h-[87.5svh] grid grid-cols-subgrid content-center">
@@ -110,6 +111,6 @@ export default async function Home() {
           </section>
         </main>
       </div>
-    </ReactLenis>
+    </SmoothScroll>
   );
 }

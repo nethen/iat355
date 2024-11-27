@@ -11,6 +11,7 @@ import {
   useMediaQuery,
   useIsClient,
   useScrollLock,
+  useWindowSize,
 } from "usehooks-ts";
 
 type NavProps = {
@@ -27,21 +28,21 @@ export const Nav = ({ sectionsInView }: NavProps) => {
     [sectionsInView]
   );
 
-  // useEffect(() => {
-  //   console.log(sectionsInView);
-  // }, [sectionsInView]);
+  // prevent phantom iOS scroll events
+  const width = useWindowSize().width;
+
+  useEffect(() => {
+    visible.setFalse();
+    // console.log(matches);
+    locker.unlock();
+    lenis?.start();
+    lenisRef.current?.destroy();
+  }, [width]);
 
   useEventListener("keydown", (e) => {
     if (e.key === "a") {
       visible.toggle();
     }
-  });
-  useEventListener("resize", () => {
-    visible.setFalse();
-    // console.log(matches);
-    lenis?.start();
-    lenisRef.current?.destroy();
-    locker.unlock();
   });
 
   const lenis = useLenis();
@@ -76,12 +77,15 @@ export const Nav = ({ sectionsInView }: NavProps) => {
   }, [visible.value]);
 
   const toggleNav = () => {
+    console.log(visible.value);
     if (!visible.value) {
-      lenis?.stop();
       locker.lock();
+      lenis?.stop();
+      console.log("locking");
     } else {
-      lenis?.start();
       locker.unlock();
+      lenis?.start();
+      console.log("unlocking");
     }
     visible.toggle();
   };
