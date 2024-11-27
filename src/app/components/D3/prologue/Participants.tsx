@@ -25,7 +25,7 @@ export const Participants = ({
   marginLeft = 20,
 }: D3VisProps) => {
   const scrollYProgress = useScrollYProgress();
-  const scale = useTransform(scrollYProgress, [0.25, 0.75], [0, 8]);
+  const scale = useTransform(scrollYProgress, [0.25, 0.75], [0, 4]);
 
   //   const [extents, setExtents] = useState<number[] | undefined[]>([
   //     undefined,

@@ -22,20 +22,9 @@ export const ScrollyVisContainer = ({ children }: VisContainerProps) => {
     <ScrollYProgressContext.Provider value={scrollYProgress}>
       <article
         ref={ref}
-        className="col-span-full lg:col-span-7 2xl:col-start-2 2xl:col-span-5 relative grid grid-cols-subgrid auto-rows-min"
+        className="col-span-full lg:col-span-7 2xl:col-start-2 2xl:col-span-5 relative grid grid-cols-subgrid auto-rows-min h-[200svh]"
       >
-        <div className="sticky top-0 h-0 col-span-full">
-          <motion.div
-            className="sticky col-span top-0 size-16 rounded-full bg-blue-500"
-            style={{ scale: scale }}
-          ></motion.div>
-        </div>
-        <figure className="col-span-full max-w-full aspect-square lg:aspect-video bg-diagram rounded-lg p-8">
-          {/* {React.Children.map(children, (child) =>
-          React.isValidElement(child)
-            ? cloneElement(child, { scrollYProgress })
-            : child
-        )} */}
+        <figure className="sticky top-[2.25em] col-span-full max-w-full aspect-square lg:aspect-video bg-diagram rounded-lg p-8">
           {children}
         </figure>
       </article>
