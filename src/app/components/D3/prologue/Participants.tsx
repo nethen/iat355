@@ -4,6 +4,7 @@ import { motion, useTransform } from "motion/react";
 import { useScrollYProgress } from "../../Visualization/ScrollyVisContainer";
 import { DSVRowArray } from "d3-dsv";
 import { scaleLinear } from "d3-scale";
+import { useEffect } from "react";
 
 type D3VisProps = {
   data: DSVRowArray<string> | null;
@@ -38,6 +39,10 @@ export const Participants = ({
     .domain([0, 35])
     .range([height - marginBottom, marginTop]);
 
+  useEffect(() => {
+    x.ticks(3);
+  }, []);
+
   //   useEffect(() => {
   //     console.log(data);
   //     if (data) {
@@ -49,11 +54,16 @@ export const Participants = ({
 
   return (
     <motion.svg
-      width={width}
-      height={height}
+      viewBox={`0 0 ${width} ${height}`}
       className="w-full h-auto"
       animate={{ background: data ? "blue" : "red" }}
     >
+      {x &&
+        x
+          .ticks(3)
+          .map((tick, i) => (
+            <circle cx={x(tick)} cy={y(0)} r={4} fill="red" key={`tick${i}`} />
+          ))}
       {data &&
         data.map((d, i) => (
           <motion.circle
