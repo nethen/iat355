@@ -17,6 +17,7 @@ export const metadata: Metadata = {
   title: "A Design Confidence Index",
   description:
     "A Design Confidence Index pulls insights from 69 polled undergraduate students from Simon Fraser University’s School of Interactive Arts and Technology (SIAT), asking the sample for insights into their perceptions and practices in visual design, creativity, and AI usage.",
+
   openGraph: {
     title: "A Design Confidence Index",
     description:
@@ -29,6 +30,13 @@ export const metadata: Metadata = {
       alt: "A Design Confidence Index",
     },
   },
+  authors: [
+    {
+      name: "Michael Dresler",
+      url: "https://www.linkedin.com/in/michael-dresler/",
+    },
+    { name: "Nathan Lew", url: "https://linkedin.com/in/nathan-lew" },
+  ],
 };
 
 export default function RootLayout({
