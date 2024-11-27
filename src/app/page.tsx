@@ -1,13 +1,13 @@
 "use client";
 // import Image from "next/image";
 import { Grid } from "./components/Grid/Grid";
-import ReactLenis from "lenis/react";
 import { VisContainer } from "./components/Visualization/VisContainer";
 import { ScrollyVisContainer } from "./components/Visualization/ScrollyVisContainer";
 import { Nav } from "./components/Nav/Nav";
 import React from "react";
 import { useInView } from "motion/react";
 import { Participants } from "./components/D3/prologue/Participants";
+import { SmoothScroll } from "./components/SmoothScroll/SmoothScroll";
 export default function Home() {
   const viewRefs = Array.from({ length: 4 }, () =>
     React.createRef<HTMLDivElement>()
@@ -21,7 +21,7 @@ export default function Home() {
   ];
 
   return (
-    <ReactLenis root>
+    <SmoothScroll>
       <Grid />
       <div className="grid-r font-[family-name:var(--font-geist-sans)]">
         <header className="col-span-full min-h-[87.5svh] grid grid-cols-subgrid content-center">
@@ -97,6 +97,6 @@ export default function Home() {
           </section>
         </main>
       </div>
-    </ReactLenis>
+    </SmoothScroll>
   );
 }
