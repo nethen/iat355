@@ -1,3 +1,4 @@
+"use client";
 import { motion, MotionValue, useScroll, useTransform } from "motion/react";
 import React, { useContext } from "react";
 import { useRef } from "react";
@@ -29,7 +30,7 @@ export const ScrollyVisContainer = ({ children }: VisContainerProps) => {
             style={{ scale: scale }}
           ></motion.div>
         </div>
-        <figure className="col-span-full max-w-full aspect-square lg:aspect-video bg-diagram rounded-lg">
+        <figure className="col-span-full max-w-full aspect-square lg:aspect-video bg-diagram rounded-lg p-8">
           {/* {React.Children.map(children, (child) =>
           React.isValidElement(child)
             ? cloneElement(child, { scrollYProgress })

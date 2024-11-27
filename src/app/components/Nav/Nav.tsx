@@ -14,7 +14,7 @@ import {
 } from "usehooks-ts";
 
 type NavProps = {
-  sectionsInView: boolean[];
+  sectionsInView?: boolean[];
 };
 
 export const Nav = ({ sectionsInView }: NavProps) => {
@@ -23,13 +23,13 @@ export const Nav = ({ sectionsInView }: NavProps) => {
   const isClient = useIsClient();
   const locker = useScrollLock({ autoLock: false });
   const state = useMemo(
-    () => sectionsInView.findLastIndex((e) => e == true),
+    () => sectionsInView?.findLastIndex((e) => e == true),
     [sectionsInView]
   );
 
-  useEffect(() => {
-    console.log(sectionsInView);
-  }, [sectionsInView]);
+  // useEffect(() => {
+  //   console.log(sectionsInView);
+  // }, [sectionsInView]);
 
   useEventListener("keydown", (e) => {
     if (e.key === "a") {
@@ -38,7 +38,7 @@ export const Nav = ({ sectionsInView }: NavProps) => {
   });
   useEventListener("resize", () => {
     visible.setFalse();
-    console.log(matches);
+    // console.log(matches);
     lenis?.start();
     lenisRef.current?.destroy();
     locker.unlock();
