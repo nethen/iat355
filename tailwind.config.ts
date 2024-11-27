@@ -38,19 +38,30 @@ const config: Config = {
           },
         ],
         "m-lg": [
-          "2.5625em",
+          "min(16.875vw, 4.6875em)",
           {
-            lineHeight: "1.1707em",
-            letterSpacing: "-0.03em",
-            fontWeight: "700",
+            // lineHeight:
+            //   "min(calc(16.875vw - 36 * (100vw - 20rem)/320), 4.5rem)",
+            lineHeight: "calc(1em - ((1em - 3.375rem) / 7))",
+            letterSpacing: "-0.05em",
+            fontWeight: "300",
           },
         ],
+        "t-lg": [
+          "4.6875em",
+          {
+            lineHeight: "0.96em",
+            letterSpacing: "-0.05em",
+            fontWeight: "300",
+          },
+        ],
+
         "r-lg": [
           "6em",
           {
             lineHeight: "1.1667em",
             letterSpacing: "-0.05em",
-            fontWeight: "700",
+            fontWeight: "300",
           },
         ],
       },

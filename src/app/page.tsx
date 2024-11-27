@@ -25,7 +25,7 @@ export default function Home() {
       <Grid />
       <div className="grid-r font-[family-name:var(--font-geist-sans)]">
         <header className="col-span-full min-h-[87.5svh] grid grid-cols-subgrid content-center">
-          <h1 className="col-span-full lg:col-start-3 lg:col-span-5 text-center text-m-lg lg:text-r-lg">
+          <h1 className="col-span-full lg:col-start-3 lg:col-span-5 text-center text-m-lg sm:text-t-lg lg:text-r-lg">
             A Design Confidence Index
           </h1>
         </header>
