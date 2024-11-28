@@ -1,5 +1,5 @@
 "use client";
-import { motion, MotionValue, useScroll, useTransform } from "motion/react";
+import { MotionValue, useScroll } from "motion/react";
 import React, { useContext } from "react";
 import { useRef } from "react";
 
@@ -16,7 +16,7 @@ export const ScrollyVisContainer = ({ children }: VisContainerProps) => {
     offset: ["start end", "end start"],
   });
 
-  const scale = useTransform(scrollYProgress, [0.25, 1], [0, 1]);
+  // const scale = useTransform(scrollYProgress, [0.25, 1], [0, 1]);
 
   return (
     <ScrollYProgressContext.Provider value={scrollYProgress}>

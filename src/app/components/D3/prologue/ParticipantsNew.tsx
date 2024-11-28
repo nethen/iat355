@@ -27,8 +27,8 @@ export const ParticipantsNew = ({
   marginLeft = 20,
 }: D3VisProps) => {
   const scrollYProgress = useScrollYProgress();
-  const scale = useTransform(scrollYProgress, [0.25, 0.75], [0, 6]);
-  const scaleNew = (x: number) =>
+  // const scale = useTransform(scrollYProgress, [0.25, 0.75], [0, 6]);
+  const useScaleNew = (x: number) =>
     useTransform(
       scrollYProgress,
       [0.25 + (0.25 * x) / 69, 0.5 + (0.25 * x) / 69],
@@ -76,7 +76,7 @@ export const ParticipantsNew = ({
               cy={y(Math.floor(i / 9))}
               fill={c(parseInt(d.year_of_study))}
               r={10}
-              opacity={scaleNew(i)}
+              opacity={useScaleNew(i)}
               key={`participant-${i}`}
             />
           ))}

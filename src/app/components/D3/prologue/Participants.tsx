@@ -19,7 +19,7 @@ export const Participants = ({
   data,
   width = 640,
   height = 500,
-  marginTop = 20,
+  // marginTop = 20,
   marginRight = 20,
   marginBottom = 20,
   marginLeft = 20,
@@ -31,9 +31,7 @@ export const Participants = ({
   //     undefined,
   //     undefined,
   //   ]);
-  const y = scaleLinear()
-    .domain([0, 1])
-    .range([height ,40]); // Flip the range
+  const y = scaleLinear().domain([0, 1]).range([height, 40]); // Flip the range
   const x = scaleLinear()
     .domain([0, 35])
     .range([marginLeft, width - marginRight]);
@@ -61,18 +59,18 @@ export const Participants = ({
           <g transform={`translate(0, ${y(tickValue)})`} key={tickValue}>
             <line
               stroke="lightgrey"
-              x1={marginLeft+40}
-              x2={width+50}
+              x1={marginLeft + 40}
+              x2={width + 50}
               y1={0}
               y2={0}
             />
             <text
-              x={marginLeft +20} // Adjust to position the text left of the axis
+              x={marginLeft + 20} // Adjust to position the text left of the axis
               y={0} // Keep aligned with the tick
               textAnchor="end" // Align text to the end of the position
               style={{ fontSize: "1rem", fill: "black" }}
             >
-              {tickValue*100}
+              {tickValue * 100}
             </text>
           </g>
         ))}
@@ -81,14 +79,9 @@ export const Participants = ({
       <g>
         {x.ticks().map((tickValue) => (
           <g transform={`translate(${x(tickValue)},0)`} key={tickValue}>
-            <line
-              stroke="lightgrey"
-              x={marginLeft}
-              y1={0}
-              y2={0}
-            />
+            <line stroke="lightgrey" x={marginLeft} y1={0} y2={0} />
             <text
-              x={marginLeft +20} // Adjust to position the text left of the axis
+              x={marginLeft + 20} // Adjust to position the text left of the axis
               y={height + marginBottom} // Keep aligned with the tick
               textAnchor="end" // Align text to the end of the position
               style={{ fontSize: "1rem", fill: "black" }}
