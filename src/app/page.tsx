@@ -8,6 +8,7 @@ import { Nav } from "./components/Nav/Nav";
 import { Participants } from "./components/D3/prologue/Participants";
 import { csvParse } from "d3";
 import { promises as fs } from "fs";
+import { ParticipantsNew } from "./components/D3/prologue/ParticipantsNew";
 import { SmoothScroll } from "./components/SmoothScroll/SmoothScroll";
 
 export default async function Home() {
@@ -59,6 +60,9 @@ export default async function Home() {
             </div>
             <ScrollyVisContainer>
               <Participants data={data} />
+            </ScrollyVisContainer>
+            <ScrollyVisContainer>
+              <ParticipantsNew data={data} />
             </ScrollyVisContainer>
             {/* <ScrollyVisContainer />
             <ScrollyVisContainer />

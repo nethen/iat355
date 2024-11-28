@@ -16,6 +16,8 @@ export const ScrollyVisContainer = ({ children }: VisContainerProps) => {
     offset: ["start end", "end start"],
   });
 
+  // const scale = useTransform(scrollYProgress, [0.25, 1], [0, 1]);
+
   return (
     <ScrollYProgressContext.Provider value={scrollYProgress}>
       <article
