@@ -9,6 +9,7 @@ import { Nav } from "./components/Nav/Nav";
 import { Participants } from "./components/D3/prologue/Participants";
 import { csvParse } from "d3";
 import { promises as fs } from "fs";
+import { ParticipantsNew } from "./components/D3/prologue/ParticipantsNew";
 export default async function Home() {
   // const viewRefs = Array.from({ length: 4 }, () => createRef<HTMLDivElement>());
 
@@ -58,6 +59,9 @@ export default async function Home() {
             </div>
             <ScrollyVisContainer>
               <Participants data={data} />
+            </ScrollyVisContainer>
+            <ScrollyVisContainer>
+              <ParticipantsNew data={data} />
             </ScrollyVisContainer>
             {/* <ScrollyVisContainer />
             <ScrollyVisContainer />
