@@ -12,6 +12,7 @@ import {
   useIsClient,
   useScrollLock,
   useWindowSize,
+  useTimeout,
 } from "usehooks-ts";
 
 type NavProps = {
@@ -35,12 +36,8 @@ export const Nav = ({ sectionsInView }: NavProps) => {
 
   useEffect(() => {
     reloading.setTrue();
+    setTimeout(() => reloading.setFalse(), 50);
   }, [size]);
-
-  useEffect(() => {
-    reloading.setFalse();
-    // console.log(reloading.value);
-  }, [reloading.value]);
 
   useEffect(() => {
     visible.setFalse();
@@ -132,8 +129,9 @@ export const Nav = ({ sectionsInView }: NavProps) => {
       }}
       transition={{
         ease: circOut,
-        duration: reloading.value ? 0 : 0.3,
+        duration: isClient ? (reloading.value ? 0 : 0.3) : 0,
       }}
+      // onAnimationComplete={() => reloading.setFalse()}
     >
       <motion.div
         className="md:hidden col-span-full text-center my-[1.125em] cursor-pointer"

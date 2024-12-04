@@ -108,10 +108,11 @@ export default async function Home() {
               where there would be 1 in 5 students of each year.
             </p>
             <ScrollyVisContainer>
-              <Participants data={data} />
-            </ScrollyVisContainer>
-            <ScrollyVisContainer>
               <ParticipantsNew data={data} />
+            </ScrollyVisContainer>
+
+            <ScrollyVisContainer>
+              <Participants data={data} />
             </ScrollyVisContainer>
           </section>
           <section

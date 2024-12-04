@@ -5,11 +5,15 @@ import { useRef } from "react";
 
 type VisContainerProps = {
   children?: React.ReactNode;
+  captions?: React.ReactNode;
 };
 
 const ScrollYProgressContext = React.createContext(new MotionValue());
 
-export const ScrollyVisContainer = ({ children }: VisContainerProps) => {
+export const ScrollyVisContainer = ({
+  children,
+  captions,
+}: VisContainerProps) => {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -22,12 +26,15 @@ export const ScrollyVisContainer = ({ children }: VisContainerProps) => {
     <ScrollYProgressContext.Provider value={scrollYProgress}>
       <article
         ref={ref}
-        className="col-span-full lg:col-span-7 2xl:col-start-2 2xl:col-span-5 relative grid grid-cols-subgrid auto-rows-min h-[200svh] md:py-[2.25em] lg:py-[4.5em]"
+        className="bg-red-500 col-span-full lg:col-start-2 lg:col-span-5 relative grid grid-cols-subgrid auto-rows-min h-[200svh] md:py-[2.25em] lg:py-[4.5em]"
       >
-        <figure className="sticky top-[6.375em] md:top-[2.25em] col-span-full max-w-full aspect-square lg:aspect-video bg-diagram rounded-lg md:p-8">
+        <figure className="sticky top-[6.375em] md:top-[2.25em] col-span-full max-w-full bg-diagram rounded-lg md:p-8">
           {children}
         </figure>
       </article>
+      <aside className="max-lg:fixed inset-x-0 bottom-0 h-full max-h-[6.75em] 2xl:col-span-2 lg:min-h-svh bg-blue-500">
+        {captions}
+      </aside>
     </ScrollYProgressContext.Provider>
   );
 };

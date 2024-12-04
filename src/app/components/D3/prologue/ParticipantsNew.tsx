@@ -6,6 +6,13 @@ import { DSVRowArray } from "d3-dsv";
 import { scaleLinear, scaleSequential } from "d3-scale";
 import { descending } from "d3-array";
 import { interpolateCool } from "d3-scale-chromatic";
+import {
+  useIsClient,
+  useMediaQuery,
+  useResizeObserver,
+  useWindowSize,
+} from "usehooks-ts";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 type D3VisProps = {
   data: DSVRowArray<string> | null;
@@ -21,25 +28,50 @@ export const ParticipantsNew = ({
   data,
   width = 640,
   height = 500,
-  marginTop = 20,
-  marginRight = 20,
-  marginBottom = 20,
-  marginLeft = 20,
+  marginTop = 36,
+  marginRight = 36,
+  marginBottom = 36,
+  marginLeft = 36,
 }: D3VisProps) => {
   //   const [extents, setExtents] = useState<number[] | undefined[]>([
   //     undefined,
   //     undefined,
   //   ]);
+  const isClient = useIsClient();
+  const size = useWindowSize();
+  const matches = useMediaQuery("(min-width: 1024px)");
+
+  const containerRef = useRef(null);
+
+  const rWidth = useResizeObserver({
+    ref: containerRef,
+    box: "border-box",
+  }).width;
+
+  useEffect(() => {
+    console.log(rWidth);
+  }, [rWidth]);
+
+  const updatedSize = useMemo(() => {
+    return {
+      width: isClient ? size.width : width,
+      height: Math.max(
+        isClient ? (matches ? size.height - 144 : size.height - 216) : height,
+        480
+      ),
+    };
+  }, [size, isClient, matches]);
+
   const y = scaleLinear()
     .domain([0, 7])
-    .range([marginTop, height - marginBottom]); // Flip the range
+    .range([marginTop, updatedSize.height - marginBottom]); // Flip the range
   const x = scaleLinear()
     .domain([0, 8])
-    .range([marginLeft, width - marginRight]);
+    .range([marginLeft, rWidth ? rWidth - marginRight : width - marginRight]);
   const c = scaleSequential(interpolateCool).domain([1, 5]);
   // .range(["blue", "red"]);
 
-  console.log(x.ticks());
+  console.log(size);
 
   //   useEffect(() => {
   //     console.log(data);
@@ -52,10 +84,13 @@ export const ParticipantsNew = ({
 
   return (
     <motion.svg
-      width={width}
-      height={height}
+      // viewBox={`0 0 ${isClient && size ? size.width : width} ${
+      //   isClient && size ? size.height : height
+      // }`}
+      ref={containerRef}
+      height={isClient && size ? updatedSize.height : height}
       className="w-full h-auto"
-      animate={{ background: data ? "white" : "red" }}
+      animate={{ background: data ? "green" : "red" }}
     >
       {data &&
         data
