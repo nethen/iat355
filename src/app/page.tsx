@@ -39,13 +39,13 @@ export default async function Home() {
     <SmoothScroll>
       <Grid />
       <div className="grid-r font-[family-name:var(--font-geist-sans)]">
-        <header className="col-span-full min-h-[90svh] grid grid-cols-subgrid auto-rows-min gap-[1.125em] max-md:pt-[4.5em] md:content-center">
-          <h1 className="col-span-full lg:col-start-3 lg:col-span-5 text-m-lg sm:text-t-lg lg:text-r-lg">
+        <header className="col-span-full min-h-[90svh] grid grid-cols-subgrid max-md:grid-rows-[min-content_auto] auto-rows-min gap-[1.125em] max-md:pt-[4.5em] max-md:pb-[2.25em] md:content-center">
+          <h1 className="col-span-full md:col-start-3 md:col-span-4 lg:col-start-3 lg:col-span-5 text-m-lg sm:text-t-lg lg:text-r-lg">
             A Design Confidence Index
           </h1>
-          <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
-            Insights on visual design competency and confidence within Simon
-            Fraser University's School of Interactive Arts and Technology.
+          <p className="max-md:mt-auto col-span-full md:col-start-3 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
+            Insights on visual design competency and confidence within SFU's
+            School of Interactive Arts and Technology.
           </p>
         </header>
         {/* <Nav sectionsInView={isInView} /> */}
