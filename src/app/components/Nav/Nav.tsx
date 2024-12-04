@@ -19,6 +19,8 @@ type NavProps = {
 };
 
 export const Nav = ({ sectionsInView }: NavProps) => {
+  const reloading = useBoolean(true);
+  const inView = useBoolean(false);
   const visible = useBoolean(false);
   const matches = useMediaQuery("(min-width: 768px)");
   const isClient = useIsClient();
@@ -29,7 +31,16 @@ export const Nav = ({ sectionsInView }: NavProps) => {
   );
 
   // prevent phantom iOS scroll events
-  const width = useWindowSize().width;
+  const size = useWindowSize();
+
+  useEffect(() => {
+    reloading.setTrue();
+  }, [size]);
+
+  useEffect(() => {
+    reloading.setFalse();
+    // console.log(reloading.value);
+  }, [reloading.value]);
 
   useEffect(() => {
     visible.setFalse();
@@ -37,7 +48,7 @@ export const Nav = ({ sectionsInView }: NavProps) => {
     locker.unlock();
     lenis?.start();
     lenisRef.current?.destroy();
-  }, [width]);
+  }, [size.width]);
 
   useEventListener("keydown", (e) => {
     if (e.key === "a") {
@@ -45,7 +56,11 @@ export const Nav = ({ sectionsInView }: NavProps) => {
     }
   });
 
-  const lenis = useLenis();
+  const lenis = useLenis((lenis) => {
+    // console.log(lenis.animatedScroll);
+    if (lenis.animatedScroll > size.height * 0.5) inView.setTrue();
+    else inView.setFalse();
+  });
 
   const lenisRef = useRef<Lenis | null>(null);
   const scrollContainerRef = useRef(null);
@@ -103,16 +118,22 @@ export const Nav = ({ sectionsInView }: NavProps) => {
       initial={{
         height: "4.5em",
         opacity: 0,
+        y: isClient && matches ? "0" : "-100%",
       }}
       animate={{
         height: (visible.value || matches) && isClient ? "100vh" : "4.5em",
-        opacity: 1,
+        opacity: inView.value ? 1 : 0,
+        y: (inView.value || matches) && isClient ? "0%" : "-100%",
       }}
       exit={{
         height: "4.5em",
         opacity: 0,
+        y: "-100%",
       }}
-      transition={{ ease: circOut }}
+      transition={{
+        ease: circOut,
+        duration: reloading.value ? 0 : 0.3,
+      }}
     >
       <motion.div
         className="md:hidden col-span-full text-center my-[1.125em] cursor-pointer"

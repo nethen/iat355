@@ -39,18 +39,18 @@ export default async function Home() {
     <SmoothScroll>
       <Grid />
       <div className="grid-r font-[family-name:var(--font-geist-sans)]">
-        <header className="col-span-full min-h-[87.5svh] grid grid-cols-subgrid content-center">
-          <h1 className="col-span-full lg:col-start-3 lg:col-span-5 text-center text-m-lg sm:text-t-lg lg:text-r-lg">
+        <header className="col-span-full min-h-[90svh] grid grid-cols-subgrid auto-rows-min gap-[1.125em] max-md:pt-[4.5em] md:content-center">
+          <h1 className="col-span-full lg:col-start-3 lg:col-span-5 text-m-lg sm:text-t-lg lg:text-r-lg">
             A Design Confidence Index
           </h1>
+          <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
+            Insights on visual design competency and confidence within Simon
+            Fraser University's School of Interactive Arts and Technology.
+          </p>
         </header>
         {/* <Nav sectionsInView={isInView} /> */}
         <Nav />
-        {/* <div
-          className="fixed top-4 right-4 size-16 rounded-full"
-          style={{ background: isInView[1] ? "blue" : "red" }}
-        ></div> */}
-        <main className="max-md:pt-[4.5em] col-span-full py-[1.125em] md:col-span-5 lg:col-span-8 grid grid-cols-subgrid auto-rows-min gap-y-[1.125em]">
+        <main className="col-span-full py-[1.125em] md:col-span-5 lg:col-span-8 grid grid-cols-subgrid auto-rows-min gap-y-[1.125em]">
           <section
             id="prologue"
             className="col-span-full grid grid-cols-subgrid gap-[inherit] pb-[4.5em]"
@@ -58,15 +58,6 @@ export default async function Home() {
             <div className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-center">
               <h2 className="text-r-md">Prologue</h2>
             </div>
-            <ScrollyVisContainer>
-              <Participants data={data} />
-            </ScrollyVisContainer>
-            <ScrollyVisContainer>
-              <ParticipantsNew data={data} />
-            </ScrollyVisContainer>
-            {/* <ScrollyVisContainer />
-            <ScrollyVisContainer />
-            <ScrollyVisContainer /> */}
             <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3">
               When considering the design schools around the Lower Mainland,
               SIAT is a rare breed. With a jack of all trades mindset, students
@@ -79,6 +70,15 @@ export default async function Home() {
               are exposed to a variety of disciplines in their first and second
               years.
             </p>
+            <ScrollyVisContainer>
+              <Participants data={data} />
+            </ScrollyVisContainer>
+            <ScrollyVisContainer>
+              <ParticipantsNew data={data} />
+            </ScrollyVisContainer>
+            {/* <ScrollyVisContainer />
+            <ScrollyVisContainer />
+            <ScrollyVisContainer /> */}
           </section>
           <section
             id="act1"
