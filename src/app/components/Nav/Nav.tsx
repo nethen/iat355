@@ -12,7 +12,6 @@ import {
   useIsClient,
   useScrollLock,
   useWindowSize,
-  useTimeout,
 } from "usehooks-ts";
 
 type NavProps = {

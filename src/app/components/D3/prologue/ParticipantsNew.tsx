@@ -12,7 +12,7 @@ import {
   useResizeObserver,
   useWindowSize,
 } from "usehooks-ts";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef } from "react";
 
 type D3VisProps = {
   data: DSVRowArray<string> | null;
@@ -30,9 +30,9 @@ export const ParticipantsNew = ({
   data,
   width = 640,
   height = 500,
-  marginTop = 36,
+  // marginTop = 36,
   marginRight = 36,
-  marginBottom = 36,
+  // marginBottom = 36,
   marginLeft = 36,
   xLength = 9,
 }: D3VisProps) => {
