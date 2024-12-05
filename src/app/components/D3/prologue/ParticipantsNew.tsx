@@ -22,7 +22,11 @@ type D3VisProps = {
   marginRight?: number;
   marginBottom?: number;
   marginLeft?: number;
+  xLength?: number;
+  yLength?: number;
 };
+
+const DOT_RADIUS = 16;
 
 export const ParticipantsNew = ({
   data,
@@ -32,6 +36,7 @@ export const ParticipantsNew = ({
   marginRight = 36,
   marginBottom = 36,
   marginLeft = 36,
+  xLength = 8,
 }: D3VisProps) => {
   //   const [extents, setExtents] = useState<number[] | undefined[]>([
   //     undefined,
@@ -63,14 +68,32 @@ export const ParticipantsNew = ({
   }, [size, isClient, matches]);
 
   const y = scaleLinear()
-    .domain([0, 7])
-    .range([-110 + updatedSize.height / 2, 110 + updatedSize.height / 2]);
+    .domain([0, Math.floor(data ? data.length / xLength : 9)])
+    .range([
+      // DOT_RADIUS +
+      //   Math.floor(data ? data.length / xLength : 9) * (DOT_RADIUS * -2) +
+      -DOT_RADIUS * Math.floor(data ? data.length / xLength : 9) +
+        updatedSize.height / 2,
+      // -DOT_RADIUS +
+      //   Math.floor(Math.floor(data ? data.length / xLength : 9) / 2) *
+      //     (DOT_RADIUS * 2) +
+      DOT_RADIUS * Math.floor(data ? data.length / xLength : 9) +
+        updatedSize.height / 2,
+    ]);
 
   const x = scaleLinear()
-    .domain([0, 8])
+    .domain([0, xLength - 1])
     .range([
-      rWidth ? -130 + rWidth / 2 : marginLeft,
-      rWidth ? 130 + rWidth / 2 : width - marginRight,
+      rWidth
+        ? (xLength % 2 === 0 ? DOT_RADIUS : 0) +
+          Math.floor(xLength / 2) * -2 * DOT_RADIUS +
+          rWidth / 2
+        : marginLeft,
+      rWidth
+        ? (xLength % 2 === 0 ? -DOT_RADIUS : 0) +
+          Math.floor(xLength / 2) * 2 * DOT_RADIUS +
+          rWidth / 2
+        : width - marginRight,
     ]);
   const c = scaleSequential(interpolateCool).domain([1, 5]);
   // .range(["blue", "red"]);
@@ -85,7 +108,7 @@ export const ParticipantsNew = ({
       ref={containerRef}
       height={isClient && size ? updatedSize.height : height}
       className="w-full h-auto"
-      // animate={{ background: data ? "green" : "red" }}
+      animate={{ background: data ? "green" : "red" }}
     >
       {data &&
         data
@@ -94,8 +117,8 @@ export const ParticipantsNew = ({
           )
           .map((d, i) => (
             <Circle
-              x={x(i % 9)}
-              y={y(Math.floor(i / 9))}
+              x={x(i % xLength)}
+              y={y(Math.floor(i / xLength))}
               fill={c(parseInt(d.year_of_study))}
               index={i}
               maxIndices={data.length}
@@ -126,5 +149,7 @@ const Circle = ({
     [0.25 + (0.25 * index) / maxIndices, 0.5 + (0.25 * index) / maxIndices],
     [0, 1]
   );
-  return <motion.circle cx={x} cy={y} fill={fill} r={16} opacity={opacity} />;
+  return (
+    <motion.circle cx={x} cy={y} fill={fill} r={DOT_RADIUS} opacity={opacity} />
+  );
 };
