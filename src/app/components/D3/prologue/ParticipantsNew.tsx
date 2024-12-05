@@ -111,23 +111,45 @@ export const ParticipantsNew = ({
       className="w-full h-auto"
       // animate={{ background: data ? "green" : "red" }}
     >
-      {data &&
-        data
-          .sort((a, b) =>
-            ascending(parseInt(a.year_of_study), parseInt(b.year_of_study))
-          )
-          .map((d, i) => (
-            <Circle
-              x={x(i % xLength)}
-              y={y(Math.floor(i / xLength))}
-              fill={c(parseInt(d.year_of_study))}
-              index={i}
-              maxIndices={data.length}
-              radius={DOT_RADIUS}
-              // opacity={opacity}
-              key={`participant-${i}`}
-            />
-          ))}
+      <g>
+        {data &&
+          data
+            .sort((a, b) =>
+              ascending(parseInt(a.year_of_study), parseInt(b.year_of_study))
+            )
+            .map((d, i) => (
+              <Circle
+                x={x(i % xLength)}
+                y={y(Math.floor(i / xLength))}
+                fill={c(parseInt(d.year_of_study))}
+                index={i}
+                maxIndices={data.length}
+                radius={DOT_RADIUS}
+                dim={d.concentrations.includes("not declared") ? 0.1 : 1}
+                // opacity={opacity}
+                key={`participant-${i}`}
+              />
+            ))}
+      </g>
+      <g>
+        {[1, 2, 3, 4, 5].map((d, i) => (
+          <text
+            x={
+              rWidth
+                ? DOT_RADIUS * 1.5 +
+                  (xLength % 2 === 0 ? -DOT_RADIUS : 0) +
+                  Math.floor(xLength / 2) * 2 * DOT_RADIUS +
+                  rWidth / 2
+                : width - marginRight
+            }
+            y={y(i + 1)}
+            fill={c(i + 1)}
+            key={`participants-new__label-${i}`}
+          >
+            dtst
+          </text>
+        ))}
+      </g>
     </motion.svg>
   );
 };
@@ -139,6 +161,7 @@ const Circle = ({
   y,
   fill,
   radius,
+  dim,
 }: {
   index: number;
   maxIndices: number;
@@ -146,13 +169,15 @@ const Circle = ({
   y: number;
   fill: string;
   radius: number;
+  dim: number;
 }) => {
   const scrollYProgress = useScrollYProgress();
   const opacity = useTransform(
     scrollYProgress,
-    [0.1 + (0.1 * index) / maxIndices, 0.25 + (0.25 * index) / maxIndices],
-    [0, 1]
+    [0.1 + (0.1 * index) / maxIndices, 0.25 + (0.25 * index) / maxIndices, 0.6],
+    [0, 1, dim]
   );
+
   return (
     <motion.circle cx={x} cy={y} fill={fill} r={radius} opacity={opacity} />
   );
