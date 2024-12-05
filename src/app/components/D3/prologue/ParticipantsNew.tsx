@@ -64,23 +64,18 @@ export const ParticipantsNew = ({
 
   const y = scaleLinear()
     .domain([0, 7])
-    .range([marginTop, updatedSize.height - marginBottom]); // Flip the range
+    .range([-110 + updatedSize.height / 2, 110 + updatedSize.height / 2]);
+
   const x = scaleLinear()
     .domain([0, 8])
-    .range([marginLeft, rWidth ? rWidth - marginRight : width - marginRight]);
+    .range([
+      rWidth ? -130 + rWidth / 2 : marginLeft,
+      rWidth ? 130 + rWidth / 2 : width - marginRight,
+    ]);
   const c = scaleSequential(interpolateCool).domain([1, 5]);
   // .range(["blue", "red"]);
 
   console.log(size);
-
-  //   useEffect(() => {
-  //     console.log(data);
-  //     if (data) {
-  //       const extents = extent(data, (d) => parseInt(d.score.split(" ")[0]));
-  //       console.log(extents);
-  //       setExtents(extents);
-  //     }
-  //   }, [data]);
 
   return (
     <motion.svg
@@ -90,7 +85,7 @@ export const ParticipantsNew = ({
       ref={containerRef}
       height={isClient && size ? updatedSize.height : height}
       className="w-full h-auto"
-      animate={{ background: data ? "green" : "red" }}
+      // animate={{ background: data ? "green" : "red" }}
     >
       {data &&
         data
@@ -131,5 +126,5 @@ const Circle = ({
     [0.25 + (0.25 * index) / maxIndices, 0.5 + (0.25 * index) / maxIndices],
     [0, 1]
   );
-  return <motion.circle cx={x} cy={y} fill={fill} r={10} opacity={opacity} />;
+  return <motion.circle cx={x} cy={y} fill={fill} r={16} opacity={opacity} />;
 };

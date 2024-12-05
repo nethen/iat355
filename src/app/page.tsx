@@ -107,7 +107,7 @@ export default async function Home() {
               almost half of the responses. Ideally we would have an even split,
               where there would be 1 in 5 students of each year.
             </p>
-            <ScrollyVisContainer>
+            <ScrollyVisContainer background={false}>
               <ParticipantsNew data={data} />
             </ScrollyVisContainer>
 
