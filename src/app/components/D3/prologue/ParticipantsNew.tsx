@@ -150,7 +150,7 @@ const Circle = ({
   const scrollYProgress = useScrollYProgress();
   const opacity = useTransform(
     scrollYProgress,
-    [0.25 + (0.25 * index) / maxIndices, 0.5 + (0.25 * index) / maxIndices],
+    [0.1 + (0.1 * index) / maxIndices, 0.25 + (0.25 * index) / maxIndices],
     [0, 1]
   );
   return (

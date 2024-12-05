@@ -111,9 +111,16 @@ export default async function Home() {
               <ParticipantsNew data={data} />
             </ScrollyVisContainer>
 
-            <ScrollyVisContainer>
-              <Participants data={data} />
-            </ScrollyVisContainer>
+            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
+              A noticeable number of participants from the sample did not
+              declare a concentration. This is to be expected though with around
+              22 of the 30 undeclared students being lower year student, while
+              the design concentrations being cleary the most popular.
+            </p>
+            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
+              Clearly a heavy bias in our data set as our means to reach out to
+              students was through the lens of us as visual design students
+            </p>
           </section>
           <section
             id="act2"
@@ -124,7 +131,23 @@ export default async function Home() {
               <span className="font-bold">Act II</span>
               <h2 className="text-r-md">Program</h2>
             </hgroup>
-            <VisContainer />
+            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
+              To understand how much time students dedicate to honing their
+              craft, we asked them how many hours a week they spend practicing
+              outside of classwork. The majority reported spending just 1-3
+              hours a week, with 4-6 hours being the second most common
+              response. Beyond that, the time students commit varied more evenly
+              across the higher ranges. While 1-3 hours might be reasonable
+              given their packed schedules—balancing homework, jobs, and social
+              lives—it&apos;s worth wondering if students wish they had more
+              time to dedicate to their craft. It&apos;s possible that many feel
+              their coursework is enough practice for now, but digging deeper
+              could reveal whether they&apos;re truly satisfied with the time
+              they spend improving their skills.
+            </p>
+            <ScrollyVisContainer>
+              <Participants data={data} />
+            </ScrollyVisContainer>
           </section>
           <section
             id="act3"
