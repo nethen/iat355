@@ -7,6 +7,11 @@
   --midground: #717171;
   --diagram: #ebebeb;
   --foreground: #171717;
+  --year-1: #F95711;
+  --year-2: #EBBC25;
+  --year-3: #76A93A;
+  --year-4: #5BC1F0;
+  --year-5: #A385F8;
 }
 
 @media (prefers-color-scheme: dark) {

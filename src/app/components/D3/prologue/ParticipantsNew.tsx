@@ -4,8 +4,8 @@ import { motion, useTransform } from "motion/react";
 import { useScrollYProgress } from "../../Visualization/ScrollyVisContainer";
 import { DSVRowArray } from "d3-dsv";
 import { scaleLinear, scaleSequential } from "d3-scale";
-import { descending } from "d3-array";
-import { interpolateCool } from "d3-scale-chromatic";
+import { ascending } from "d3-array";
+import { interpolateCustom } from "../../D3/Reusables/interpolateCustom";
 import {
   useIsClient,
   useMediaQuery,
@@ -26,8 +26,6 @@ type D3VisProps = {
   yLength?: number;
 };
 
-const DOT_RADIUS = 16;
-
 export const ParticipantsNew = ({
   data,
   width = 640,
@@ -36,7 +34,7 @@ export const ParticipantsNew = ({
   marginRight = 36,
   marginBottom = 36,
   marginLeft = 36,
-  xLength = 8,
+  xLength = 9,
 }: D3VisProps) => {
   //   const [extents, setExtents] = useState<number[] | undefined[]>([
   //     undefined,
@@ -52,6 +50,8 @@ export const ParticipantsNew = ({
     ref: containerRef,
     box: "border-box",
   }).width;
+
+  const DOT_RADIUS = matches && isClient ? 24 : 16;
 
   useEffect(() => {
     console.log(rWidth);
@@ -95,7 +95,8 @@ export const ParticipantsNew = ({
           rWidth / 2
         : width - marginRight,
     ]);
-  const c = scaleSequential(interpolateCool).domain([1, 5]);
+
+  const c = scaleSequential(interpolateCustom()).domain([1, 5]);
   // .range(["blue", "red"]);
 
   console.log(size);
@@ -108,12 +109,12 @@ export const ParticipantsNew = ({
       ref={containerRef}
       height={isClient && size ? updatedSize.height : height}
       className="w-full h-auto"
-      animate={{ background: data ? "green" : "red" }}
+      // animate={{ background: data ? "green" : "red" }}
     >
       {data &&
         data
           .sort((a, b) =>
-            descending(parseInt(a.year_of_study), parseInt(b.year_of_study))
+            ascending(parseInt(a.year_of_study), parseInt(b.year_of_study))
           )
           .map((d, i) => (
             <Circle
@@ -122,6 +123,7 @@ export const ParticipantsNew = ({
               fill={c(parseInt(d.year_of_study))}
               index={i}
               maxIndices={data.length}
+              radius={DOT_RADIUS}
               // opacity={opacity}
               key={`participant-${i}`}
             />
@@ -136,12 +138,14 @@ const Circle = ({
   x,
   y,
   fill,
+  radius,
 }: {
   index: number;
   maxIndices: number;
   x: number;
   y: number;
   fill: string;
+  radius: number;
 }) => {
   const scrollYProgress = useScrollYProgress();
   const opacity = useTransform(
@@ -150,6 +154,6 @@ const Circle = ({
     [0, 1]
   );
   return (
-    <motion.circle cx={x} cy={y} fill={fill} r={DOT_RADIUS} opacity={opacity} />
+    <motion.circle cx={x} cy={y} fill={fill} r={radius} opacity={opacity} />
   );
 };
