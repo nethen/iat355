@@ -4,7 +4,7 @@ import { motion, useTransform } from "motion/react";
 import { useScrollYProgress } from "../../Visualization/ScrollyVisContainer";
 import { DSVRowArray } from "d3-dsv";
 import { scaleBand, scaleLinear, scaleSequential } from "d3-scale";
-import { ascending, max } from "d3-array";
+import { ascending, max, bin } from "d3-array";
 import { interpolateCustom } from "../Reusables/interpolateCustom";
 import {
   useIsClient,
@@ -28,7 +28,7 @@ type D3VisProps = {
   yLength?: number;
 };
 
-export const AIusage = ({
+export const AIFreq = ({
   data,
   width = 640,
   height = 500,
@@ -38,24 +38,29 @@ export const AIusage = ({
   marginLeft = 36,
   xLength = 9,
 }: D3VisProps) => {
-  const dataCount = [
-    { task: "Generate design ideas or concepts", value: 30 },
-    { task: "Receiving Feedback", value: 16 },
-    { task: "Copywriting", value: 7 },
-    { task: "Image Generation", value: 6 },
-    { task: "Generating or Refining Color Palettes", value: 4 },
-    { task: "Learning", value: 2 },
-    { task: "Coding", value: 1 },
-  ];
+
+  const categories = new Map<number, string>([
+    [1, "never"],
+    [2, "rarely"],
+    [3, "monthly"],
+    [4, "weekly"],
+    [5, "daily"],
+  ]);
+
+  const binneddata = bin().value(d =>(d['frequency_of_ai_tool_use']))
+  console.log(binneddata)
+
+
 
   const yScale = scaleBand()
-    .domain(dataCount.map((d) => d.task))
+    .domain(data? data.map((d) => d.frequency_of_ai_tool_use): "9")
     .range([0, height - 20]).paddingInner(0.2);
 
 
   const xScale = scaleLinear()
-    .domain([0, max(dataCount, (d) => d.value) ?? 0])
+    .domain([0, 30])
     .range([0, width]);
+
 
   //   const [extents, setExtents] = useState<number[] | undefined[]>([
   //     undefined,
@@ -95,7 +100,7 @@ export const AIusage = ({
         {yScale.domain().map((tickValue, index) => (
           <g key={index} transform={`translate(0, ${(yScale(tickValue) ?? 0) + yScale.bandwidth()/2 })`}>
             <text  style={{ textAnchor: "end" }} fill="white" opacity={0.8} dy={".3em"} x={-12} >
-              {tickValue}
+            {categories.get(parseInt(tickValue)) ?? "Unknown"}
             </text>
             <line
               y1={0}
@@ -107,7 +112,7 @@ export const AIusage = ({
           </g>
         ))}
 
-        {dataCount.map((d, index) => (
+        {/* {data? data.map((d, index) => (
           <rect
             rx={4}
             ry={4}
@@ -118,7 +123,7 @@ export const AIusage = ({
             height={yScale.bandwidth()}
             fill="#b949ff"
           />
-        ))}
+        ))} */}
       </g>
     </svg>
   );

@@ -11,6 +11,7 @@ import { promises as fs } from "fs";
 import { ParticipantsNew } from "./components/D3/prologue/ParticipantsNew";
 import { SmoothScroll } from "./components/SmoothScroll/SmoothScroll";
 import { AIusage } from "./components/D3/prologue/AIusage";
+import { AIFreq } from "./components/D3/prologue/AIFreq";
 
 export default async function Home() {
   // const viewRefs = Array.from({ length: 4 }, () => createRef<HTMLDivElement>());
@@ -174,11 +175,16 @@ export default async function Home() {
             </p>
             </hgroup>
 
-            <ScrollyVisContainer background={false}>
+            <ScrollyVisContainer background={true}>
             <AIusage data={data}/>
             </ScrollyVisContainer>
 
+
+
           </section>
+          <ScrollyVisContainer background={true}>
+            <AIFreq data={data}/>
+            </ScrollyVisContainer>
 
 
         </main>
