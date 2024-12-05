@@ -10,6 +10,7 @@ import { csvParse } from "d3";
 import { promises as fs } from "fs";
 import { ParticipantsNew } from "./components/D3/prologue/ParticipantsNew";
 import { SmoothScroll } from "./components/SmoothScroll/SmoothScroll";
+import { AIusage } from "./components/D3/prologue/AIusage";
 
 export default async function Home() {
   // const viewRefs = Array.from({ length: 4 }, () => createRef<HTMLDivElement>());
@@ -160,6 +161,26 @@ export default async function Home() {
             </hgroup>
             <VisContainer />
           </section>
+
+          <section
+            className="col-span-full grid grid-cols-subgrid gap-[inherit] pt-[2.25em] pb-[4.5em]"
+          >
+            <hgroup className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-center">
+            <h2 className="text-r-md">Student sentiments toward AI</h2>
+            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
+              out of our 76 particpants, 50 use ai with varying frequencies
+              while the remaining 26 do not use AI at all for design related
+              tasks.
+            </p>
+            </hgroup>
+
+            <ScrollyVisContainer background={false}>
+            <AIusage data={data}/>
+            </ScrollyVisContainer>
+
+          </section>
+
+
         </main>
       </div>
     </SmoothScroll>
