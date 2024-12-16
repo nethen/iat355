@@ -29,6 +29,14 @@ const config: Config = {
             fontWeight: "400",
           },
         ],
+        "r-sm": [
+          "1.5625em",
+          {
+            lineHeight: "1.08em",
+            letterSpacing: "-0.025em",
+            fontWeight: "400",
+          },
+        ],
         "r-md": [
           "2.5625em",
           {

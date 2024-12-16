@@ -50,8 +50,8 @@ export const AIusage = ({
 
   const yScale = scaleBand()
     .domain(dataCount.map((d) => d.task))
-    .range([0, height - 20]).paddingInner(0.2);
-
+    .range([0, height - 20])
+    .paddingInner(0.2);
 
   const xScale = scaleLinear()
     .domain([0, max(dataCount, (d) => d.value) ?? 0])
@@ -74,18 +74,17 @@ export const AIusage = ({
   // }).width;
 
   return (
-    <svg width={width + 400} height={height +20}>
+    <svg width={width + 400} height={height + 20}>
       <g transform={`translate(${300}, ${0})`}>
         {xScale.ticks().map((tickValue) => (
-          <g transform={`translate(${xScale(tickValue)},0)`}>
-
-            <text style={{ textAnchor: "middle" }} fill="white" y={height +12}>
+          <g key={tickValue} transform={`translate(${xScale(tickValue)},0)`}>
+            <text style={{ textAnchor: "middle" }} fill="white" y={height + 12}>
               {tickValue}
             </text>
 
             <line
               y1={0}
-              y2={height-20}
+              y2={height - 20}
               fill="white"
               stroke="white"
               opacity={0.1}
@@ -93,17 +92,22 @@ export const AIusage = ({
           </g>
         ))}
         {yScale.domain().map((tickValue, index) => (
-          <g key={index} transform={`translate(0, ${(yScale(tickValue) ?? 0) + yScale.bandwidth()/2 })`}>
-            <text  style={{ textAnchor: "end" }} fill="white" opacity={0.8} dy={".3em"} x={-12} >
+          <g
+            key={index}
+            transform={`translate(0, ${
+              (yScale(tickValue) ?? 0) + yScale.bandwidth() / 2
+            })`}
+          >
+            <text
+              style={{ textAnchor: "end" }}
+              fill="white"
+              opacity={0.8}
+              dy={".3em"}
+              x={-12}
+            >
               {tickValue}
             </text>
-            <line
-              y1={0}
-              y2={height}
-              fill="white"
-
-              opacity={0.2}
-            />
+            <line y1={0} y2={height} fill="white" opacity={0.2} />
           </g>
         ))}
 
