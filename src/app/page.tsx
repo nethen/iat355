@@ -14,6 +14,7 @@ import { AIusage } from "./components/D3/prologue/AIusage";
 import { AIFreq } from "./components/D3/prologue/AIFreq";
 import { StackedBarConfidence } from "./components/D3/prologue/StackedBarConfidence";
 // import { StackedBarConfidence } from "./components/D3/prologue/StackedBarConfidence";
+import { PieAIUsage } from "./components/D3/prologue/PieAIUsage";
 
 export default async function Home() {
   // const viewRefs = Array.from({ length: 4 }, () => createRef<HTMLDivElement>());
@@ -185,8 +186,8 @@ export default async function Home() {
                     <>
                       Based on their responses, we identified which skills that
                       the students felt either{" "}
-                      <span className="text-blue-500">more</span> or{" "}
-                      <span className="text-red-500">less</span> confident on
+                      <span className="text-red-500">less</span> or{" "}
+                      <span className="text-blue-500">more</span> confident on
                       average.
                     </>
                   ),
@@ -194,7 +195,7 @@ export default async function Home() {
                 },
               ]}
             >
-              {/* <DotSample data={data} /> */}
+              <StackedBarConfidence data={data} />
             </ScrollyVisContainer>
             <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground text-r-xs">
               When students claimed to be{" "}
@@ -389,7 +390,7 @@ export default async function Home() {
                 },
               ]}
             >
-              <StackedBarConfidence data={data} />
+              <PieAIUsage data={data} />
             </ScrollyVisContainer>
           </section>
         </main>

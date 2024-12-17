@@ -2,6 +2,7 @@
 import { motion, useTransform } from "motion/react";
 // import { useEffect, useState } from "react";
 import {
+  useHasCaption,
   useResizeObserverContext,
   useScrollYProgress,
 } from "../../Visualization/ScrollyVisContainer";
@@ -72,11 +73,11 @@ export const StackedBarConfidence = ({
   const skills_columns = [
     { field: "typography_skills", name: "Typography" },
     { field: "color_theory_skills", name: "Color Theory" },
-    { field: "layout_composition_skills", name: "Layout Composition" },
+    { field: "layout_composition_skills", name: "Layout" },
 
     { field: "ui_design_skills", name: "UI Design" },
     { field: "ux_design_skills", name: "UX Design" },
-    { field: "prototyping_mockup_skills", name: "Prototyping Mockup" },
+    { field: "prototyping_mockup_skills", name: "Prototyping" },
   ];
 
   // Optionally filter your data
@@ -138,63 +139,103 @@ export const StackedBarConfidence = ({
 
   const xScale = scaleLinear()
     .domain([0, filteredData.length])
-    .range([Math.max(0.1 * (width ?? 0), 160), width ?? 0]);
+    .range([Math.max(0.1 * (width ?? 0), 120), width ?? 0]);
 
   const colorScale = scaleOrdinal()
     .domain(["unconfident", "neutral", "confident"])
     .range([red, gray, blue]);
+  // console.log(yScale.ticks());
 
   return (
     <svg className="w-full h-full">
       <g>
-        {xScale.ticks().map((tickValue) => (
+        {/* {xScale.ticks().map((tickValue) => (
           <g key={tickValue} transform={`translate(0,0)`}>
-            <text style={{ textAnchor: "middle" }} fill="white" y={height ?? 0}>
+            <text
+              style={{ textAnchor: "middle" }}
+              fill="green"
+              y={yScale(tickValue) ?? 0}
+            >
               {tickValue}
             </text>
 
             <line
               y1={0}
               y2={height ?? 0}
-              fill="white"
-              stroke="white"
+              fill="green"
+              stroke="green"
               opacity={0.1}
             />
           </g>
-        ))}
+        ))} */}
         {yScale.domain().map((tickValue, index) => (
           <g key={index} transform={`translate(0, ${yScale(tickValue) ?? 0})`}>
             <text
               style={{ textAnchor: "end" }}
-              fill="white"
+              className="fill-midground select-none"
               opacity={0.8}
               dy={".3em"}
-              x={-12}
+              fontSize={14}
+              fontWeight={500}
+              x={Math.max(0.1 * (width ?? 0), 120) - 16}
+              y={yScale.bandwidth() / 2}
             >
-              {tickValue}
+              {skills_columns[index].name}
             </text>
-            <line y1={0} y2={height} fill="white" opacity={0.2} />
+            <line y1={0} y2={height} fill="green" opacity={0.2} />
           </g>
         ))}
       </g>
       {series.map((Data) =>
         Data.map((d, i) => (
-          <rect
+          <Bar
             x={xScale(d[0])}
             // y={0}
             y={yScale(d.data.skill_name)}
-            key={`${Data.key}--${i}`}
             // x={D.}
             // y={yScale(d.skill_name)}
+            key={`${Data.key}--${i}`}
             width={xScale(d[1]) - xScale(d[0])}
             height={yScale.bandwidth()}
-            // y={yScale(d.count)}
-            // width={xScale(parseInt(d))}
-            // height={yScale.bandwidth()}
-            fill={colorScale(Data.key)}
+            fill={colorScale(Data.key) as any}
           />
         ))
       )}
     </svg>
+  );
+};
+
+const Bar = ({
+  index,
+  x,
+  y,
+  width,
+  height,
+  fill,
+}: {
+  index: number;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  fill: string;
+}) => {
+  const captions = useHasCaption();
+  const scrollYProgress = useScrollYProgress();
+
+  const positionWidthCurve = useTransform(
+    scrollYProgress,
+    captions ? [captions[0].stop, captions[1].stop] : [0, 0.5],
+    [0, width]
+  );
+
+  return (
+    <motion.rect
+      x={x}
+      y={y}
+      width={positionWidthCurve}
+      height={height}
+      fill={fill}
+    />
   );
 };
