@@ -28,7 +28,7 @@ import {
 
 // https://medium.com/stationfive/how-to-create-a-pie-chart-with-d3-js-and-react-hooks-part-1-81bcd7f39b32
 
-https: type D3VisProps = {
+type D3VisProps = {
   data: DSVRowArray<string> | null;
   width?: number;
   height?: number;

@@ -185,8 +185,8 @@ export default async function Home() {
                     <>
                       Based on their responses, we identified which skills that
                       the students felt either{" "}
-                      <span className="text-blue-500">more</span> or{" "}
-                      <span className="text-red-500">less</span> confident on
+                      <span className="text-red-500">less</span> or{" "}
+                      <span className="text-blue-500">more</span> confident on
                       average.
                     </>
                   ),
@@ -194,7 +194,7 @@ export default async function Home() {
                 },
               ]}
             >
-              {/* <DotSample data={data} /> */}
+              <StackedBarConfidence data={data} />
             </ScrollyVisContainer>
             <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground text-r-xs">
               When students claimed to be{" "}
@@ -380,22 +380,7 @@ export default async function Home() {
             <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
               some copy here
             </p>
-            <ScrollyVisContainer
-              captions={[
-                {
-                  title: "Stacked Bar",
-                  text: "This is a stacked bar chart",
-                  stop: 0.125,
-                },
-                {
-                  title: "Stacked Bar",
-                  text: "It does magical things",
-                  stop: 0.375,
-                },
-              ]}
-            >
-              <StackedBarConfidence data={data} />
-            </ScrollyVisContainer>
+
             <ScrollyVisContainer
               captions={[
                 {
