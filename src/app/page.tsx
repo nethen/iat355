@@ -232,22 +232,17 @@ export default async function Home() {
               captions={[
                 {
                   title: "Sample",
-                  text: "In an effort to quantify and evaluate students visual design skills, we employed a Visual Aesthetic Sensity test, also known as VAST.  During the test, Participants view pairs of visual stimuli (like shapes, drawings, or artwork variations), and they must judge which of the two is more aesthetically pleasing based on implicit artistic principles (e.g., balance, proportion).",
-                  stop: 0.25,
+                  text: "In an effort to quantify and evaluate students visual design skills, we employed a Visual Aesthetic Sensity test, also known as VAST.",
+                  stop: 0.1,
                 },
                 {
                   title: "Sample",
-                  text: (
-                    <>
-                     After analyzing the test results thoroughly we found no obvious correlations between VAST test scores and any other observed areas in the survey. 
-                
-                    </>
-                  ),
-                  stop: 0.5,
+                  text: "During the test, Participants view pairs of visual stimuli (like shapes, drawings, or artwork variations), and they must judge which of the two is more aesthetically pleasing based on implicit artistic principles (e.g., balance, proportion).",
+                  stop: 0.3,
                 },
                 {
                   title: "Skew",
-                  text: "While concentrations are normally declared in third year, some second year students are certain that they will pursue a design concentration.",
+                  text: "After analyzing the test results thoroughly we found no obvious correlations between VAST test scores and any other observed areas in the survey. ",
                   stop: 0.5,
                 },
                 {
