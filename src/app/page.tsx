@@ -391,7 +391,6 @@ export default async function Home() {
             <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
               some copy here
             </p>
-
             <ScrollyVisContainer
               captions={[
                 {

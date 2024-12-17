@@ -10,7 +10,7 @@ import { DSVRowArray } from "d3-dsv";
 import { scaleLinear } from "d3-scale";
 import { useEffect, useState } from "react";
 import { useResizeObserver } from "usehooks-ts";
-import { mean } from "d3";
+import { filter, mean } from "d3";
 
 type D3VisProps = {
   data: DSVRowArray<string> | null;
@@ -22,7 +22,7 @@ type D3VisProps = {
   marginLeft?: number;
 };
 
-export const Participants = ({
+export const VastHour = ({
   data,
   marginTop = 100,
   marginBottom = 100,
@@ -34,6 +34,16 @@ export const Participants = ({
   const scale = useTransform(scrollYProgress, [0.25, 0.75], [0, 10]);
 
   const filteredData = data?.filter((row) => row.isDesign === "1"); // Filter by inDesign column
+
+  const hourNames: string[] = [
+    "",
+    "0 hours",
+    "1–3 hours",
+    "4–6 hours",
+    "7–10 hours",
+    "11–15 hours",
+    "16+ hours",
+  ];
 
   const avgVast = mean(filteredData, (d) => d.score_percent);
   const avgVC = mean(filteredData, (d) => d.visual_confidence_score);
@@ -53,8 +63,8 @@ export const Participants = ({
     box: "content-box",
     onResize: (entry) => {
       setSize({
-        innerWidth: entry.width ? entry.width : 0,
-        innerHeight: entry.height ? entry.height : 0,
+        innerWidth: entry.width ? entry.width - marginLeft - marginRight : 0,
+        innerHeight: entry.height ? entry.height - marginTop - marginBottom : 0,
       });
       console.log(entry);
     },
@@ -65,21 +75,21 @@ export const Participants = ({
     .range([innerHeight ?? 0, 0]); // Flip the range
 
   const x = scaleLinear()
-    .domain([0, 35])
+    .domain([0, hourNames.length])
     .range([0, innerWidth ?? 0]);
 
   // Calculate frequency of (score_percent, visual_confidence_score) pairs
   const frequencyMap = new Map<string, number>();
   filteredData?.forEach((d) => {
-    const key = `${d.score_percent},${d.visual_confidence_score}`;
+    const key = `${d.score_percent},${d.hours_per_week_visual_design}`;
     frequencyMap.set(key, (frequencyMap.get(key) || 0) + 1);
   });
 
   // Function to calculate size based on frequency
-  const getSizeBasedOnFrequency = (d: any) => {
-    const key = `${d.score_percent},${d.visual_confidence_score}`;
+  const getSizeBasedOnFrequency = (d: any, i : number) => {
+    const key = `${d.score_percent},${d.hours_per_week_visual_design}`;
     const frequency = frequencyMap.get(key) || 1; // Default to 1 if frequency is not found
-    return Math.min(5 + frequency * 5, 20); // Scale size based on frequency (capped at 50)
+    return Math.min(10 + frequency * 5, 20); // Scale size based on frequency (capped at 50)
   };
 
   return (
@@ -97,22 +107,7 @@ export const Participants = ({
     >
       <g transform={`translate(${marginLeft},${marginTop})`}>
         <g>
-          <motion.line
-            stroke="blue"
-            strokeWidth={3}
-            x1={0}
-            x2={useTransform(scrollYProgress, [0.125, 0.375], [0, innerWidth])}
-            y1={y(avgVast)}
-            y2={y(avgVast)}
-          />
-          <motion.line
-            stroke="red"
-            y1={innerHeight}
-            y2={useTransform(scrollYProgress, [0.125, 0.375], [innerHeight, 0])}
-            strokeWidth={3}
-            x1={x(avgVC)}
-            x2={x(avgVC)}
-          />
+
           <text
             x={innerWidth / 2} // Adjust to position the text left of the axis
             y={innerHeight + 60} // Keep aligned with the tick
@@ -120,7 +115,7 @@ export const Participants = ({
             // style={{ fontSize: "3rem", fill: "black" }}
             className="text-[2rem] fill-midground"
           >
-            Student's confidence score
+            Time spent learning outside of school
           </text>
           <text
             x={-70} // Adjust to position the text left of the axis
@@ -135,14 +130,7 @@ export const Participants = ({
 
           {y.ticks().map((tickValue) => (
             <g transform={`translate(0, ${y(tickValue)})`} key={tickValue}>
-              <line
-                stroke="gray"
-                x1={0}
-                x2={innerWidth}
-                y1={0}
-                y2={0}
-                className="opacity-50"
-              />
+              <line stroke="gray" x1={0} x2={innerWidth} y1={0} y2={0} className="opacity-50" />
               <text
                 x={-5} // Adjust to position the text left of the axis
                 y={0} // Keep aligned with the tick
@@ -156,24 +144,17 @@ export const Participants = ({
         </g>
 
         <g>
-          {x.ticks().map((tickValue) => (
+          {x.ticks(5).map((tickValue, index) => (
             <g transform={`translate(${x(tickValue)},0)`} key={tickValue}>
-              <line
-                stroke="gray"
-                x1={0}
-                x2={0}
-                y1={0}
-                y2={innerHeight}
-                className="opacity-50"
-              />
+              <line stroke="gray" x1={0} x2={0} y1={0} y2={innerHeight} className="opacity-50" />
               {/* <line stroke="gray" x={0} y1={0} y2={0} /> */}
               <text
                 x={0} // Adjust to position the text left of the axis
                 y={innerHeight + 20} // Keep aligned with the tick
-                textAnchor="end" // Align text to the end of the position
+                textAnchor="middle" // Align text to the end of the position
                 className="text-[1rem] fill-midground"
               >
-                {tickValue}
+                {hourNames[index ]}
               </text>
             </g>
           ))}
@@ -182,14 +163,14 @@ export const Participants = ({
         {filteredData &&
           filteredData.map((d, i) => (
             <motion.circle
-              cx={x(parseFloat(d.visual_confidence_score))}
+              cx={x(parseFloat(d.hours_per_week_visual_design)+1)}
               cy={y(parseFloat(d.score_percent))}
               fill="#1058c4"
               opacity={0.5}
               r={useTransform(
                 scrollYProgress,
-                [0.25, 0.5],
-                [0, getSizeBasedOnFrequency(d)]
+                [0.25, 0.75],
+                [0, getSizeBasedOnFrequency(d,i)]
               )}
               key={`participant-${i}`}
             />
