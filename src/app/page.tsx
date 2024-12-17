@@ -198,77 +198,83 @@ export default async function Home() {
               of the VAST by American psychologists Nils Myszkowski and Martin
               Storme.
             </p>
-          </section>
-          <ScrollyVisContainer
-            background={false}
-            height={500}
-            captions={[
-              // {
-              //   title: "Sample",
-              //   text: "In an effort to quantify and evaluate students visual design skills, we employed a Visual Aesthetic Sensity test, also known as VAST.",
-              //   stop: 0.1,
-              // },
-              // {
-              //   title: "Sample",
-              //   text: "During the test, Participants view pairs of visual stimuli (like shapes, drawings, or artwork variations), and they must judge which of the two is more aesthetically pleasing based on implicit artistic principles (e.g., balance, proportion).",
-              //   stop: 0.3,
-              // },
-              {
-                title: "Skew",
-                text: "We compared the VAST-R scores to the students' self-reported confidence scores. Here, larger dots represent higher counts of repeated results.",
-                stop: 0.3,
-              },
-              {
-                title: "Skew",
-                text: "After thorough analysis, we found no obvious correlations between VAST-R test scores, as indicated by the scattering of points around mean VAST-R and reported confidences. ",
-                stop: 0.5,
-              },
-              {
-                title: "Skew",
-                text: "In hopes of finding relatable insights, we tried comparing VAST-R scores against other variables.",
-                stop: 0.7,
-              },
-            ]}
-          >
-            {/* <DotSample data={data} /> */}
-            <Participants data={data} />
-          </ScrollyVisContainer>
 
-          {/* VAST-R vs Hours of Study */}
-          <ScrollyVisContainer
-            background={false}
-            height={500}
-            captions={[
-              // {
-              //   title: "Sample",
-              //   text: "In an effort to quantify and evaluate students visual design skills, we employed a Visual Aesthetic Sensity test, also known as VAST.",
-              //   stop: 0.1,
-              // },
-              // {
-              //   title: "Sample",
-              //   text: "During the test, Participants view pairs of visual stimuli (like shapes, drawings, or artwork variations), and they must judge which of the two is more aesthetically pleasing based on implicit artistic principles (e.g., balance, proportion).",
-              //   stop: 0.3,
-              // },
-              {
-                title: "Skew",
-                text: "For instance, we would imagine that students who spend more time studying would have higher VAST-R scores",
-                stop: 0.3,
-              },
-              {
-                title: "Skew",
-                text: "After plotting each student, it could be argued that there is some relationship. However, many higher scores were achieved by students who reported spending less time studying.",
-                stop: 0.5,
-              },
-              {
-                title: "Skew",
-                text: "What we do notice, is that out of the whole sample, the majority tends to only average 1-3 hours of extra visual design study per week.",
-                stop: 0.7,
-              },
-            ]}
-          >
-            {/* <DotSample data={data} /> */}
-            <Participants data={data} />
-          </ScrollyVisContainer>
+            <ScrollyVisContainer
+              background={false}
+              height={500}
+              captions={[
+                // {
+                //   title: "Sample",
+                //   text: "In an effort to quantify and evaluate students visual design skills, we employed a Visual Aesthetic Sensity test, also known as VAST.",
+                //   stop: 0.1,
+                // },
+                // {
+                //   title: "Sample",
+                //   text: "During the test, Participants view pairs of visual stimuli (like shapes, drawings, or artwork variations), and they must judge which of the two is more aesthetically pleasing based on implicit artistic principles (e.g., balance, proportion).",
+                //   stop: 0.3,
+                // },
+                {
+                  title: "Skew",
+                  text: "We compared the VAST-R scores to the students' self-reported confidence scores. Here, larger dots represent higher counts of repeated results.",
+                  stop: 0.3,
+                },
+                {
+                  title: "Skew",
+                  text: "After thorough analysis, we found no obvious correlations between VAST-R test scores, as indicated by the scattering of points around mean VAST-R and reported confidences. ",
+                  stop: 0.5,
+                },
+                {
+                  title: "Skew",
+                  text: "In hopes of finding relatable insights, we tried comparing VAST-R scores against other variables.",
+                  stop: 0.7,
+                },
+              ]}
+            >
+              {/* <DotSample data={data} /> */}
+              <Participants data={data} />
+            </ScrollyVisContainer>
+
+            {/* VAST-R vs Hours of Study */}
+            <ScrollyVisContainer
+              background={false}
+              height={500}
+              captions={[
+                // {
+                //   title: "Sample",
+                //   text: "In an effort to quantify and evaluate students visual design skills, we employed a Visual Aesthetic Sensity test, also known as VAST.",
+                //   stop: 0.1,
+                // },
+                // {
+                //   title: "Sample",
+                //   text: "During the test, Participants view pairs of visual stimuli (like shapes, drawings, or artwork variations), and they must judge which of the two is more aesthetically pleasing based on implicit artistic principles (e.g., balance, proportion).",
+                //   stop: 0.3,
+                // },
+                {
+                  title: "Skew",
+                  text: "For instance, we would imagine that students who spend more time studying would have higher VAST-R scores",
+                  stop: 0.3,
+                },
+                {
+                  title: "Skew",
+                  text: "After plotting each student, it could be argued that there is some relationship. However, many higher scores were achieved by students who reported spending less time studying.",
+                  stop: 0.5,
+                },
+                {
+                  title: "Skew",
+                  text: "What we do notice, is that out of the whole sample, the majority tends to only average 1-3 hours of extra visual design study per week.",
+                  stop: 0.7,
+                },
+              ]}
+            >
+              {/* <DotSample data={data} /> */}
+              <Participants data={data} />
+            </ScrollyVisContainer>
+            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground text-r-xs">
+              Noting that student are not necessarily honing their visual design
+              skills outside of coursework, we wondered if this had any effect
+              on their outlook towards the SIAT program.
+            </p>
+          </section>
           <section
             id="act2"
             className="col-span-full grid grid-cols-subgrid gap-[inherit] pt-[2.25em] pb-[4.5em]"
