@@ -217,7 +217,7 @@ export const Nav = ({ sectionsInView }: NavProps) => {
           </motion.div>
         </Link>
         {/* <div className="min-h-[150vh]" /> */}
-        <Link href="/" className="md:mt-auto pointer-events-auto mb-[5.75em]">
+        {/* <Link href="/" className="md:mt-auto pointer-events-auto mb-[5.75em]">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: visible.value || matches ? 1 : 0 }}
@@ -226,7 +226,7 @@ export const Nav = ({ sectionsInView }: NavProps) => {
           >
             Sources
           </motion.div>
-        </Link>
+        </Link> */}
       </motion.div>
       {/* </motion.div> */}
     </motion.nav>

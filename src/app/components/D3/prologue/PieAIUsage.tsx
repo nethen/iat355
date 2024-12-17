@@ -107,14 +107,14 @@ export const PieAIUsage = ({
     .innerRadius(0)
     .outerRadius(Math.min(width ?? 0, height ?? 0) * 0.3);
   const colors = scaleOrdinal(schemeCategory10);
-  const formatNew = format(".2f");
+  const formatNew = format("i");
   const dataArc = createPie(filteredGroups);
   console.log(dataArc);
 
   return (
     <motion.svg
       width={isClient && sizeNew ? width : 0}
-      height={isClient && size ? height : 0}
+      height={isClient && sizeNew ? height : 0}
       className="w-full h-auto"
       // animate={{ background: data ? "green" : "red" }}
     >
@@ -141,7 +141,9 @@ export const PieAIUsage = ({
 
 const Arc = ({ data, index, createArc, colors, format, outerRadius }) => {
   const angle = data.startAngle + (data.endAngle - data.startAngle) / 2;
-  console.log(angle);
+  // console.log(angle);
+  const keys = ["Never", "Rarely", "Sometimes", "Often", "Always"];
+
   return (
     <g key={index} className="arc">
       <path className="arc" d={createArc(data)} fill={colors(index)} />
@@ -163,74 +165,8 @@ const Arc = ({ data, index, createArc, colors, format, outerRadius }) => {
         fill="green"
         fontSize="20"
       >
-        {format(data.value)}
+        {keys[data.index]}
       </text>
     </g>
-  );
-};
-
-const Circle = ({
-  index,
-  maxIndices,
-  x,
-  y,
-  fill,
-  radius,
-  conditions,
-}: {
-  index: number;
-  maxIndices: number;
-  x: number;
-  y: number;
-  fill: string;
-  radius: number;
-  conditions: number[];
-}) => {
-  const captions = useHasCaption();
-
-  const stopDependentOpacityCurve = () => {
-    if (captions) {
-      return [0, captions[0].stop, captions[1].stop, captions[1].stop + 0.075];
-    }
-    return [
-      0.1 + (0.1 * index) / maxIndices,
-      0.25 + (0.25 * index) / maxIndices,
-      0.6,
-      0.8,
-    ];
-  };
-
-  const opacityCurve = [0, 1, conditions[0], conditions[1] ? 1 : 0.1];
-  const fillCurve = [
-    fill,
-    conditions[1] ? (conditions[1] == 2 ? fill : "#888888") : "#888888",
-    conditions[1] ? (conditions[1] == 2 ? fill : "#888888") : "#888888",
-    conditions[1] ? (conditions[1] == 2 ? "#888888" : "#00ccaa") : "#888888",
-    conditions[1] ? (conditions[1] == 2 ? "#888888" : "#00ccaa") : "#888888",
-  ];
-
-  const scrollYProgress = useScrollYProgress();
-  const opacity = useTransform(
-    scrollYProgress,
-    stopDependentOpacityCurve(),
-    opacityCurve
-  );
-
-  const newFill = useTransform(
-    scrollYProgress,
-    captions
-      ? [
-          captions[1].stop + 0.1,
-          captions[2].stop,
-          captions[2].stop + 0.05,
-          captions[3].stop,
-          1,
-        ]
-      : [0.75, 0.875, 0.95, 1],
-    fillCurve
-  );
-
-  return (
-    <motion.circle cx={x} cy={y} fill={newFill} r={radius} opacity={opacity} />
   );
 };
