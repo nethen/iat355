@@ -22,53 +22,51 @@ const config: Config = {
         "5xl": "2560px",
       },
       fontSize: {
-        "r-base": [
+        "r-micro": [
           "1rem",
           {
-            lineHeight: "1.125em",
+            lineHeight: "1.3125rem",
             letterSpacing: "-0.02em",
             fontWeight: "400",
           },
         ],
-        "r-sm": [
-          "1.5625em",
+        "r-base": [
+          "1.125rem",
           {
-            lineHeight: "1.08em",
+            lineHeight: "1.75rem",
+            letterSpacing: "-0.02em",
+            fontWeight: "400",
+          },
+        ],
+        "r-xs": [
+          "1.5rem",
+          {
+            lineHeight: "1.75rem",
+            letterSpacing: "-0.025em",
+            fontWeight: "400",
+          },
+        ],
+        "r-sm": [
+          "2.4375rem",
+          {
+            lineHeight: "2.625rem",
             letterSpacing: "-0.025em",
             fontWeight: "400",
           },
         ],
         "r-md": [
-          "2.5625em",
+          "3.25rem",
           {
-            lineHeight: "1.1707em",
+            lineHeight: "3.5rem",
             letterSpacing: "-0.03em",
-            fontWeight: "300",
-          },
-        ],
-        "m-lg": [
-          "min(16.875vw, 4.6875em)",
-          {
-            // lineHeight:
-            //   "min(calc(16.875vw - 36 * (100vw - 20rem)/320), 4.5rem)",
-            lineHeight: "calc(1em - ((1em - 3.375rem) / 7))",
-            letterSpacing: "-0.05em",
-            fontWeight: "300",
-          },
-        ],
-        "t-lg": [
-          "4.6875em",
-          {
-            lineHeight: "0.96em",
-            letterSpacing: "-0.05em",
             fontWeight: "300",
           },
         ],
 
         "r-lg": [
-          "6em",
+          "4.9375rem",
           {
-            lineHeight: "1.1667em",
+            lineHeight: "4.375rem",
             letterSpacing: "-0.05em",
             fontWeight: "300",
           },

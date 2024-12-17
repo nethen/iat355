@@ -6,7 +6,7 @@ import { useRef } from "react";
 
 type VisContainerProps = {
   children?: React.ReactNode;
-  captions?: { title: string; text: string }[];
+  captions?: { title: string; text: string; stop: number }[];
   background?: boolean;
   height?: number;
 };
@@ -36,16 +36,25 @@ export const ScrollyVisContainer = ({
         className="col-span-full lg:col-span-7 2xl:col-start-2 2xl:col-span-5 relative grid grid-cols-subgrid auto-rows-min md:py-[2.25em] lg:py-[4.5em]"
         style={{ height: `${height}svh` }}
       >
-        <div className="col-span-full h-full sticky top-[6.375em] md:top-[2.25em] flex flex-col justify-between">
-          <div className="col-span-full relative h-28 xs:h-32">
+        <div className="col-span-full h-full sticky top-[6.375em] md:top-[2.25em] grid grid-cols-subgrid justify-between gap-y-4">
+          <div className="col-span-full relative h-28 sm:h-32 md:col-span-3 md:col-start-2">
             {captions?.map((caption, index) => (
               <div key={index} className="absolute inset-0">
                 <motion.p
-                  className="text-r-base xs:text-r-sm"
+                  className="text-r-micro xs:text-r-base sm:text-r-xs"
                   style={{
                     opacity: useTransform(
                       scrollYProgress,
-                      [0.1 + 0.1 * index, 0.25 + 0.25 * index, 0.6],
+                      // [
+                      //   captions[index - 1]?.stop || 0,
+                      //   caption.stop,
+                      //   caption.stop + 0.075,
+                      // ],
+                      [
+                        caption.stop,
+                        caption.stop + 0.075,
+                        captions[index + 1]?.stop || 1,
+                      ],
                       [0, 1, 0]
                     ),
                   }}

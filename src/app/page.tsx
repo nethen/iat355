@@ -42,11 +42,8 @@ export default async function Home() {
       <Grid />
       <div className="grid-r font-[family-name:var(--font-geist-sans)]">
         <header className="col-span-full min-h-[90svh] grid grid-cols-subgrid max-md:grid-rows-[min-content_auto] auto-rows-min gap-[1.125em] max-md:pt-[4.5em] max-md:pb-[2.25em]">
-          <h1 className="col-span-full md:col-span-4 lg:col-span-6 text-m-lg sm:text-t-lg lg:text-r-lg">
-            An Index{" "}
-            <span className="text-foreground/50 inline-block">
-              How AI affects visual design learning within SIAT.
-            </span>
+          <h1 className="col-span-full md:col-span-4 lg:col-span-6 text-r-sm sm:text-r-md lg:text-r-lg font-light">
+            How AI affects visual design learning within SIAT.
           </h1>
           <p className="max-md:mt-auto col-span-full md:col-span-3 lg:col-span-3 md:col-start-1 lg:col-start-1 text-midground">
             Insights on visual design competency and confidence within
@@ -60,9 +57,13 @@ export default async function Home() {
             id="prologue"
             className="col-span-full grid grid-cols-subgrid gap-[inherit] pt-[2.25em] pb-[4.5em]"
           >
-            <hgroup className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-center">
-              <h2 className="text-r-md">Prologue</h2>
+            <hgroup className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 ">
+              <h2 className="text-r-xs md:text-r-sm">Prologue</h2>
             </hgroup>
+            <p className="col-span-full md:col-start-2 md:col-span-3 2xl:col-start-3 2xl:col-span-3 text-midground text-r-xs md:text-r-sm">
+              There is no question that artificial intelligence is changing the
+              way we design.
+            </p>
             <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
               When considering the design schools around the Lower Mainland,
               SIAT is a rare breed. With a jack of all trades mindset, students
@@ -95,7 +96,7 @@ export default async function Home() {
           >
             <hgroup className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-center">
               <span className="font-bold">Act I</span>
-              <h2 className="text-r-md">People</h2>
+              <h2 className="text-r-xs md:text-r-sm">People</h2>
             </hgroup>
             {/* <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
               We gathered our sample by reaching out to students through
@@ -123,10 +124,12 @@ export default async function Home() {
                 {
                   title: "Participants",
                   text: "After reaching out to students through Discord, Instagram, email, and put up posters around campus, we collected 77 responses.",
+                  stop: 0.25,
                 },
                 {
                   title: "Participants",
                   text: "Of the 77 responses, we focus on 40 students who have declared a concentration which heavily involves visual design.",
+                  stop: 0.6,
                 },
               ]}
             >
