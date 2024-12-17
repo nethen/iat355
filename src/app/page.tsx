@@ -342,9 +342,22 @@ export default async function Home() {
               <h2 className="text-r-md">Program</h2>
             </hgroup>
             <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
-            some copy here
+              some copy here
             </p>
-            <ScrollyVisContainer>
+            <ScrollyVisContainer
+              captions={[
+                {
+                  title: "Stacked Bar",
+                  text: "This is a stacked bar chart",
+                  stop: 0.125,
+                },
+                {
+                  title: "Stacked Bar",
+                  text: "It does magical things",
+                  stop: 0.375,
+                },
+              ]}
+            >
               <StackedBarConfidence data={data} />
             </ScrollyVisContainer>
           </section>
