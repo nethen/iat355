@@ -38,7 +38,12 @@ export const ScrollyVisContainer = ({
           className="col-span-full lg:col-span-7 2xl:col-start-2 2xl:col-span-5 relative grid grid-cols-subgrid auto-rows-min md:py-[2.25em] lg:pt-0 lg:pb-[4.5em]"
           style={{ height: `${height}svh` }}
         >
-          <div className="col-span-full min-h-[calc(100svh_-_6.75rem)] md:min-h-[calc(100svh_-_2.25rem)] sticky top-[6.75rem] md:top-[2.25rem] grid grid-cols-subgrid grid-rows-[min-content_1fr] gap-y-4">
+          <div
+            className={clsx(
+              "col-span-full min-h-[calc(100svh_-_6.75rem)] md:min-h-[calc(100svh_-_2.25rem)] sticky top-[6.75rem] md:top-[2.25rem] grid grid-cols-subgrid gap-y-4",
+              captions ? "grid-rows-[min-content_1fr]" : "grid-rows-[1fr]"
+            )}
+          >
             {captions && (
               <div className="col-span-full relative h-28 sm:h-32 md:col-span-3 md:col-start-2">
                 {captions?.map((caption, index) => (

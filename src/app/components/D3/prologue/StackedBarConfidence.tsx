@@ -6,11 +6,19 @@ import { DSVRowArray } from "d3-dsv";
 import { scaleBand, scaleLinear, scaleSequential } from "d3-scale";
 import { ascending, filter, flatRollup, max, rollup } from "d3-array";
 import { interpolateCustom } from "../Reusables/interpolateCustom";
-import { stack } from "d3";
-
+import {
+  group,
+  index,
+  stack,
+  union,
+  flatGroup,
+  scaleOrdinal,
+  stackOrderNone,
+} from "d3";
+import { useWindowSize } from "usehooks-ts";
 
 type D3VisProps = {
-  data: DSVRowArray<string> ;
+  data: DSVRowArray<string>;
   width?: number;
   height?: number;
   marginTop?: number;
@@ -31,24 +39,29 @@ export const StackedBarConfidence = ({
   marginLeft = 36,
   xLength = 9,
 }: D3VisProps) => {
-
+  const size = useWindowSize();
 
   const skills_columns = [
     { field: "typography_skills", name: "Typography" },
     { field: "color_theory_skills", name: "Color Theory" },
     { field: "layout_composition_skills", name: "Layout Composition" },
-    { field: "digital_illustration_skills", name: "Digital Illustration" },
+
     { field: "ui_design_skills", name: "UI Design" },
     { field: "ux_design_skills", name: "UX Design" },
     { field: "prototyping_mockup_skills", name: "Prototyping Mockup" },
   ];
-  
+
   // Optionally filter your data
   const filteredData = data.filter((row) => row.isDesign === "1"); // Filter by inDesign column
-  
+
   // Initialize the result array
-  const result: { skill_name: string; confidence_level: string; count:number }[] = [];
-  
+  const result: {
+    skill_name: string;
+    unconfident: number;
+    neutral: number;
+    confident: number;
+  }[] = [];
+
   // Confidence categorization
   const categorizeConfidence = (level: string) => {
     const levelNum = parseInt(level, 10);
@@ -60,48 +73,41 @@ export const StackedBarConfidence = ({
       return "Confident";
     }
   };
-  
+
   // Iterate over each skill column
   skills_columns.forEach((skill) => {
     // Initialize counts for the three categories
     const counts = {
       "Not Confident": 0,
-      "Neutral": 0,
-      "Confident": 0,
+      Neutral: 0,
+      Confident: 0,
     };
-  
+
     // Count occurrences for each category for the current skill
     filteredData.forEach((row) => {
       const confidenceLevel = row[skill.field];
       const category = categorizeConfidence(confidenceLevel);
       counts[category]++;
     });
-  
-    // Push the results into the array
-    Object.keys(counts).forEach((confidenceLevel,index) => {
-      result.push({
-        skill_name: skill.field,
-        confidence_level: confidenceLevel,
-        count: counts[confidenceLevel as "Not Confident" | "Neutral" | "Confident"],
-      });
+
+    result.push({
+      skill_name: skill.field,
+      unconfident: counts["Not Confident"],
+      neutral: counts["Neutral"],
+      confident: counts["Confident"],
     });
   });
-  
   console.log(result);
 
+  const keys = ["unconfident", "neutral", "confident"];
+  const newStack = stack().keys(keys).order(stackOrderNone);
 
-  const grouped = flatRollup(
-    result,
-    (values) => new Map(values.map((d) => [d.confidence_level, d.count])), // Reduction function
-    (d) => d.skill_name // Key function
-  );
+  const series = newStack(result);
 
- grouped.map((d,index) =>  console.log(d[1]))
-  const stacked = stack().keys(grouped[0][1].keys()).value((d,key)=> d[1].get(key))
-  // stacked()
+  console.log(series);
 
   const yScale = scaleBand()
-    .domain(skills_columns.map((d) => d.name))
+    .domain(result.map((d) => d.skill_name))
     .range([0, height - 20])
     .paddingInner(0.2);
 
@@ -109,62 +115,30 @@ export const StackedBarConfidence = ({
     .domain([0, filteredData.length])
     .range([0, width]);
 
-
+  const colorScale = scaleOrdinal()
+    .domain(["unconfident", "neutral", "confident"])
+    .range(["#b949ff", "#000000", "#0000ff"]);
 
   return (
-    <svg width={width + 400} height={height + 20}>
-      <g transform={`translate(${300}, ${0})`}>
-        {xScale.ticks().map((tickValue) => (
-          <g key={tickValue} transform={`translate(${xScale(tickValue)},0)`}>
-            <text style={{ textAnchor: "middle" }} fill="white" y={height + 12}>
-              {tickValue}
-            </text>
-
-            <line
-              y1={0}
-              y2={height - 20}
-              fill="white"
-              stroke="white"
-              opacity={0.1}
-            />
-          </g>
-        ))}
-        {yScale.domain().map((tickValue, index) => (
-          <g
-            key={index}
-            transform={`translate(0, ${
-              (yScale(tickValue) ?? 0) + yScale.bandwidth() / 2
-            })`}
-          >
-            <text
-              style={{ textAnchor: "end" }}
-              fill="white"
-              opacity={0.8}
-              dy={".3em"}
-              x={-12}
-            >
-              {tickValue}
-            </text>
-            <line y1={0} y2={height} fill="white" opacity={0.2} />
-          </g>
-        ))}
-
-        {grouped.map((d, index) => (
-          d[1].map((d, index2) => (
-              <rect
-            rx={4}
-            ry={4}
-            key={index}
-            x={0}
-            y={yScale(d[0][1])}
-            width={xScale(parseInt(d))}
+    <svg className="w-full h-full">
+      {series.map((Data) =>
+        Data.map((d, i) => (
+          <rect
+            x={xScale(d[0])}
+            // y={0}
+            y={yScale(d.data.skill_name)}
+            key={`${Data.key}--${i}`}
+            // x={D.}
+            // y={yScale(d.skill_name)}
+            width={xScale(d[1]) - xScale(d[0])}
             height={yScale.bandwidth()}
-            fill="#b949ff"
+            // y={yScale(d.count)}
+            // width={xScale(parseInt(d))}
+            // height={yScale.bandwidth()}
+            fill={colorScale(Data.key)}
           />
-          ))
-          
-        ))}
-      </g>
+        ))
+      )}
     </svg>
   );
 };
