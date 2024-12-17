@@ -39,6 +39,7 @@ export const Participants = ({
   const avgVC = mean(filteredData, (d) => d.visual_confidence_score);
 
   const resizeObserver = useResizeObserverContext();
+
   const [{ innerWidth, innerHeight }, setSize] = useState<{
     innerWidth: number | undefined;
     innerHeight: number | undefined;
@@ -48,25 +49,23 @@ export const Participants = ({
   });
 
   // The code that checks how big the parent element is
-  const sizeNew = useResizeObserver({
+  useResizeObserver({
     ref: resizeObserver || { current: null },
     box: "content-box",
     onResize: (entry) => {
       setSize({
-        innerWidth: entry.width ? entry.width : 0,
-        innerHeight: entry.height ? entry.height : 0,
+        innerWidth: entry.width ? entry.width - marginLeft - marginRight : 0,
+        innerHeight: entry.height ? entry.height - marginTop - marginBottom : 0,
       });
       console.log(entry);
     },
   });
 
-  const y = scaleLinear()
-    .domain([0, 1])
-    .range([innerHeight ?? 0, 0]); // Flip the range
+  console.log(innerWidth);
 
-  const x = scaleLinear()
-    .domain([0, 35])
-    .range([0, innerWidth ?? 0]);
+  const y = scaleLinear().domain([0, 1]).range([innerHeight, 0]); // Flip the range
+
+  const x = scaleLinear().domain([0, 35]).range([0, innerWidth]);
 
   // Calculate frequency of (score_percent, visual_confidence_score) pairs
   const frequencyMap = new Map<string, number>();
@@ -84,9 +83,9 @@ export const Participants = ({
 
   return (
     <motion.svg
-      className="w-full h-full"
-      width={innerWidth + marginRight + marginLeft}
-      height={innerHeight + marginTop + marginBottom}
+      className="w-full "
+      width={innerWidth ? innerWidth + marginRight + marginLeft : 0}
+      height={innerHeight ? innerHeight + marginTop + marginBottom : 0}
       animate={{
         background: filteredData
           ? hasCaption
@@ -107,7 +106,7 @@ export const Participants = ({
           />
           <motion.line
             stroke="red"
-            y1={innerHeight}
+            y1={innerHeight }
             y2={useTransform(scrollYProgress, [0.125, 0.375], [innerHeight, 0])}
             strokeWidth={3}
             x1={x(avgVC)}

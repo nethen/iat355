@@ -95,8 +95,8 @@ export const VastHour = ({
   return (
     <motion.svg
       className="w-full h-full"
-      width={innerWidth + marginRight + marginLeft}
-      height={innerHeight + marginTop + marginBottom}
+      width={innerWidth ? innerWidth + marginRight + marginLeft : 0}
+      height={innerHeight ? innerHeight + marginTop + marginBottom : 0}
       animate={{
         background: filteredData
           ? hasCaption

@@ -14,6 +14,7 @@ import { AIusage } from "./components/D3/prologue/AIusage";
 import { AIFreq } from "./components/D3/prologue/AIFreq";
 import { StackedBarConfidence } from "./components/D3/prologue/StackedBarConfidence";
 import { PieAIUsage } from "./components/D3/prologue/PieAIUsage";
+import { VastHour } from "./components/D3/prologue/VastHour";
 
 export default async function Home() {
   // const viewRefs = Array.from({ length: 4 }, () => createRef<HTMLDivElement>());
@@ -267,7 +268,7 @@ export default async function Home() {
               ]}
             >
               {/* <DotSample data={data} /> */}
-              <Participants data={data} />
+              <VastHour data={data} />
             </ScrollyVisContainer>
             <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground text-r-xs">
               Noting that student are not necessarily honing their visual design
