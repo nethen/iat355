@@ -35,7 +35,7 @@ export const ScrollyVisContainer = ({
       <ScrollYProgressContext.Provider value={scrollYProgress}>
         <article
           ref={ref}
-          className="col-span-full lg:col-span-7 2xl:col-start-2 2xl:col-span-5 relative grid grid-cols-subgrid auto-rows-min md:py-[2.25em] lg:py-[4.5em]"
+          className="col-span-full lg:col-span-7 2xl:col-start-2 2xl:col-span-5 relative grid grid-cols-subgrid auto-rows-min md:py-[2.25em] lg:pt-0 lg:pb-[4.5em]"
           style={{ height: `${height}svh` }}
         >
           <div className="col-span-full min-h-[calc(100svh_-_6.75rem)] md:min-h-[calc(100svh_-_2.25rem)] sticky top-[6.75rem] md:top-[2.25rem] grid grid-cols-subgrid grid-rows-[min-content_1fr] gap-y-4">
@@ -79,13 +79,13 @@ export const ScrollyVisContainer = ({
 
 export type CaptionProps = {
   title: string;
-  text: string;
+  text: React.ReactNode;
   stop: number;
 };
 
 type InnerCaptionProps = {
   title: string;
-  text: string;
+  text: React.ReactNode;
   previousStop: number;
   stop: number;
   nextStop: number;

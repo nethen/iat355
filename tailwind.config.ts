@@ -13,6 +13,8 @@ const config: Config = {
         midground: "rgb(var(--midground) / <alpha-value>)",
         foreground: "rgb(var(--foreground) / <alpha-value>)",
         diagram: "rgb(var(--diagram) / <alpha-value>)",
+        year1: "rgb(var(--year-1) / <alpha-value>)",
+        year4: "rgb(var(--year-4) / <alpha-value>)",
       },
       screens: {
         xs: "480px",

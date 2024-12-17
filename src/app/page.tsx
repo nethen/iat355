@@ -65,28 +65,67 @@ export default async function Home() {
               way we design.
             </p>
             <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3  text-midground">
-              When considering the design schools around the Lower Mainland,
-              SIAT is a rare breed. With a jack of all trades mindset, students
-              are exposed to a variety of disciplines in their first and second
-              years&mdash;rom foundational graphic, spatial and information
-              design to more niche creative media and human computer
-              interaction, the course offerings hope to provide a strong
-              foundation for undergraduates to build their career off.
+              Starting with early 2023 with the growth of ChatGPT, a wide array
+              of generative AI tools have been gaining traction towards future
+              optimizations to digital design pipelines. Look no further than{" "}
+              <a
+                href="https://openai.com/sora"
+                target="_blank"
+                className="text-blue-500"
+              >
+                OpenAI&apos;s own Sora
+              </a>
+              &mdash;an upcoming text-to-video software with the ability to edit
+              and create entire sequences from a single prompt.
             </p>
-            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
-              Getting this foundation right is crucial as the digital products
-              and artifacts that SIAT trains to produce only have 50
-              milliseconds before users make first judgements of the credibility
-              and quality, according to David Rhyne: a lead UX designer from
-              Mastercard.
-            </p>
+
             <VisContainer></VisContainer>
             <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
-              The following narrative synthesizes behaviors based off poll
-              results from 76 undergraduate students from Simon Fraser
-              University’s School of Interactive Arts and Technology (SIAT). We
-              asked the sample for insights into their perceptions and practices
-              in visual design, creativity, and AI usage.
+              Another tangible example of generative AI in the industry is
+              illustrated by the web development for rising health startup{" "}
+              <a
+                href="https://superpower.com/"
+                target="_blank"
+                className="text-blue-500"
+              >
+                Superpower
+              </a>
+              , designed by Canadian studio{" "}
+              <a
+                href="https://daybreak.studio"
+                target="_blank"
+                className="text-blue-500"
+              >
+                Daybreak
+              </a>{" "}
+              with the help of Midjourney to storyboard a stunning series of
+              motion design assets.
+            </p>
+            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground mb-[2.25em]">
+              Even Figma having disrupted the design tool market with real-time
+              collaboration, has implemented their own suite of generative AI
+              features for brainstorming, summarization and copywriting.
+            </p>
+            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground text-r-xs md:text-r-sm">
+              Amidst all of this change, it is also important to recognize the
+              rapid adoption of these tools within design academia.
+            </p>
+            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
+              Anecdotally, the number of students using generative AI within
+              their coursework has also grown as these technologies become more
+              accessible.
+            </p>
+            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
+              Because of this, it is uncertain whether or not the integrity of
+              an undergraduate student&apos;s design process may be affected due
+              to reliance on these tools.
+            </p>
+            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
+              To better understand this landscape, we set out to survey fellow
+              undergraduate students within Simon Fraser University&apos;s (SFU)
+              School of Interactive Arts and Technology (SIAT). Data was
+              collected through a questionnaire, focusing on visual design
+              competency and confidence.
             </p>
           </section>
           <section
@@ -94,9 +133,9 @@ export default async function Home() {
             className="col-span-full grid grid-cols-subgrid gap-[inherit] pt-[2.25em] pb-[4.5em]"
             // ref={viewRefs[1]}
           >
-            <hgroup className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-center">
-              <span className="font-bold">Act I</span>
-              <h2 className="text-r-xs md:text-r-sm">People</h2>
+            <hgroup className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 ">
+              <span className="font-bold">Part I</span>
+              <h2 className="text-r-xs md:text-r-sm">Sample</h2>
             </hgroup>
             {/* <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
               We gathered our sample by reaching out to students through
@@ -119,26 +158,26 @@ export default async function Home() {
             </p> */}
             <ScrollyVisContainer
               background={false}
-              height={600}
+              height={800}
               captions={[
                 {
                   title: "Sample",
                   text: "After reaching out to students through Discord, Instagram, email, and put up posters around campus, we collected 77 responses.",
-                  stop: 0.25,
+                  stop: 0.1,
                 },
                 {
                   title: "Filter",
                   text: "Of the 77 responses, we focus on 40 students who have declared a concentration which heavily involves visual design.",
-                  stop: 0.4,
+                  stop: 0.3,
                 },
                 {
                   title: "Skew",
                   text: "While concentrations are normally declared in third year, some second year students are certain that they will pursue a design concentration.",
-                  stop: 0.6,
+                  stop: 0.5,
                 },
                 {
                   title: "Skew",
-                  text: "Nevertheless, this sample is still skewed between third and fifth+ year students giving us clearer insight into senior SIAT perception towards visual design",
+                  text: "Nevertheless, this sample is still skewed between third and fifth+ year students giving us clearer insight into senior SIAT views on visual design confidence.",
                   stop: 0.7,
                 },
               ]}
@@ -161,10 +200,34 @@ export default async function Home() {
                   text: "From the 40 design students, we asked them to rate their confidence in their visual design skills on a 5 point Likert scale.",
                   stop: 0.25,
                 },
+                {
+                  title: "Sample",
+                  text: (
+                    <>
+                      Based on their responses, we identified which skills that
+                      the students felt either{" "}
+                      <span className="text-blue-500">more</span> or{" "}
+                      <span className="text-red-500">less</span> confident on
+                      average.
+                    </>
+                  ),
+                  stop: 0.5,
+                },
               ]}
             >
               {/* <DotSample data={data} /> */}
             </ScrollyVisContainer>
+            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground text-r-xs">
+              Anecdotally, this is to be expected&mdash;in SIAT&apos;s upper
+              years, the focus tends to be on building digital products and
+              artifacts.
+            </p>
+            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
+              When students reported lower confidence in more foundational
+              graphic skills (typography, color, layout), it could suggest a
+              lack of confidence in more expressive contexts like art direction
+              and visual identity.
+            </p>
           </section>
           <section
             id="act2"
