@@ -119,7 +119,7 @@ export default async function Home() {
             </p> */}
             <ScrollyVisContainer
               background={false}
-              height={400}
+              height={600}
               captions={[
                 {
                   title: "Sample",
@@ -133,7 +133,12 @@ export default async function Home() {
                 },
                 {
                   title: "Skew",
-                  text: "It should be noted that the sample is heavily skewed towards fourth and fifth year students, making up almost half of the responses.",
+                  text: "While concentrations are normally declared in third year, some second year students are certain that they will pursue a design concentration.",
+                  stop: 0.6,
+                },
+                {
+                  title: "Skew",
+                  text: "Nevertheless, this sample is still skewed between third and fifth+ year students giving us clearer insight into senior SIAT perception towards visual design",
                   stop: 0.7,
                 },
               ]}

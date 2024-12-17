@@ -199,7 +199,10 @@ const Circle = ({
   const opacityCurve = [0, 1, conditions[0], conditions[1] ? 1 : 0.1];
   const fillCurve = [
     fill,
-    conditions[1] ? (conditions[1] == 2 ? "#ff3333" : "#888888") : "#888888",
+    conditions[1] ? (conditions[1] == 2 ? fill : "#888888") : "#888888",
+    conditions[1] ? (conditions[1] == 2 ? fill : "#888888") : "#888888",
+    conditions[1] ? (conditions[1] == 2 ? "#888888" : "#00ccaa") : "#888888",
+    conditions[1] ? (conditions[1] == 2 ? "#888888" : "#00ccaa") : "#888888",
   ];
 
   const scrollYProgress = useScrollYProgress();
@@ -211,7 +214,15 @@ const Circle = ({
 
   const newFill = useTransform(
     scrollYProgress,
-    captions ? [captions[1].stop + 0.1, captions[2].stop] : [0.75, 1],
+    captions
+      ? [
+          captions[1].stop + 0.1,
+          captions[2].stop,
+          captions[2].stop + 0.05,
+          captions[3].stop,
+          1,
+        ]
+      : [0.75, 0.875, 0.95, 1],
     fillCurve
   );
 
