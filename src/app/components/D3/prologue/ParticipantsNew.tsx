@@ -34,7 +34,6 @@ export const ParticipantsNew = ({
   marginRight = 36,
   // marginBottom = 36,
   marginLeft = 36,
-  xLength = 9,
 }: D3VisProps) => {
   //   const [extents, setExtents] = useState<number[] | undefined[]>([
   //     undefined,
@@ -42,6 +41,7 @@ export const ParticipantsNew = ({
   //   ]);
   const isClient = useIsClient();
   const size = useWindowSize();
+  const matchesSM = useMediaQuery("(min-width: 640px)");
   const matches = useMediaQuery("(min-width: 1024px)");
 
   const containerRef = useRef(null);
@@ -52,6 +52,7 @@ export const ParticipantsNew = ({
   }).width;
 
   const DOT_RADIUS = matches && isClient ? 24 : 16;
+  const xLength = matchesSM ? 11 : 7;
 
   useEffect(() => {
     console.log(rWidth);
@@ -60,24 +61,23 @@ export const ParticipantsNew = ({
   const updatedSize = useMemo(() => {
     return {
       width: isClient ? size.width : width,
-      height: Math.max(
-        isClient ? (matches ? size.height - 144 : size.height - 216) : height,
-        480
-      ),
+      height: isClient
+        ? matchesSM
+          ? 7 * DOT_RADIUS * 2
+          : 11 * DOT_RADIUS * 2
+        : 11 * DOT_RADIUS * 2,
     };
   }, [size, isClient, matches]);
 
   const y = scaleLinear()
-    .domain([0, Math.floor(data ? data.length / xLength : 9)])
+    .domain([0, Math.floor(data ? data.length / xLength : 11)])
     .range([
-      // DOT_RADIUS +
-      //   Math.floor(data ? data.length / xLength : 9) * (DOT_RADIUS * -2) +
-      -DOT_RADIUS * Math.floor(data ? data.length / xLength : 9) +
+      -DOT_RADIUS * Math.floor(data ? data.length / xLength : 11) +
+        DOT_RADIUS +
         updatedSize.height / 2,
-      // -DOT_RADIUS +
-      //   Math.floor(Math.floor(data ? data.length / xLength : 9) / 2) *
-      //     (DOT_RADIUS * 2) +
-      DOT_RADIUS * Math.floor(data ? data.length / xLength : 9) +
+
+      DOT_RADIUS * Math.floor(data ? data.length / xLength : 11) +
+        DOT_RADIUS +
         updatedSize.height / 2,
     ]);
 
@@ -97,15 +97,9 @@ export const ParticipantsNew = ({
     ]);
 
   const c = scaleSequential(interpolateCustom()).domain([1, 5]);
-  // .range(["blue", "red"]);
-
-  console.log(size);
 
   return (
     <motion.svg
-      // viewBox={`0 0 ${isClient && size ? size.width : width} ${
-      //   isClient && size ? size.height : height
-      // }`}
       ref={containerRef}
       height={isClient && size ? updatedSize.height : height}
       className="w-full h-auto"

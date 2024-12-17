@@ -112,11 +112,24 @@ export default async function Home() {
               almost half of the responses. Ideally we would have an even split,
               where there would be 1 in 5 students of each year.
             </p> */}
-            <p className="text-r-sm col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
+            {/* <p className="text-r-sm col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
               After reaching out to students through Discord, Instagram, email,
               and put up posters around campus, we collected 77 responses.
-            </p>
-            <ScrollyVisContainer background={false}>
+            </p> */}
+            <ScrollyVisContainer
+              background={false}
+              height={300}
+              captions={[
+                {
+                  title: "Participants",
+                  text: "After reaching out to students through Discord, Instagram, email, and put up posters around campus, we collected 77 responses.",
+                },
+                {
+                  title: "Participants",
+                  text: "Of the 77 responses, we focus on 40 students who have declared a concentration which heavily involves visual design.",
+                },
+              ]}
+            >
               <ParticipantsNew data={data} />
             </ScrollyVisContainer>
 

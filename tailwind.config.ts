@@ -15,6 +15,7 @@ const config: Config = {
         diagram: "rgb(var(--diagram) / <alpha-value>)",
       },
       screens: {
+        xs: "480px",
         "2xl": "1440px",
         "3xl": "1536px",
         "4xl": "1920px",
