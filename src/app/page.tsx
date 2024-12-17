@@ -13,6 +13,7 @@ import { SmoothScroll } from "./components/SmoothScroll/SmoothScroll";
 import { AIusage } from "./components/D3/prologue/AIusage";
 import { AIFreq } from "./components/D3/prologue/AIFreq";
 import { StackedBarConfidence } from "./components/D3/prologue/StackedBarConfidence";
+import { PieAIUsage } from "./components/D3/prologue/PieAIUsage";
 
 export default async function Home() {
   // const viewRefs = Array.from({ length: 4 }, () => createRef<HTMLDivElement>());
@@ -394,6 +395,22 @@ export default async function Home() {
               ]}
             >
               <StackedBarConfidence data={data} />
+            </ScrollyVisContainer>
+            <ScrollyVisContainer
+              captions={[
+                {
+                  title: "Stacked Bar",
+                  text: "This is a stacked bar chart",
+                  stop: 0.125,
+                },
+                {
+                  title: "Stacked Bar",
+                  text: "It does magical things",
+                  stop: 0.375,
+                },
+              ]}
+            >
+              <PieAIUsage data={data} />
             </ScrollyVisContainer>
           </section>
         </main>
