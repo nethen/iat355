@@ -206,19 +206,17 @@ export const Participants = ({
 
 const Circle = ({ cx, cy, key }: { cx: number; cy: number; key: string }) => {
   const scrollYProgress = useScrollYProgress();
-  const getSizeBasedOnFrequency = (d: any) => {
-    const frequency = frequencyMap.get(key) || 1; // Default to 1 if frequency is not found
-    const screenScaleFactor = Math.min(
-      innerWidth ?? 0 / 1200,
-      innerHeight ?? 0 / 800
-    ); // Example: Scale down for smaller screens
-  };
-  const radius = useTransform(
-    scrollYProgress,
-    [0.25, 0.5],
-    [0, getSizeBasedOnFrequency(d)]
-  );
-  return (
-    <motion.circle cx={cx} cy={cy} fill="#1058c4" opacity={0.75} r={radius} />
-  );
+  // const getSizeBasedOnFrequency = (d: any) => {
+  //   const frequency = frequencyMap.get(key) || 1; // Default to 1 if frequency is not found
+  //   const screenScaleFactor = Math.min(
+  //     innerWidth ?? 0 / 1200,
+  //     innerHeight ?? 0 / 800
+  //   ); // Example: Scale down for smaller screens
+  // };
+  // const radius = useTransform(
+  //   scrollYProgress,
+  //   [0.25, 0.5],
+  //   [0, getSizeBasedOnFrequency(d)]
+  // );
+  return <motion.circle cx={cx} cy={cy} fill="#1058c4" opacity={0.75} />;
 };
