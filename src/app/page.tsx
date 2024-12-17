@@ -12,6 +12,7 @@ import { DotSample } from "./components/D3/prologue/DotSample";
 import { SmoothScroll } from "./components/SmoothScroll/SmoothScroll";
 import { AIusage } from "./components/D3/prologue/AIusage";
 import { AIFreq } from "./components/D3/prologue/AIFreq";
+import { StackedBarConfidence } from "./components/D3/prologue/StackedBarConfidence";
 
 export default async function Home() {
   // const viewRefs = Array.from({ length: 4 }, () => createRef<HTMLDivElement>());
@@ -331,6 +332,22 @@ export default async function Home() {
           {/* <ScrollyVisContainer background={true}>
             <AIFreq data={data} />
           </ScrollyVisContainer> */}
+
+          <section
+            className="col-span-full grid grid-cols-subgrid gap-[inherit] pt-[2.25em] pb-[4.5em]"
+            // ref={viewRefs[2]}
+          >
+            <hgroup className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-center">
+              <span className="font-bold">Act II</span>
+              <h2 className="text-r-md">Program</h2>
+            </hgroup>
+            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
+            some copy here
+            </p>
+            <ScrollyVisContainer>
+              <StackedBarConfidence data={data} />
+            </ScrollyVisContainer>
+          </section>
         </main>
       </div>
     </SmoothScroll>
