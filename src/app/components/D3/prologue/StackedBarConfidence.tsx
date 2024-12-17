@@ -6,11 +6,10 @@ import { DSVRowArray } from "d3-dsv";
 import { scaleBand, scaleLinear, scaleSequential } from "d3-scale";
 import { ascending, filter, flatRollup, max, rollup } from "d3-array";
 import { interpolateCustom } from "../Reusables/interpolateCustom";
-import { stack } from "d3";
-
+import { group, index, stack, union, flatGroup } from "d3";
 
 type D3VisProps = {
-  data: DSVRowArray<string> ;
+  data: DSVRowArray<string>;
   width?: number;
   height?: number;
   marginTop?: number;
@@ -31,8 +30,6 @@ export const StackedBarConfidence = ({
   marginLeft = 36,
   xLength = 9,
 }: D3VisProps) => {
-
-
   const skills_columns = [
     { field: "typography_skills", name: "Typography" },
     { field: "color_theory_skills", name: "Color Theory" },
@@ -42,13 +39,18 @@ export const StackedBarConfidence = ({
     { field: "ux_design_skills", name: "UX Design" },
     { field: "prototyping_mockup_skills", name: "Prototyping Mockup" },
   ];
-  
+
   // Optionally filter your data
   const filteredData = data.filter((row) => row.isDesign === "1"); // Filter by inDesign column
-  
+
   // Initialize the result array
-  const result: { skill_name: string; confidence_level: string; count:number }[] = [];
-  
+  const result: {
+    skill_name: string;
+    unconfident: number;
+    neutral: number;
+    confident: number;
+  }[] = [];
+
   // Confidence categorization
   const categorizeConfidence = (level: string) => {
     const levelNum = parseInt(level, 10);
@@ -60,44 +62,79 @@ export const StackedBarConfidence = ({
       return "Confident";
     }
   };
-  
+
   // Iterate over each skill column
   skills_columns.forEach((skill) => {
     // Initialize counts for the three categories
     const counts = {
       "Not Confident": 0,
-      "Neutral": 0,
-      "Confident": 0,
+      Neutral: 0,
+      Confident: 0,
     };
-  
+
     // Count occurrences for each category for the current skill
     filteredData.forEach((row) => {
       const confidenceLevel = row[skill.field];
       const category = categorizeConfidence(confidenceLevel);
       counts[category]++;
     });
-  
-    // Push the results into the array
-    Object.keys(counts).forEach((confidenceLevel,index) => {
-      result.push({
-        skill_name: skill.field,
-        confidence_level: confidenceLevel,
-        count: counts[confidenceLevel as "Not Confident" | "Neutral" | "Confident"],
-      });
+
+    result.push({
+      skill_name: skill.field,
+      unconfident: counts["Not Confident"],
+      neutral: counts["Neutral"],
+      confident: counts["Confident"],
     });
+
+    // Push the results into the array
+    // Object.keys(counts).forEach((confidenceLevel, index) => {
+    //   result.push({
+    //     skill_name: skill.field,
+    //     unconfident:
+    //     confidence_level: confidenceLevel,
+    //     count:
+    //       counts[confidenceLevel as "Not Confident" | "Neutral" | "Confident"],
+    //   });
+    // });
   });
-  
+
   console.log(result);
 
+  // const grouped = flatRollup(
+  //   result,
+  //   (D) => D.length,
+  //   (d) => d.skill_name, // Key function
+  //   (d) => d.confidence_level
+  // );
 
-  const grouped = flatRollup(
-    result,
-    (values) => new Map(values.map((d) => [d.confidence_level, d.count])), // Reduction function
-    (d) => d.skill_name // Key function
-  );
+  // console.log(grouped);
 
- grouped.map((d,index) =>  console.log(d[1]))
-  const stacked = stack().keys(grouped[0][1].keys()).value((d,key)=> d[1].get(key))
+  // {
+  //   name: "Brand 1",
+  //   // type: 1,
+  //   Not confidet: 10,
+  //   neutrla: 20,
+  //   Media: 30
+  // },
+
+  const keys = ["unonfident", "neutral", "confident"];
+  const newStack = stack().keys(keys);
+
+  const series = newStack(result);
+
+  console.log(series);
+  // const stackGenerator = stack().keys(union(result.map((d) => d.skill_name)));
+
+  // const stacked = stack().keys(union(result.map((d) => d.skill_name)));
+  //   .value(([, D], key) => D.get(key).count);
+  // index(
+  //   result,
+  //   (d) => d.confidence_level,
+  //   (d) => d.skill_name
+  // );
+
+  // console.log(stacked.keys);
+  // console.log(stacked);
   // stacked()
 
   const yScale = scaleBand()
@@ -109,12 +146,10 @@ export const StackedBarConfidence = ({
     .domain([0, filteredData.length])
     .range([0, width]);
 
-
-
   return (
     <svg width={width + 400} height={height + 20}>
       <g transform={`translate(${300}, ${0})`}>
-        {xScale.ticks().map((tickValue) => (
+        {/* {xScale.ticks().map((tickValue) => (
           <g key={tickValue} transform={`translate(${xScale(tickValue)},0)`}>
             <text style={{ textAnchor: "middle" }} fill="white" y={height + 12}>
               {tickValue}
@@ -147,23 +182,40 @@ export const StackedBarConfidence = ({
             </text>
             <line y1={0} y2={height} fill="white" opacity={0.2} />
           </g>
-        ))}
-
-        {grouped.map((d, index) => (
-          d[1].map((d, index2) => (
-              <rect
-            rx={4}
-            ry={4}
-            key={index}
-            x={0}
-            y={yScale(d[0][1])}
-            width={xScale(parseInt(d))}
-            height={yScale.bandwidth()}
-            fill="#b949ff"
-          />
+        ))} */}
+        {series.map((D) =>
+          D.map((d, i) => (
+            <rect
+              rx={4}
+              ry={4}
+              // key={index}
+              key={`${D.key}--${i}`}
+              x={0}
+              y={100}
+              width={100}
+              height={100}
+              // y={yScale(d.count)}
+              // width={xScale(parseInt(d))}
+              // height={yScale.bandwidth()}
+              fill="#b949ff"
+            />
           ))
-          
-        ))}
+        )}
+
+        {/* {grouped.map((d, index) =>
+          d[1].map((d, index2) => (
+            <rect
+              rx={4}
+              ry={4}
+              key={index}
+              x={0}
+              y={yScale(d[0][1])}
+              width={xScale(parseInt(d))}
+              height={yScale.bandwidth()}
+              fill="#b949ff"
+            />
+          ))
+        )} */}
       </g>
     </svg>
   );
