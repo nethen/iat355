@@ -35,19 +35,10 @@ type D3VisProps = {
   yLength?: number;
 };
 
-export const StackedBarConfidence = ({
-  data,
-  // marginTop = 36,
-  marginRight = 36,
-  // marginBottom = 36,
-  marginLeft = 36,
-  xLength = 9,
-}: D3VisProps) => {
+export const StackedBarConfidence = ({ data }: D3VisProps) => {
   const resizeObserver = useResizeObserverContext();
-  const size = useWindowSize();
   const red = colors.red[500];
   const blue = colors.blue[500];
-  const gray = colors.gray[100];
 
   const [{ width, height }, setSize] = useState<{
     width: number | undefined;

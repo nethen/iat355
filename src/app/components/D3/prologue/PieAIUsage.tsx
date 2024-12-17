@@ -106,16 +106,22 @@ export const PieAIUsage = ({
     // .innerRadius(Math.min(width ?? 0, height ?? 0) * 0.25)
     .innerRadius(0)
     .outerRadius(Math.min(width ?? 0, height ?? 0) * 0.3);
-  const colors = scaleOrdinal(schemeCategory10);
+  const colors = scaleOrdinal([
+    "#f1eef6",
+    "#bdc9e1",
+    "#74a9cf",
+    "#2b8cbe",
+    "#045a8d",
+  ]);
   const formatNew = format("i");
   const dataArc = createPie(filteredGroups);
   console.log(dataArc);
 
+  const highlightAngle = dataArc[1].endAngle - dataArc[0].startAngle / 2;
+
   return (
     <motion.svg
-      width={isClient && sizeNew ? width : 0}
-      height={isClient && sizeNew ? height : 0}
-      className="w-full h-auto"
+      className="w-full h-full"
       // animate={{ background: data ? "green" : "red" }}
     >
       <g
@@ -131,10 +137,23 @@ export const PieAIUsage = ({
             createArc={createArc}
             colors={colors}
             format={formatNew}
-            outerRadius={Math.min(width ?? 0, height ?? 0) * 0.4}
+            outerRadius={Math.min(width ?? 0, height ?? 0) * 0.45}
           />
         ))}
       </g>
+      <text
+        transform={`translate(${(3 * (width ?? 0)) / 4}, ${(height ?? 0) / 4})`}
+        // ${
+        //   -Math.sin(highlightAngle) * Math.min(width ?? 0, height ?? 0) * 0.45
+        // })`}
+        textAnchor="middle"
+        alignmentBaseline="middle"
+        fill="rgb(var(--midground))"
+        fontSize="1em"
+      >
+        13 in 20 students claim to rarely or never use AI tools in their
+        workflow."
+      </text>
     </motion.svg>
   );
 };
@@ -143,16 +162,22 @@ const Arc = ({ data, index, createArc, colors, format, outerRadius }) => {
   const angle = data.startAngle + (data.endAngle - data.startAngle) / 2;
   // console.log(angle);
   const keys = ["Never", "Rarely", "Sometimes", "Often", "Always"];
+  const opacity = useTransform(useScrollYProgress(), [0, 1], [0.2, 1]);
 
   return (
     <g key={index} className="arc">
-      <path className="arc" d={createArc(data)} fill={colors(index)} />
+      <motion.path
+        className="arc"
+        d={createArc(data)}
+        fill={colors(index)}
+        style={{ opacity }}
+      />
       <text
         transform={`translate(${createArc.centroid(data)})`}
         textAnchor="middle"
         alignmentBaseline="middle"
         fill="white"
-        fontSize="10"
+        fontSize="1em"
       >
         {format(data.value)}
       </text>
@@ -162,8 +187,8 @@ const Arc = ({ data, index, createArc, colors, format, outerRadius }) => {
         })`}
         textAnchor="middle"
         alignmentBaseline="middle"
-        fill="green"
-        fontSize="20"
+        fill="rgb(var(--midground))"
+        fontSize="1em"
       >
         {keys[data.index]}
       </text>
