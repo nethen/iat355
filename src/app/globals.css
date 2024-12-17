@@ -3,23 +3,23 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --midground: #717171;
-  --diagram: #ebebeb;
-  --foreground: #171717;
-  --year-1: #F95711;
-  --year-2: #EBBC25;
-  --year-3: #76A93A;
-  --year-4: #5BC1F0;
-  --year-5: #A385F8;
+  --background: 255 255 255;
+  --midground: 113 113 113;
+  --diagram: 235 235 235;
+  --foreground: 23 23 23;
+  --year-1: 249 87 17;
+  --year-2: 235 188 37;
+  --year-3: 118 169 58;
+  --year-4: 91 193 240;
+  --year-5: 163 133 248;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --midground: #737373;
-    --diagram: #1a1a1a;
-    --foreground: #ededed;
+    --background: 10 10 10;
+    --midground: 115 115 115;
+    --diagram: 26 26 26;
+    --foreground: 237 237 237;
   }
 }
 

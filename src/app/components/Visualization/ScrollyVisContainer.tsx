@@ -42,9 +42,9 @@ export const ScrollyVisContainer = ({
           {children}
         </figure>
       </article>
-      <aside className="max-lg:fixed inset-x-0 bottom-0 lg:sticky lg:top-[2.25em] h-full max-h-[6.75em] 2xl:col-span-2 lg:min-h-svh bg-blue-500">
+      {/* <aside className="max-lg:fixed inset-x-0 bottom-0 lg:sticky lg:top-[2.25em] h-full max-h-[6.75em] 2xl:col-span-2 lg:min-h-svh bg-blue-500">
         {captions}
-      </aside>
+      </aside> */}
     </ScrollYProgressContext.Provider>
   );
 };

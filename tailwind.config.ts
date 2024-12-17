@@ -9,10 +9,10 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        midground: "var(--midground)",
-        foreground: "var(--foreground)",
-        diagram: "var(--diagram)",
+        background: "rgb(var(--background) / <alpha-value>)",
+        midground: "rgb(var(--midground) / <alpha-value>)",
+        foreground: "rgb(var(--foreground) / <alpha-value>)",
+        diagram: "rgb(var(--diagram) / <alpha-value>)",
       },
       screens: {
         "2xl": "1440px",

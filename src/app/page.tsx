@@ -41,11 +41,14 @@ export default async function Home() {
     <SmoothScroll>
       <Grid />
       <div className="grid-r font-[family-name:var(--font-geist-sans)]">
-        <header className="col-span-full min-h-[90svh] grid grid-cols-subgrid max-md:grid-rows-[min-content_auto] auto-rows-min gap-[1.125em] max-md:pt-[4.5em] max-md:pb-[2.25em] md:content-center">
-          <h1 className="col-span-full md:col-start-3 md:col-span-4 lg:col-start-3 lg:col-span-5 text-m-lg sm:text-t-lg lg:text-r-lg">
-            A Design Confidence Index
+        <header className="col-span-full min-h-[90svh] grid grid-cols-subgrid max-md:grid-rows-[min-content_auto] auto-rows-min gap-[1.125em] max-md:pt-[4.5em] max-md:pb-[2.25em]">
+          <h1 className="col-span-full md:col-span-4 lg:col-span-6 text-m-lg sm:text-t-lg lg:text-r-lg">
+            An Index{" "}
+            <span className="text-foreground/50 inline-block">
+              How AI affects visual design learning within SIAT.
+            </span>
           </h1>
-          <p className="max-md:mt-auto col-span-full md:col-start-3 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
+          <p className="max-md:mt-auto col-span-full md:col-span-3 lg:col-span-3 md:col-start-1 lg:col-start-1 text-midground">
             Insights on visual design competency and confidence within
             SFU&apos;s School of Interactive Arts and Technology.
           </p>
@@ -94,7 +97,7 @@ export default async function Home() {
               <span className="font-bold">Act I</span>
               <h2 className="text-r-md">People</h2>
             </hgroup>
-            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
+            {/* <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
               We gathered our sample by reaching out to students through
               Discord, Instagram, email, and put up posters around campus. As
               fourth year students, it was easier to get responses from contacts
@@ -108,6 +111,10 @@ export default async function Home() {
               sample was skewed towards fourth and fifth year students making up
               almost half of the responses. Ideally we would have an even split,
               where there would be 1 in 5 students of each year.
+            </p> */}
+            <p className="text-r-sm col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
+              After reaching out to students through Discord, Instagram, email,
+              and put up posters around campus, we collected 77 responses.
             </p>
             <ScrollyVisContainer background={false}>
               <ParticipantsNew data={data} />
@@ -163,30 +170,23 @@ export default async function Home() {
             <VisContainer />
           </section>
 
-          <section
-            className="col-span-full grid grid-cols-subgrid gap-[inherit] pt-[2.25em] pb-[4.5em]"
-          >
+          <section className="col-span-full grid grid-cols-subgrid gap-[inherit] pt-[2.25em] pb-[4.5em]">
             <hgroup className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-center">
-            <h2 className="text-r-md">Student sentiments toward AI</h2>
-            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
-              out of our 76 particpants, 50 use ai with varying frequencies
-              while the remaining 26 do not use AI at all for design related
-              tasks.
-            </p>
+              <h2 className="text-r-md">Student sentiments toward AI</h2>
+              <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
+                out of our 76 particpants, 50 use ai with varying frequencies
+                while the remaining 26 do not use AI at all for design related
+                tasks.
+              </p>
             </hgroup>
 
-            <ScrollyVisContainer background={true}>
-            <AIusage data={data}/>
-            </ScrollyVisContainer>
-
-
-
+            {/* <ScrollyVisContainer background={true}>
+              <AIusage data={data} />
+            </ScrollyVisContainer> */}
           </section>
-          <ScrollyVisContainer background={true}>
-            <AIFreq data={data}/>
-            </ScrollyVisContainer>
-
-
+          {/* <ScrollyVisContainer background={true}>
+            <AIFreq data={data} />
+          </ScrollyVisContainer> */}
         </main>
       </div>
     </SmoothScroll>
