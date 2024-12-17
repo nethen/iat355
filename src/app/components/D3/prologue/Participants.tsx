@@ -1,7 +1,10 @@
 "use client";
 import { motion, useTransform } from "motion/react";
 // import { useEffect, useState } from "react";
-import { useScrollYProgress } from "../../Visualization/ScrollyVisContainer";
+import {
+  useHasCaption,
+  useScrollYProgress,
+} from "../../Visualization/ScrollyVisContainer";
 import { DSVRowArray } from "d3-dsv";
 import { scaleLinear } from "d3-scale";
 import { useEffect } from "react";
@@ -26,6 +29,7 @@ export const Participants = ({
   marginLeft = 20,
 }: D3VisProps) => {
   const scrollYProgress = useScrollYProgress();
+  const hasCaption = useHasCaption();
   const scale = useTransform(scrollYProgress, [0.25, 0.75], [0, 6]);
 
   //   const [extents, setExtents] = useState<number[] | undefined[]>([
@@ -43,20 +47,11 @@ export const Participants = ({
     x.ticks(3);
   }, []);
 
-  //   useEffect(() => {
-  //     console.log(data);
-  //     if (data) {
-  //       const extents = extent(data, (d) => parseInt(d.score.split(" ")[0]));
-  //       console.log(extents);
-  //       setExtents(extents);
-  //     }
-  //   }, [data]);
-
   return (
     <motion.svg
       viewBox={`0 0 ${width} ${height}`}
       className="w-full h-auto"
-      animate={{ background: data ? "white" : "red" }}
+      animate={{ background: data ? (hasCaption ? "white" : "blue") : "red" }}
     >
       <g>
         {y.ticks().map((tickValue) => (

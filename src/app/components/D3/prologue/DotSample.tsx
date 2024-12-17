@@ -5,7 +5,7 @@ import { useScrollYProgress } from "../../Visualization/ScrollyVisContainer";
 import { DSVRowArray } from "d3-dsv";
 import { scaleLinear, scaleSequential } from "d3-scale";
 import { ascending } from "d3-array";
-import { interpolateCustom } from "../../D3/Reusables/interpolateCustom";
+import { interpolateCustom } from "../Reusables/interpolateCustom";
 import {
   useIsClient,
   useMediaQuery,
@@ -24,9 +24,14 @@ type D3VisProps = {
   marginLeft?: number;
   xLength?: number;
   yLength?: number;
+  captions?: {
+    title: string;
+    text: string;
+    stop: number;
+  }[];
 };
 
-export const ParticipantsNew = ({
+export const DotSample = ({
   data,
   width = 640,
   height = 500,
@@ -34,6 +39,7 @@ export const ParticipantsNew = ({
   marginRight = 36,
   // marginBottom = 36,
   marginLeft = 36,
+  captions,
 }: D3VisProps) => {
   //   const [extents, setExtents] = useState<number[] | undefined[]>([
   //     undefined,

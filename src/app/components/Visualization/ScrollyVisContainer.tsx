@@ -12,6 +12,7 @@ type VisContainerProps = {
 };
 
 const ScrollYProgressContext = React.createContext(new MotionValue());
+const HasCaptionContext = React.createContext(false);
 
 export const ScrollyVisContainer = ({
   children,
@@ -30,45 +31,49 @@ export const ScrollyVisContainer = ({
   // const scale = useTransform(scrollYProgress, [0.25, 1], [0, 1]);
 
   return (
-    <ScrollYProgressContext.Provider value={scrollYProgress}>
-      <article
-        ref={ref}
-        className="col-span-full lg:col-span-7 2xl:col-start-2 2xl:col-span-5 relative grid grid-cols-subgrid auto-rows-min md:py-[2.25em] lg:py-[4.5em]"
-        style={{ height: `${height}svh` }}
-      >
-        <div className="col-span-full h-full sticky top-[6.375em] md:top-[2.25em] grid grid-cols-subgrid justify-between gap-y-4">
-          <div className="col-span-full relative h-28 sm:h-32 md:col-span-3 md:col-start-2">
-            {captions?.map((caption, index) => (
-              <div key={index} className="absolute inset-0">
-                <Caption
-                  title={caption.title}
-                  text={caption.text}
-                  stop={caption.stop}
-                  nextStop={captions[index + 1]?.stop || 1}
-                  previousStop={captions[index - 1]?.stop || 0}
-                />
+    <HasCaptionContext.Provider value={captions ? true : false}>
+      <ScrollYProgressContext.Provider value={scrollYProgress}>
+        <article
+          ref={ref}
+          className="col-span-full lg:col-span-7 2xl:col-start-2 2xl:col-span-5 relative grid grid-cols-subgrid auto-rows-min md:py-[2.25em] lg:py-[4.5em]"
+          style={{ height: `${height}svh` }}
+        >
+          <div className="col-span-full h-svh sticky top-0 grid grid-cols-subgrid justify-between gap-y-4">
+            {captions && (
+              <div className="col-span-full relative h-28 sm:h-32 md:col-span-3 md:col-start-2">
+                {captions?.map((caption, index) => (
+                  <div key={index} className="absolute inset-0">
+                    <Caption
+                      title={caption.title}
+                      text={caption.text}
+                      stop={caption.stop}
+                      nextStop={captions[index + 1]?.stop || 1}
+                      previousStop={captions[index - 1]?.stop || 0}
+                    />
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-          <figure
-            className={clsx(
-              "col-span-full max-w-full rounded-lg md:p-8",
-              background && "bg-diagram"
             )}
-          >
-            {children}
-          </figure>
-        </div>
-      </article>
-      {/* <aside className="max-lg:fixed inset-x-0 bottom-0 lg:sticky lg:top-[2.25em] h-full max-h-[6.75em] 2xl:col-span-2 lg:min-h-svh bg-blue-500">
-        {captions?.map((caption, index) => (
-          <div key={index}>
-            <h3 className="text-r-sm">{caption.title}</h3>
-            <p className="text-r-sm">{caption.text}</p>
+            <figure
+              className={clsx(
+                "col-span-full max-w-full rounded-lg md:p-8",
+                background && "bg-diagram"
+              )}
+            >
+              {children}
+            </figure>
           </div>
-        ))}
-      </aside> */}
-    </ScrollYProgressContext.Provider>
+        </article>
+        {/* <aside className="max-lg:fixed inset-x-0 bottom-0 lg:sticky lg:top-[2.25em] h-full max-h-[6.75em] 2xl:col-span-2 lg:min-h-svh bg-blue-500">
+          {captions?.map((caption, index) => (
+            <div key={index}>
+              <h3 className="text-r-sm">{caption.title}</h3>
+              <p className="text-r-sm">{caption.text}</p>
+            </div>
+          ))}
+        </aside> */}
+      </ScrollYProgressContext.Provider>
+    </HasCaptionContext.Provider>
   );
 };
 
@@ -110,4 +115,8 @@ const Caption = ({
 
 export const useScrollYProgress = () => {
   return useContext(ScrollYProgressContext);
+};
+
+export const useHasCaption = () => {
+  return useContext(HasCaptionContext);
 };

@@ -8,7 +8,7 @@ import { Nav } from "./components/Nav/Nav";
 import { Participants } from "./components/D3/prologue/Participants";
 import { csvParse } from "d3";
 import { promises as fs } from "fs";
-import { ParticipantsNew } from "./components/D3/prologue/ParticipantsNew";
+import { DotSample } from "./components/D3/prologue/DotSample";
 import { SmoothScroll } from "./components/SmoothScroll/SmoothScroll";
 import { AIusage } from "./components/D3/prologue/AIusage";
 import { AIFreq } from "./components/D3/prologue/AIFreq";
@@ -138,7 +138,7 @@ export default async function Home() {
                 },
               ]}
             >
-              <ParticipantsNew data={data} />
+              <DotSample data={data} />
             </ScrollyVisContainer>
 
             <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
@@ -158,7 +158,7 @@ export default async function Home() {
                 },
               ]}
             >
-              <ParticipantsNew data={data} />
+              <DotSample data={data} />
             </ScrollyVisContainer>
           </section>
           <section
