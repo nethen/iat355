@@ -42,7 +42,7 @@ export const StackedBarConfidence = ({
     { field: "typography_skills", name: "Typography" },
     { field: "color_theory_skills", name: "Color Theory" },
     { field: "layout_composition_skills", name: "Layout Composition" },
-    { field: "digital_illustration_skills", name: "Digital Illustration" },
+
     { field: "ui_design_skills", name: "UI Design" },
     { field: "ux_design_skills", name: "UX Design" },
     { field: "prototyping_mockup_skills", name: "Prototyping Mockup" },
