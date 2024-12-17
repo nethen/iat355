@@ -53,8 +53,8 @@ export const Participants = ({
     box: "content-box",
     onResize: (entry) => {
       setSize({
-        innerWidth: entry.width ? entry.width - marginLeft - marginRight : 0,
-        innerHeight: entry.height ? entry.height - marginTop - marginBottom : 0,
+        innerWidth: entry.width ? entry.width : 0,
+        innerHeight: entry.height ? entry.height : 0,
       });
       console.log(entry);
     },
@@ -79,7 +79,7 @@ export const Participants = ({
   const getSizeBasedOnFrequency = (d: any) => {
     const key = `${d.score_percent},${d.visual_confidence_score}`;
     const frequency = frequencyMap.get(key) || 1; // Default to 1 if frequency is not found
-    return Math.min(5+ frequency * 5, 20); // Scale size based on frequency (capped at 50)
+    return Math.min(5 + frequency * 5, 20); // Scale size based on frequency (capped at 50)
   };
 
   return (
@@ -96,37 +96,36 @@ export const Participants = ({
           <motion.line
             stroke="blue"
             x1={0}
-            x2={useTransform(scrollYProgress, [0.25, 0.5], [0, innerWidth])}
+            x2={useTransform(scrollYProgress, [0.125, 0.375], [0, innerWidth])}
             y1={y(avgVast)}
             y2={y(avgVast)}
           />
-           <motion.line
-                stroke="red"
-                y1={innerHeight}
-                y2={useTransform(scrollYProgress, [0.25, 0.5], [innerHeight, 0])}
-                x1={x(avgVC)}
-                x2={x(avgVC)}
-              />
-              <text
-                x={innerWidth/2} // Adjust to position the text left of the axis
-                y={innerHeight + 60} // Keep aligned with the tick
-                textAnchor="middle" // Align text to the end of the position
-                // style={{ fontSize: "3rem", fill: "black" }}
-                className="text-[2rem] fill-midground"
-                
-              >
-                Student's confidence score 
-              </text>
-              <text
-                x={-70} // Adjust to position the text left of the axis
-                y={-70} // Keep aligned with the tick
-                textAnchor="center" // Align text to the end of the position
-                // style={{ fontSize: "3rem", fill: "black" }}
-                className="text-[2rem] fill-midground"
-                transform={`translate(0,${innerHeight/2}) rotate(270)`}
-              >
-                Vast Score 
-              </text>
+          <motion.line
+            stroke="red"
+            y1={innerHeight}
+            y2={useTransform(scrollYProgress, [0.125, 0.375], [innerHeight, 0])}
+            x1={x(avgVC)}
+            x2={x(avgVC)}
+          />
+          <text
+            x={innerWidth / 2} // Adjust to position the text left of the axis
+            y={innerHeight + 60} // Keep aligned with the tick
+            textAnchor="middle" // Align text to the end of the position
+            // style={{ fontSize: "3rem", fill: "black" }}
+            className="text-[2rem] fill-midground"
+          >
+            Student's confidence score
+          </text>
+          <text
+            x={-70} // Adjust to position the text left of the axis
+            y={-70} // Keep aligned with the tick
+            textAnchor="center" // Align text to the end of the position
+            // style={{ fontSize: "3rem", fill: "black" }}
+            className="text-[2rem] fill-midground"
+            transform={`translate(0,${innerHeight / 2}) rotate(270)`}
+          >
+            Vast Score
+          </text>
 
           {y.ticks().map((tickValue) => (
             <g transform={`translate(0, ${y(tickValue)})`} key={tickValue}>
@@ -167,7 +166,11 @@ export const Participants = ({
               cy={y(parseFloat(d.score_percent))}
               fill="#1058c4"
               opacity={0.5}
-              r={useTransform(scrollYProgress, [0.25, 0.75], [0, getSizeBasedOnFrequency(d)])}
+              r={useTransform(
+                scrollYProgress,
+                [0.25, 0.5],
+                [0, getSizeBasedOnFrequency(d)]
+              )}
               key={`participant-${i}`}
             />
           ))}

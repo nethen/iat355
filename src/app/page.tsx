@@ -45,12 +45,8 @@ export default async function Home() {
       <div className="grid-r font-[family-name:var(--font-geist-sans)]">
         <header className="col-span-full min-h-[90svh] grid grid-cols-subgrid max-md:grid-rows-[min-content_auto] auto-rows-min gap-[1.125em] max-md:pt-[4.5em] max-md:pb-[2.25em]">
           <h1 className="col-span-full md:col-span-4 lg:col-span-6 text-r-sm sm:text-r-md lg:text-r-lg font-light">
-            How AI affects visual design learning within SIAT.
+            How do SIAT students perceive their visual design learning?
           </h1>
-          <p className="max-md:mt-auto col-span-full md:col-span-3 lg:col-span-3 md:col-start-1 lg:col-start-1 text-midground">
-            Insights on visual design competency and confidence within
-            SFU&apos;s School of Interactive Arts and Technology.
-          </p>
         </header>
         {/* <Nav sectionsInView={isInView} /> */}
         <Nav />
@@ -67,7 +63,7 @@ export default async function Home() {
               perceive their quality of education within SIAT?
             </p>
             <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
-              As an interdisciplinary program, Simon Fraser University&apos;
+              As an interdisciplinary program, Simon Fraser University&apos;s
               (SFU) curriculum within their School of Interactive Arts and
               Technology (SIAT) intends to cover a breadth of topics across
               design, human-computer interaction and media studies.
@@ -78,33 +74,15 @@ export default async function Home() {
               industries. However, this may also lead to students feeling
               uncertain about their expertise and skillset.
             </p>
+            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
+              This is especially true for students who may be interested in
+              pursuing less UX-focused roles. In an effort to better understand
+              this landscape, we set out to survey fellow undergraduate students
+              within SIAT&mdash;particularly looking at foundational visual
+              design skills and confidence.
+            </p>
             <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 mb-[2.25em] text-midground">
-              To explore more specific insights on this topic, we set out to
-              survey fellow undergraduate students within SIAT. However, because
-              of the aforementioned breadth of topics that SIAT provides, we
-              were unsure of how to best approach this question.
-            </p>
-
-            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground text-r-xs md:text-r-sm">
-              We began by framing our study on visual design competency and
-              self-perceived confidence.
-            </p>
-            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
-              To find gaps between the quality of education and how students
-              felt about their prospects, we initially researched a variety of
-              testing instruments.
-            </p>
-            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
-              Because of this, it is uncertain whether or not the integrity of
-              an undergraduate student&apos;s design process may be affected due
-              to reliance on these tools.
-            </p>
-            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
-              To better understand this landscape, we set out to survey fellow
-              undergraduate students within Simon Fraser University&apos;s (SFU)
-              School of Interactive Arts and Technology (SIAT). Data was
-              collected through a questionnaire, focusing on visual design
-              competency and confidence.
+              The following sections outline our findings.
             </p>
           </section>
           <section
@@ -116,25 +94,6 @@ export default async function Home() {
               <span className="font-bold">Part I</span>
               <h2 className="text-r-xs md:text-r-sm">Sample</h2>
             </hgroup>
-            {/* <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
-              We gathered our sample by reaching out to students through
-              Discord, Instagram, email, and put up posters around campus. As
-              fourth year students, it was easier to get responses from contacts
-              in similar years of study and in our immediate circles. We also
-              reached out to first year reps and professors teaching lower
-              division courses, in attempts for asking lower year students to
-              balance the data set.
-            </p>
-            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
-              After the data collection period ended, we recognized that the
-              sample was skewed towards fourth and fifth year students making up
-              almost half of the responses. Ideally we would have an even split,
-              where there would be 1 in 5 students of each year.
-            </p> */}
-            {/* <p className="text-r-sm col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
-              After reaching out to students through Discord, Instagram, email,
-              and put up posters around campus, we collected 77 responses.
-            </p> */}
             <ScrollyVisContainer
               background={false}
               height={800}
@@ -164,12 +123,6 @@ export default async function Home() {
               <DotSample data={data} />
             </ScrollyVisContainer>
 
-            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
-              A noticeable number of participants from the sample did not
-              declare a concentration. This is to be expected though with around
-              22 of the 30 undeclared students being lower year student, while
-              the design concentrations being cleary the most popular.
-            </p>
             <ScrollyVisContainer
               background={false}
               height={400}
@@ -202,9 +155,9 @@ export default async function Home() {
               to cite more higher-level skills (UX design, UI design, etc.)
             </p>
             <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
-              Anecdotally, this is to be expected as SIAT&apos;s upper years,
-              tend to focus on building digital products and artifacts. As a
-              discipline, UI design incorporates visual design skills
+              This is to be expected as SIAT&apos;s upper years tend to focus on
+              building digital products and artifacts. As a discipline, UI
+              design incorporates visual design skills
             </p>
             <VisContainer></VisContainer>
             <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground text-r-xs">
@@ -219,35 +172,96 @@ export default async function Home() {
               and visual identity.
             </p>
             <VisContainer></VisContainer>
-            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
+            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground mb-[2.25em]">
               When students reported lower confidence in more foundational
               graphic skills (typography, color, layout), it could suggest a
               lack of confidence in more expressive contexts like art direction
               and visual identity.
             </p>
+
+            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground text-r-xs">
+              After asking students to rate their confidence, we tried to
+              quantify their visual design competency by looking into several
+              testing instruments.
+            </p>
+            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
+              Designed by German-British psychologist, Hans Eysenck, the Visual
+              Aesthetic Sensity Test (VAST) has now been determined to be a
+              method of testing individual&apos;s ability to measure an
+              image&apos;s adherence to external visual standards.
+            </p>
+            <VisContainer></VisContainer>
+            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
+              To see potential gaps in perceived and actual skill, we asked
+              students to compare 25 images based visual guidelines set by 3
+              examples. The specific questions were taken from a revised version
+              of the VAST by American psychologists Nils Myszkowski and Martin
+              Storme.
+            </p>
           </section>
           <ScrollyVisContainer
             background={false}
-            height={400}
+            height={500}
             captions={[
+              // {
+              //   title: "Sample",
+              //   text: "In an effort to quantify and evaluate students visual design skills, we employed a Visual Aesthetic Sensity test, also known as VAST.",
+              //   stop: 0.1,
+              // },
+              // {
+              //   title: "Sample",
+              //   text: "During the test, Participants view pairs of visual stimuli (like shapes, drawings, or artwork variations), and they must judge which of the two is more aesthetically pleasing based on implicit artistic principles (e.g., balance, proportion).",
+              //   stop: 0.3,
+              // },
               {
-                title: "Sample",
-                text: "In an effort to quantify and evaluate students visual design skills, we employed a Visual Aesthetic Sensity test, also known as VAST.",
-                stop: 0.1,
-              },
-              {
-                title: "Sample",
-                text: "During the test, Participants view pairs of visual stimuli (like shapes, drawings, or artwork variations), and they must judge which of the two is more aesthetically pleasing based on implicit artistic principles (e.g., balance, proportion).",
+                title: "Skew",
+                text: "We compared the VAST-R scores to the students' self-reported confidence scores. Here, larger dots represent higher counts of repeated results.",
                 stop: 0.3,
               },
               {
                 title: "Skew",
-                text: "After analyzing the test results thoroughly we found no obvious correlations between VAST test scores and any other observed areas in the survey. ",
+                text: "After thorough analysis, we found no obvious correlations between VAST-R test scores, as indicated by the scattering of points around mean VAST-R and reported confidences. ",
                 stop: 0.5,
               },
               {
                 title: "Skew",
-                text: "Nevertheless, this sample is still skewed between third and fifth+ year students giving us clearer insight into senior SIAT views on visual design confidence.",
+                text: "In hopes of finding relatable insights, we tried comparing VAST-R scores against other variables.",
+                stop: 0.7,
+              },
+            ]}
+          >
+            {/* <DotSample data={data} /> */}
+            <Participants data={data} />
+          </ScrollyVisContainer>
+
+          {/* VAST-R vs Hours of Study */}
+          <ScrollyVisContainer
+            background={false}
+            height={500}
+            captions={[
+              // {
+              //   title: "Sample",
+              //   text: "In an effort to quantify and evaluate students visual design skills, we employed a Visual Aesthetic Sensity test, also known as VAST.",
+              //   stop: 0.1,
+              // },
+              // {
+              //   title: "Sample",
+              //   text: "During the test, Participants view pairs of visual stimuli (like shapes, drawings, or artwork variations), and they must judge which of the two is more aesthetically pleasing based on implicit artistic principles (e.g., balance, proportion).",
+              //   stop: 0.3,
+              // },
+              {
+                title: "Skew",
+                text: "For instance, we would imagine that students who spend more time studying would have higher VAST-R scores",
+                stop: 0.3,
+              },
+              {
+                title: "Skew",
+                text: "After plotting each student, it could be argued that there is some relationship. However, many higher scores were achieved by students who reported spending less time studying.",
+                stop: 0.5,
+              },
+              {
+                title: "Skew",
+                text: "What we do notice, is that out of the whole sample, the majority tends to only average 1-3 hours of extra visual design study per week.",
                 stop: 0.7,
               },
             ]}
@@ -260,25 +274,23 @@ export default async function Home() {
             className="col-span-full grid grid-cols-subgrid gap-[inherit] pt-[2.25em] pb-[4.5em]"
             // ref={viewRefs[2]}
           >
-            <hgroup className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-center">
-              <span className="font-bold">Act II</span>
-              <h2 className="text-r-md">Program</h2>
+            <hgroup className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 ">
+              <span className="font-bold">Part II</span>
+              <h2 className="text-r-xs md:text-r-sm">Study habits</h2>
             </hgroup>
-            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
-              To understand how much time students dedicate to honing their
-              craft, we asked them how many hours a week they spend practicing
-              outside of classwork. The majority reported spending just 1-3
-              hours a week, with 4-6 hours being the second most common
-              response. Beyond that, the time students commit varied more evenly
-              across the higher ranges. While 1-3 hours might be reasonable
-              given their packed schedules—balancing homework, jobs, and social
-              lives—it&apos;s worth wondering if students wish they had more
-              time to dedicate to their craft. It&apos;s possible that many feel
-              their coursework is enough practice for now, but digging deeper
-              could reveal whether they&apos;re truly satisfied with the time
-              they spend improving their skills.
+            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground text-r-xs md:text-r-sm">
+              Based on how often students are studying
             </p>
-            <ScrollyVisContainer>
+            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground"></p>
+            <ScrollyVisContainer
+              captions={[
+                {
+                  title: "Skew",
+                  text: "We compared the VAST-R scores to the students' self-reported confidence scores. Here, larger dots represent higher counts of repeated results.",
+                  stop: 0.3,
+                },
+              ]}
+            >
               <Participants data={data} />
             </ScrollyVisContainer>
           </section>
@@ -296,12 +308,11 @@ export default async function Home() {
 
           <section className="col-span-full grid grid-cols-subgrid gap-[inherit] pt-[2.25em] pb-[4.5em]">
             <hgroup className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 ">
-              <span className="font-bold">Part III</span>
-              <h2 className="text-r-xs md:text-r-sm">Supplements</h2>
+              <span className="font-bold">Part IV</span>
+              <h2 className="text-r-xs md:text-r-sm">Specific tools</h2>
             </hgroup>
             <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground text-r-xs md:text-r-sm">
-              There is no question that artificial intelligence is changing the
-              way we design.
+              One of the
             </p>
             <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3  text-midground">
               Starting with early 2023 with the growth of ChatGPT, a wide array
@@ -379,7 +390,7 @@ export default async function Home() {
               captions={[
                 {
                   title: "Stacked Bar",
-                  text: "This is a stacked bar chart",
+                  text: "In general, the majority of the 40 design students cited less frequent use of AI tools in their workflow.",
                   stop: 0.125,
                 },
                 {
@@ -391,6 +402,40 @@ export default async function Home() {
             >
               <PieAIUsage data={data} />
             </ScrollyVisContainer>
+          </section>
+          <section
+            id="takeaways"
+            className="col-span-full grid grid-cols-subgrid gap-[inherit] pt-[2.25em] pb-[4.5em]"
+          >
+            <hgroup className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 ">
+              <h2 className="text-r-xs md:text-r-sm">Takeaways</h2>
+            </hgroup>
+            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground text-r-xs md:text-r-sm">
+              This exploration started with one question: how do students
+              perceive their quality of education within SIAT?
+            </p>
+            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
+              As an interdisciplinary program, Simon Fraser University&apos;s
+              (SFU) curriculum within their School of Interactive Arts and
+              Technology (SIAT) intends to cover a breadth of topics across
+              design, human-computer interaction and media studies.
+            </p>
+            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
+              Anecdotally, this variety of topics is intended for students to
+              explore their interests and find their niche within their future
+              industries. However, this may also lead to students feeling
+              uncertain about their expertise and skillset.
+            </p>
+            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
+              This is especially true for students who may be interested in
+              pursuing less UX-focused roles. In an effort to better understand
+              this landscape, we set out to survey fellow undergraduate students
+              within SIAT&mdash;particularly looking at foundational visual
+              design skills and confidence.
+            </p>
+            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 mb-[2.25em] text-midground">
+              The following sections outline our findings.
+            </p>
           </section>
         </main>
       </div>

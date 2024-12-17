@@ -3,6 +3,7 @@ import { motion, useTransform } from "motion/react";
 // import { useEffect, useState } from "react";
 import {
   useHasCaption,
+  useResizeObserverContext,
   useScrollYProgress,
 } from "../../Visualization/ScrollyVisContainer";
 import { DSVRowArray } from "d3-dsv";
@@ -15,7 +16,7 @@ import {
   useResizeObserver,
   useWindowSize,
 } from "usehooks-ts";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   arc,
   format,
@@ -47,22 +48,11 @@ type D3VisProps = {
 
 export const PieAIUsage = ({
   data,
-  width = 640,
-  height = 500,
   // marginTop = 36,
   marginRight = 36,
   // marginBottom = 36,
   marginLeft = 36,
 }: D3VisProps) => {
-  //   const [extents, setExtents] = useState<number[] | undefined[]>([
-  //     undefined,
-  //     undefined,
-  //   ]);
-  const usage = {
-    no: 13,
-    yes: 27,
-  };
-
   const isClient = useIsClient();
   const size = useWindowSize();
   const captions = useHasCaption();
@@ -70,19 +60,11 @@ export const PieAIUsage = ({
   const matchesSM = useMediaQuery("(min-width: 640px)");
   const matches = useMediaQuery("(min-width: 1024px)");
 
-  const containerRef = useRef(null);
-
-  const rWidth = useResizeObserver({
-    ref: containerRef,
-    box: "border-box",
-  }).width;
-
   const arcNew = arc().innerRadius(50).outerRadius(100);
   const filteredData = data?.filter((d) => d.isDesign == "1");
 
-  const filteredGroups = groups(
-    filteredData ?? [],
-    (d) => parseInt(d.frequency_of_ai_tool_use) > 1
+  const filteredGroups = groups(filteredData ?? [], (d) =>
+    parseInt(d.frequency_of_ai_tool_use)
   ).map((d) => {
     return {
       value: d[1].length,
@@ -91,40 +73,54 @@ export const PieAIUsage = ({
   });
 
   console.log(filteredGroups);
+
   const pieNew = pie().value((d) => d.length);
 
-  const DOT_RADIUS = isClient && matches ? 24 : isClient && matchesXS ? 16 : 12;
-  const xLength = matchesSM && isClient ? 11 : 7;
+  const resizeObserver = useResizeObserverContext();
 
-  const updatedSize = useMemo(() => {
-    return {
-      width: isClient ? size.width : width,
-      height: isClient
-        ? matchesSM
-          ? 7 * DOT_RADIUS * 2
-          : 11 * DOT_RADIUS * 2
-        : 11 * DOT_RADIUS * 2,
-    };
-  }, [size, isClient, matches]);
+  const [{ width, height }, setSize] = useState<{
+    width: number | undefined;
+    height: number | undefined;
+  }>({
+    width: 0,
+    height: 0,
+  });
+
+  // The code that checks how big the parent element is
+  const sizeNew = useResizeObserver({
+    ref: resizeObserver || { current: null },
+    box: "content-box",
+    onResize: (entry) => {
+      setSize({
+        width: entry.width,
+        height: entry.height,
+      });
+      console.log(entry);
+    },
+  });
 
   const createPie = pie()
     .value((d) => d.value)
     .sort(null);
-  const createArc = arc().innerRadius(50).outerRadius(100);
+  const createArc = arc()
+    // .innerRadius(Math.min(width ?? 0, height ?? 0) * 0.25)
+    .innerRadius(0)
+    .outerRadius(Math.min(width ?? 0, height ?? 0) * 0.3);
   const colors = scaleOrdinal(schemeCategory10);
   const formatNew = format(".2f");
   const dataArc = createPie(filteredGroups);
+  console.log(dataArc);
 
   return (
     <motion.svg
-      ref={containerRef}
-      height={isClient && size ? updatedSize.height : height}
+      width={isClient && sizeNew ? width : 0}
+      height={isClient && size ? height : 0}
       className="w-full h-auto"
       // animate={{ background: data ? "green" : "red" }}
     >
       <g
-        transform={`translate(${updatedSize.width / 2}, ${
-          updatedSize.height / 2
+        transform={`translate(${width ? width / 2 : 0}, ${
+          height ? height / 2 : 0
         })`}
       >
         {dataArc.map((d, i) => (
@@ -135,6 +131,7 @@ export const PieAIUsage = ({
             createArc={createArc}
             colors={colors}
             format={formatNew}
+            outerRadius={Math.min(width ?? 0, height ?? 0) * 0.4}
           />
         ))}
       </g>
@@ -142,20 +139,35 @@ export const PieAIUsage = ({
   );
 };
 
-const Arc = ({ data, index, createArc, colors, format }) => (
-  <g key={index} className="arc">
-    <path className="arc" d={createArc(data)} fill={colors(index)} />
-    <text
-      transform={`translate(${createArc.centroid(data)})`}
-      textAnchor="middle"
-      alignmentBaseline="middle"
-      fill="white"
-      fontSize="10"
-    >
-      {format(data.value)}
-    </text>
-  </g>
-);
+const Arc = ({ data, index, createArc, colors, format, outerRadius }) => {
+  const angle = data.startAngle + (data.endAngle - data.startAngle) / 2;
+  console.log(angle);
+  return (
+    <g key={index} className="arc">
+      <path className="arc" d={createArc(data)} fill={colors(index)} />
+      <text
+        transform={`translate(${createArc.centroid(data)})`}
+        textAnchor="middle"
+        alignmentBaseline="middle"
+        fill="white"
+        fontSize="10"
+      >
+        {format(data.value)}
+      </text>
+      <text
+        transform={`translate(${Math.sin(angle) * outerRadius}, ${
+          -Math.cos(angle) * outerRadius
+        })`}
+        textAnchor="middle"
+        alignmentBaseline="middle"
+        fill="green"
+        fontSize="20"
+      >
+        {format(data.value)}
+      </text>
+    </g>
+  );
+};
 
 const Circle = ({
   index,
