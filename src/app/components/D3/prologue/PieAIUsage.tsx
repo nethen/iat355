@@ -46,21 +46,9 @@ type D3VisProps = {
   }[];
 };
 
-export const PieAIUsage = ({
-  data,
-  // marginTop = 36,
-  marginRight = 36,
-  // marginBottom = 36,
-  marginLeft = 36,
-}: D3VisProps) => {
-  const isClient = useIsClient();
-  const size = useWindowSize();
+export const PieAIUsage = ({ data }: D3VisProps) => {
   const captions = useHasCaption();
-  const matchesXS = useMediaQuery("(min-width: 480px)");
-  const matchesSM = useMediaQuery("(min-width: 640px)");
-  const matches = useMediaQuery("(min-width: 1024px)");
 
-  const arcNew = arc().innerRadius(50).outerRadius(100);
   const filteredData = data?.filter((d) => parseInt(d.isDesign) == 1);
 
   const filteredGroups = groups(filteredData ?? [], (d) =>
@@ -71,8 +59,6 @@ export const PieAIUsage = ({
       key: d[0],
     };
   });
-
-  const pieNew = pie().value((d) => d.length);
 
   const resizeObserver = useResizeObserverContext();
 
@@ -85,7 +71,7 @@ export const PieAIUsage = ({
   });
 
   // The code that checks how big the parent element is
-  const sizeNew = useResizeObserver({
+  useResizeObserver({
     ref: resizeObserver || { current: null },
     box: "content-box",
     onResize: (entry) => {
@@ -98,7 +84,7 @@ export const PieAIUsage = ({
   });
 
   const createPie = pie()
-    .value((d) => d.value)
+    .value((d: any) => d.value)
     .sort(null);
   const createArc = arc()
     // .innerRadius(Math.min(width ?? 0, height ?? 0) * 0.25)

@@ -35,8 +35,8 @@ export const Participants = ({
 
   const filteredData = data?.filter((row) => row.isDesign === "1"); // Filter by inDesign column
 
-  const avgVast = mean(filteredData, (d) => d.score_percent);
-  const avgVC = mean(filteredData, (d) => d.visual_confidence_score);
+  const avgVast = mean(filteredData ?? [], (d: any) => d.score_percent);
+  const avgVC = mean(filteredData ?? [], (d: any) => d.visual_confidence_score);
 
   const resizeObserver = useResizeObserverContext();
 
@@ -63,9 +63,13 @@ export const Participants = ({
 
   console.log(innerWidth);
 
-  const y = scaleLinear().domain([0, 1]).range([innerHeight, 0]); // Flip the range
+  const y = scaleLinear()
+    .domain([0, 1])
+    .range([innerHeight ?? 0, 0]); // Flip the range
 
-  const x = scaleLinear().domain([0, 35]).range([0, innerWidth]);
+  const x = scaleLinear()
+    .domain([0, 35])
+    .range([0, innerWidth ?? 0]);
 
   // Calculate frequency of (score_percent, visual_confidence_score) pairs
   const frequencyMap = new Map<string, number>();
@@ -78,7 +82,10 @@ export const Participants = ({
   const getSizeBasedOnFrequency = (d: any) => {
     const key = `${d.score_percent},${d.visual_confidence_score}`;
     const frequency = frequencyMap.get(key) || 1; // Default to 1 if frequency is not found
-    const screenScaleFactor = Math.min(innerWidth / 1200, innerHeight / 800); // Example: Scale down for smaller screens
+    const screenScaleFactor = Math.min(
+      innerWidth ?? 0 / 1200,
+      innerHeight ?? 0 / 800
+    ); // Example: Scale down for smaller screens
 
     // Apply the scaling factor to adjust the size
     const scaledSize = Math.min(frequency * 3, 20); // Original size calculation
@@ -105,20 +112,20 @@ export const Participants = ({
             strokeWidth={3}
             x1={0}
             x2={useTransform(scrollYProgress, [0.125, 0.375], [0, innerWidth])}
-            y1={y(avgVast)}
-            y2={y(avgVast)}
+            y1={y(avgVast as any)}
+            y2={y(avgVast as any)}
           />
           <motion.line
             stroke="red"
-            y1={innerHeight }
+            y1={innerHeight}
             y2={useTransform(scrollYProgress, [0.125, 0.375], [innerHeight, 0])}
             strokeWidth={3}
-            x1={x(avgVC)}
-            x2={x(avgVC)}
+            x1={x(avgVC as any)}
+            x2={x(avgVC as any)}
           />
           <text
-            x={innerWidth / 2} // Adjust to position the text left of the axis
-            y={innerHeight + 60} // Keep aligned with the tick
+            x={innerWidth ? innerWidth / 2 : 0} // Adjust to position the text left of the axis
+            y={innerHeight ? innerHeight + 60 : 0} // Keep aligned with the tick
             textAnchor="middle" // Align text to the end of the position
             // style={{ fontSize: "3rem", fill: "black" }}
             className="text-[2rem] fill-midground"
@@ -131,7 +138,9 @@ export const Participants = ({
             textAnchor="center" // Align text to the end of the position
             // style={{ fontSize: "3rem", fill: "black" }}
             className="text-[2rem] fill-midground"
-            transform={`translate(0,${innerHeight / 2}) rotate(270)`}
+            transform={`translate(0,${
+              innerHeight ? innerHeight / 2 : 0
+            }) rotate(270)`}
           >
             Vast Score
           </text>
@@ -172,7 +181,7 @@ export const Participants = ({
               {/* <line stroke="gray" x={0} y1={0} y2={0} /> */}
               <text
                 x={0} // Adjust to position the text left of the axis
-                y={innerHeight + 20} // Keep aligned with the tick
+                y={innerHeight ? innerHeight + 20 : 0} // Keep aligned with the tick
                 textAnchor="end" // Align text to the end of the position
                 className="text-[1rem] fill-midground"
               >
