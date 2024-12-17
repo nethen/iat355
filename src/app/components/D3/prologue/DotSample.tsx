@@ -64,10 +64,6 @@ export const DotSample = ({
   const DOT_RADIUS = isClient && matches ? 24 : isClient && matchesXS ? 16 : 12;
   const xLength = matchesSM && isClient ? 11 : 7;
 
-  useEffect(() => {
-    console.log(rWidth);
-  }, [rWidth]);
-
   const updatedSize = useMemo(() => {
     return {
       width: isClient ? size.width : width,

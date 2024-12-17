@@ -12,6 +12,7 @@ import { DotSample } from "./components/D3/prologue/DotSample";
 import { SmoothScroll } from "./components/SmoothScroll/SmoothScroll";
 import { AIusage } from "./components/D3/prologue/AIusage";
 import { AIFreq } from "./components/D3/prologue/AIFreq";
+import { StackedBarConfidence } from "./components/D3/prologue/StackedBarConfidence";
 // import { StackedBarConfidence } from "./components/D3/prologue/StackedBarConfidence";
 
 export default async function Home() {
@@ -377,10 +378,23 @@ export default async function Home() {
               <h2 className="text-r-md">Program</h2>
             </hgroup>
             <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
-            some copy here
+              some copy here
             </p>
-            <ScrollyVisContainer>
-              {/* <StackedBarConfidence data={data} /> */}
+            <ScrollyVisContainer
+              captions={[
+                {
+                  title: "Stacked Bar",
+                  text: "This is a stacked bar chart",
+                  stop: 0.125,
+                },
+                {
+                  title: "Stacked Bar",
+                  text: "It does magical things",
+                  stop: 0.375,
+                },
+              ]}
+            >
+              <StackedBarConfidence data={data} />
             </ScrollyVisContainer>
           </section>
         </main>
