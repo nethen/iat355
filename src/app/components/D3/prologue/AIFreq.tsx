@@ -38,7 +38,6 @@ export const AIFreq = ({
   marginLeft = 36,
   xLength = 9,
 }: D3VisProps) => {
-
   const categories = new Map<number, string>([
     [1, "never"],
     [2, "rarely"],
@@ -47,20 +46,15 @@ export const AIFreq = ({
     [5, "daily"],
   ]);
 
-  const binneddata = bin().value(d =>(d['frequency_of_ai_tool_use']))
-  console.log(binneddata)
-
-
+  const binneddata = bin().value((d) => d["frequency_of_ai_tool_use"]);
+  console.log(binneddata);
 
   const yScale = scaleBand()
-    .domain(data? data.map((d) => d.frequency_of_ai_tool_use): "9")
-    .range([0, height - 20]).paddingInner(0.2);
+    .domain(data ? data.map((d) => d.frequency_of_ai_tool_use) : "9")
+    .range([0, height - 20])
+    .paddingInner(0.2);
 
-
-  const xScale = scaleLinear()
-    .domain([0, 30])
-    .range([0, width]);
-
+  const xScale = scaleLinear().domain([0, 30]).range([0, width]);
 
   //   const [extents, setExtents] = useState<number[] | undefined[]>([
   //     undefined,
@@ -79,18 +73,20 @@ export const AIFreq = ({
   // }).width;
 
   return (
-    <svg width={width + 400} height={height +20}>
+    <svg width={width + 400} height={height + 20}>
       <g transform={`translate(${300}, ${0})`}>
         {xScale.ticks().map((tickValue) => (
-          <g transform={`translate(${xScale(tickValue)},0)`}>
-
-            <text style={{ textAnchor: "middle" }} fill="white" y={height +12}>
+          <g
+            key={`freq--${tickValue}`}
+            transform={`translate(${xScale(tickValue)},0)`}
+          >
+            <text style={{ textAnchor: "middle" }} fill="white" y={height + 12}>
               {tickValue}
             </text>
 
             <line
               y1={0}
-              y2={height-20}
+              y2={height - 20}
               fill="white"
               stroke="white"
               opacity={0.1}
@@ -98,17 +94,22 @@ export const AIFreq = ({
           </g>
         ))}
         {yScale.domain().map((tickValue, index) => (
-          <g key={index} transform={`translate(0, ${(yScale(tickValue) ?? 0) + yScale.bandwidth()/2 })`}>
-            <text  style={{ textAnchor: "end" }} fill="white" opacity={0.8} dy={".3em"} x={-12} >
-            {categories.get(parseInt(tickValue)) ?? "Unknown"}
-            </text>
-            <line
-              y1={0}
-              y2={height}
+          <g
+            key={index}
+            transform={`translate(0, ${
+              (yScale(tickValue) ?? 0) + yScale.bandwidth() / 2
+            })`}
+          >
+            <text
+              style={{ textAnchor: "end" }}
               fill="white"
-
-              opacity={0.2}
-            />
+              opacity={0.8}
+              dy={".3em"}
+              x={-12}
+            >
+              {categories.get(parseInt(tickValue)) ?? "Unknown"}
+            </text>
+            <line y1={0} y2={height} fill="white" opacity={0.2} />
           </g>
         ))}
 
