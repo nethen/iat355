@@ -1,7 +1,10 @@
 "use client";
 import { motion, useTransform } from "motion/react";
 // import { useEffect, useState } from "react";
-import { useScrollYProgress } from "../../Visualization/ScrollyVisContainer";
+import {
+  useResizeObserverContext,
+  useScrollYProgress,
+} from "../../Visualization/ScrollyVisContainer";
 import { DSVRowArray } from "d3-dsv";
 import { scaleBand, scaleLinear, scaleSequential } from "d3-scale";
 import { ascending, filter, flatRollup, max, rollup } from "d3-array";
@@ -15,7 +18,9 @@ import {
   scaleOrdinal,
   stackOrderNone,
 } from "d3";
-import { useWindowSize } from "usehooks-ts";
+import { useResizeObserver, useWindowSize } from "usehooks-ts";
+import { useState } from "react";
+import colors from "tailwindcss/colors";
 
 type D3VisProps = {
   data: DSVRowArray<string>;
@@ -31,8 +36,6 @@ type D3VisProps = {
 
 export const StackedBarConfidence = ({
   data,
-  width = 640,
-  height = 500,
   // marginTop = 36,
   marginRight = 36,
   // marginBottom = 36,
@@ -40,6 +43,31 @@ export const StackedBarConfidence = ({
   xLength = 9,
 }: D3VisProps) => {
   const size = useWindowSize();
+  const resizeObserver = useResizeObserverContext();
+  const red = colors.red[500];
+  const blue = colors.blue[500];
+  const gray = colors.gray[100];
+
+  const [{ width, height }, setSize] = useState<{
+    width: number | undefined;
+    height: number | undefined;
+  }>({
+    width: 0,
+    height: 0,
+  });
+
+  // The code that checks how big the parent element is
+  const sizeNew = useResizeObserver({
+    ref: resizeObserver || { current: null },
+    box: "content-box",
+    onResize: (entry) => {
+      setSize({
+        width: entry.width,
+        height: entry.height,
+      });
+      console.log(entry);
+    },
+  });
 
   const skills_columns = [
     { field: "typography_skills", name: "Typography" },
@@ -97,30 +125,58 @@ export const StackedBarConfidence = ({
       confident: counts["Confident"],
     });
   });
-  console.log(result);
 
   const keys = ["unconfident", "neutral", "confident"];
   const newStack = stack().keys(keys).order(stackOrderNone);
 
-  const series = newStack(result);
-
-  console.log(series);
+  const series = newStack(result as Iterable<{ [key: string]: number }>);
 
   const yScale = scaleBand()
     .domain(result.map((d) => d.skill_name))
-    .range([0, height - 20])
+    .range([0, height ?? 0])
     .paddingInner(0.2);
 
   const xScale = scaleLinear()
     .domain([0, filteredData.length])
-    .range([0, width]);
+    .range([Math.max(0.1 * (width ?? 0), 160), width ?? 0]);
 
   const colorScale = scaleOrdinal()
     .domain(["unconfident", "neutral", "confident"])
-    .range(["#b949ff", "#000000", "#0000ff"]);
+    .range([red, gray, blue]);
 
   return (
     <svg className="w-full h-full">
+      <g>
+        {xScale.ticks().map((tickValue) => (
+          <g key={tickValue} transform={`translate(0,0)`}>
+            <text style={{ textAnchor: "middle" }} fill="white" y={height ?? 0}>
+              {tickValue}
+            </text>
+
+            <line
+              y1={0}
+              y2={height ?? 0}
+              fill="white"
+              stroke="white"
+              opacity={0.1}
+            />
+          </g>
+        ))}
+        {yScale.domain().map((tickValue, index) => (
+          <g key={index} transform={`translate(0, ${yScale(tickValue) ?? 0})`}>
+            <text
+              style={{ textAnchor: "end" }}
+              fill="white"
+              opacity={0.8}
+              dy={".3em"}
+              x={-12}
+            >
+              {tickValue}
+            </text>
+            <line y1={0} y2={height} fill="white" opacity={0.2} />
+          </g>
+        ))}
+      </g>
       {series.map((Data) =>
         Data.map((d, i) => (
           <rect

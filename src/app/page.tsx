@@ -12,7 +12,7 @@ import { DotSample } from "./components/D3/prologue/DotSample";
 import { SmoothScroll } from "./components/SmoothScroll/SmoothScroll";
 import { AIusage } from "./components/D3/prologue/AIusage";
 import { AIFreq } from "./components/D3/prologue/AIFreq";
-// import { StackedBarConfidence } from "./components/D3/prologue/StackedBarConfidence";
+import { StackedBarConfidence } from "./components/D3/prologue/StackedBarConfidence";
 
 export default async function Home() {
   // const viewRefs = Array.from({ length: 4 }, () => createRef<HTMLDivElement>());
@@ -226,40 +226,40 @@ export default async function Home() {
             </p>
           </section>
           <ScrollyVisContainer
-              background={false}
-              height={400}
-              captions={[
-                {
-                  title: "Sample",
-                  text: "In an effort to quantify and evaluate students visual design skills, we employed a Visual Aesthetic Sensity test, also known as VAST.  During the test, Participants view pairs of visual stimuli (like shapes, drawings, or artwork variations), and they must judge which of the two is more aesthetically pleasing based on implicit artistic principles (e.g., balance, proportion).",
-                  stop: 0.25,
-                },
-                {
-                  title: "Sample",
-                  text: (
-                    <>
-                     After analyzing the test results thoroughly we found no obvious correlations between VAST test scores and any other observed areas in the survey. 
-                
-                    </>
-                  ),
-                  stop: 0.5,
-                },
-                {
-                  title: "Skew",
-                  text: "While concentrations are normally declared in third year, some second year students are certain that they will pursue a design concentration.",
-                  stop: 0.5,
-                },
-                {
-                  title: "Skew",
-                  text: "Nevertheless, this sample is still skewed between third and fifth+ year students giving us clearer insight into senior SIAT views on visual design confidence.",
-                  stop: 0.7,
-                },
-              ]}
-              
-            >
-              {/* <DotSample data={data} /> */}
-              <Participants data={data} />
-            </ScrollyVisContainer>
+            background={false}
+            height={400}
+            captions={[
+              {
+                title: "Sample",
+                text: "In an effort to quantify and evaluate students visual design skills, we employed a Visual Aesthetic Sensity test, also known as VAST.  During the test, Participants view pairs of visual stimuli (like shapes, drawings, or artwork variations), and they must judge which of the two is more aesthetically pleasing based on implicit artistic principles (e.g., balance, proportion).",
+                stop: 0.25,
+              },
+              {
+                title: "Sample",
+                text: (
+                  <>
+                    After analyzing the test results thoroughly we found no
+                    obvious correlations between VAST test scores and any other
+                    observed areas in the survey.
+                  </>
+                ),
+                stop: 0.5,
+              },
+              {
+                title: "Skew",
+                text: "While concentrations are normally declared in third year, some second year students are certain that they will pursue a design concentration.",
+                stop: 0.5,
+              },
+              {
+                title: "Skew",
+                text: "Nevertheless, this sample is still skewed between third and fifth+ year students giving us clearer insight into senior SIAT views on visual design confidence.",
+                stop: 0.7,
+              },
+            ]}
+          >
+            {/* <DotSample data={data} /> */}
+            <Participants data={data} />
+          </ScrollyVisContainer>
           <section
             id="act2"
             className="col-span-full grid grid-cols-subgrid gap-[inherit] pt-[2.25em] pb-[4.5em]"
@@ -377,10 +377,23 @@ export default async function Home() {
               <h2 className="text-r-md">Program</h2>
             </hgroup>
             <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
-            some copy here
+              some copy here
             </p>
-            <ScrollyVisContainer>
-              {/* <StackedBarConfidence data={data} /> */}
+            <ScrollyVisContainer
+              captions={[
+                {
+                  title: "Stacked Bar",
+                  text: "This is a stacked bar chart",
+                  stop: 0.125,
+                },
+                {
+                  title: "Stacked Bar",
+                  text: "It does magical things",
+                  stop: 0.375,
+                },
+              ]}
+            >
+              <StackedBarConfidence data={data} />
             </ScrollyVisContainer>
           </section>
         </main>
