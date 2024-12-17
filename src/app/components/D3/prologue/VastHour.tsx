@@ -24,10 +24,10 @@ type D3VisProps = {
 
 export const VastHour = ({
   data,
-  marginTop = 100,
-  marginBottom = 100,
-  marginRight = 100,
-  marginLeft = 100,
+  marginTop = 10,
+  marginBottom = 50,
+  marginRight = 10,
+  marginLeft = 50,
 }: D3VisProps) => {
   const scrollYProgress = useScrollYProgress();
   const hasCaption = useHasCaption();
@@ -86,10 +86,14 @@ export const VastHour = ({
   });
 
   // Function to calculate size based on frequency
-  const getSizeBasedOnFrequency = (d: any, i : number) => {
+  const getSizeBasedOnFrequency = (d: any, i: number) => {
     const key = `${d.score_percent},${d.hours_per_week_visual_design}`;
     const frequency = frequencyMap.get(key) || 1; // Default to 1 if frequency is not found
-    return Math.min(10 + frequency * 5, 20); // Scale size based on frequency (capped at 50)
+    const screenScaleFactor = Math.min(innerWidth / 1200, innerHeight / 800); // Example: Scale down for smaller screens
+
+    // Apply the scaling factor to adjust the size
+    const scaledSize = Math.min(frequency * 3, 20); // Original size calculation
+    return Math.min(5 + scaledSize * screenScaleFactor, 40); // Scale the size based on screen size, capped at 50
   };
 
   return (
@@ -107,7 +111,6 @@ export const VastHour = ({
     >
       <g transform={`translate(${marginLeft},${marginTop})`}>
         <g>
-
           <text
             x={innerWidth / 2} // Adjust to position the text left of the axis
             y={innerHeight + 60} // Keep aligned with the tick
@@ -130,7 +133,14 @@ export const VastHour = ({
 
           {y.ticks().map((tickValue) => (
             <g transform={`translate(0, ${y(tickValue)})`} key={tickValue}>
-              <line stroke="gray" x1={0} x2={innerWidth} y1={0} y2={0} className="opacity-50" />
+              <line
+                stroke="gray"
+                x1={0}
+                x2={innerWidth}
+                y1={0}
+                y2={0}
+                className="opacity-50"
+              />
               <text
                 x={-5} // Adjust to position the text left of the axis
                 y={0} // Keep aligned with the tick
@@ -146,7 +156,14 @@ export const VastHour = ({
         <g>
           {x.ticks(5).map((tickValue, index) => (
             <g transform={`translate(${x(tickValue)},0)`} key={tickValue}>
-              <line stroke="gray" x1={0} x2={0} y1={0} y2={innerHeight} className="opacity-50" />
+              <line
+                stroke="gray"
+                x1={0}
+                x2={0}
+                y1={0}
+                y2={innerHeight}
+                className="opacity-50"
+              />
               {/* <line stroke="gray" x={0} y1={0} y2={0} /> */}
               <text
                 x={0} // Adjust to position the text left of the axis
@@ -154,7 +171,7 @@ export const VastHour = ({
                 textAnchor="middle" // Align text to the end of the position
                 className="text-[1rem] fill-midground"
               >
-                {hourNames[index ]}
+                {hourNames[index]}
               </text>
             </g>
           ))}
@@ -163,14 +180,14 @@ export const VastHour = ({
         {filteredData &&
           filteredData.map((d, i) => (
             <motion.circle
-              cx={x(parseFloat(d.hours_per_week_visual_design)+1)}
+              cx={x(parseFloat(d.hours_per_week_visual_design) + 1)}
               cy={y(parseFloat(d.score_percent))}
               fill="#1058c4"
               opacity={0.5}
               r={useTransform(
                 scrollYProgress,
                 [0.25, 0.75],
-                [0, getSizeBasedOnFrequency(d,i)]
+                [0, getSizeBasedOnFrequency(d, i)]
               )}
               key={`participant-${i}`}
             />

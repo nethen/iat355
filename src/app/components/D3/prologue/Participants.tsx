@@ -24,10 +24,10 @@ type D3VisProps = {
 
 export const Participants = ({
   data,
-  marginTop = 100,
-  marginBottom = 100,
-  marginRight = 100,
-  marginLeft = 100,
+  marginTop = 10,
+  marginBottom = 10,
+  marginRight = 10,
+  marginLeft = 10,
 }: D3VisProps) => {
   const scrollYProgress = useScrollYProgress();
   const hasCaption = useHasCaption();
@@ -78,7 +78,11 @@ export const Participants = ({
   const getSizeBasedOnFrequency = (d: any) => {
     const key = `${d.score_percent},${d.visual_confidence_score}`;
     const frequency = frequencyMap.get(key) || 1; // Default to 1 if frequency is not found
-    return Math.min(5 + frequency * 5, 20); // Scale size based on frequency (capped at 50)
+    const screenScaleFactor = Math.min(innerWidth / 1200, innerHeight / 800); // Example: Scale down for smaller screens
+
+    // Apply the scaling factor to adjust the size
+    const scaledSize = Math.min(frequency * 3, 20); // Original size calculation
+    return Math.min(5 + scaledSize * screenScaleFactor, 40); // Scale the size based on screen size, capped at 50
   };
 
   return (
@@ -184,7 +188,7 @@ export const Participants = ({
               cx={x(parseFloat(d.visual_confidence_score))}
               cy={y(parseFloat(d.score_percent))}
               fill="#1058c4"
-              opacity={0.5}
+              opacity={0.75}
               r={useTransform(
                 scrollYProgress,
                 [0.25, 0.5],
