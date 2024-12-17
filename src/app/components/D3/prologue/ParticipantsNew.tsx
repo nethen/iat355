@@ -41,6 +41,7 @@ export const ParticipantsNew = ({
   //   ]);
   const isClient = useIsClient();
   const size = useWindowSize();
+  const matchesXS = useMediaQuery("(min-width: 480px)");
   const matchesSM = useMediaQuery("(min-width: 640px)");
   const matches = useMediaQuery("(min-width: 1024px)");
 
@@ -51,8 +52,8 @@ export const ParticipantsNew = ({
     box: "border-box",
   }).width;
 
-  const DOT_RADIUS = matches && isClient ? 24 : 16;
-  const xLength = matchesSM ? 11 : 7;
+  const DOT_RADIUS = isClient && matches ? 24 : isClient && matchesXS ? 16 : 12;
+  const xLength = matchesSM && isClient ? 11 : 7;
 
   useEffect(() => {
     console.log(rWidth);
