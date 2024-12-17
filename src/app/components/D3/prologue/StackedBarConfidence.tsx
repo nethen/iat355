@@ -15,6 +15,7 @@ import {
   scaleOrdinal,
   stackOrderNone,
 } from "d3";
+import { useWindowSize } from "usehooks-ts";
 
 type D3VisProps = {
   data: DSVRowArray<string>;
@@ -38,6 +39,8 @@ export const StackedBarConfidence = ({
   marginLeft = 36,
   xLength = 9,
 }: D3VisProps) => {
+  const size = useWindowSize();
+
   const skills_columns = [
     { field: "typography_skills", name: "Typography" },
     { field: "color_theory_skills", name: "Color Theory" },
@@ -117,7 +120,7 @@ export const StackedBarConfidence = ({
     .range(["#b949ff", "#000000", "#0000ff"]);
 
   return (
-    <svg width={width + 400} height={height + 20}>
+    <svg className="w-full h-full">
       {series.map((Data) =>
         Data.map((d, i) => (
           <rect
