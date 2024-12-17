@@ -40,27 +40,13 @@ export const ScrollyVisContainer = ({
           <div className="col-span-full relative h-28 sm:h-32 md:col-span-3 md:col-start-2">
             {captions?.map((caption, index) => (
               <div key={index} className="absolute inset-0">
-                <motion.p
-                  className="text-r-micro xs:text-r-base sm:text-r-xs"
-                  style={{
-                    opacity: useTransform(
-                      scrollYProgress,
-                      // [
-                      //   captions[index - 1]?.stop || 0,
-                      //   caption.stop,
-                      //   caption.stop + 0.075,
-                      // ],
-                      [
-                        caption.stop,
-                        caption.stop + 0.075,
-                        captions[index + 1]?.stop || 1,
-                      ],
-                      [0, 1, 0]
-                    ),
-                  }}
-                >
-                  {caption.text}
-                </motion.p>
+                <Caption
+                  title={caption.title}
+                  text={caption.text}
+                  stop={caption.stop}
+                  nextStop={captions[index + 1]?.stop || 1}
+                  previousStop={captions[index - 1]?.stop || 0}
+                />
               </div>
             ))}
           </div>
@@ -83,6 +69,42 @@ export const ScrollyVisContainer = ({
         ))}
       </aside> */}
     </ScrollYProgressContext.Provider>
+  );
+};
+
+const Caption = ({
+  title,
+  text,
+  previousStop,
+  stop,
+  nextStop,
+}: {
+  title: string;
+  text: string;
+  previousStop: number;
+  stop: number;
+  nextStop: number;
+}) => {
+  const scrollYProgress = useScrollYProgress();
+  const opacity = useTransform(
+    scrollYProgress,
+    // [
+    //   captions[index - 1]?.stop || 0,
+    //   caption.stop,
+    //   caption.stop + 0.075,
+    // ],
+    [stop, stop + 0.075, nextStop],
+    [previousStop == 0 ? 1 : 0, 1, nextStop == 1 ? 1 : 0]
+  );
+  return (
+    <motion.p
+      className="text-r-micro xs:text-r-base sm:text-r-xs"
+      style={{
+        opacity,
+      }}
+    >
+      {text}
+    </motion.p>
   );
 };
 

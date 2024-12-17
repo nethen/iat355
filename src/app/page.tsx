@@ -60,11 +60,11 @@ export default async function Home() {
             <hgroup className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 ">
               <h2 className="text-r-xs md:text-r-sm">Prologue</h2>
             </hgroup>
-            <p className="col-span-full md:col-start-2 md:col-span-3 2xl:col-start-3 2xl:col-span-3 text-midground text-r-xs md:text-r-sm">
+            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground text-r-xs md:text-r-sm">
               There is no question that artificial intelligence is changing the
               way we design.
             </p>
-            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
+            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3  text-midground">
               When considering the design schools around the Lower Mainland,
               SIAT is a rare breed. With a jack of all trades mindset, students
               are exposed to a variety of disciplines in their first and second
@@ -119,17 +119,22 @@ export default async function Home() {
             </p> */}
             <ScrollyVisContainer
               background={false}
-              height={300}
+              height={400}
               captions={[
                 {
-                  title: "Participants",
+                  title: "Sample",
                   text: "After reaching out to students through Discord, Instagram, email, and put up posters around campus, we collected 77 responses.",
                   stop: 0.25,
                 },
                 {
-                  title: "Participants",
+                  title: "Filter",
                   text: "Of the 77 responses, we focus on 40 students who have declared a concentration which heavily involves visual design.",
-                  stop: 0.6,
+                  stop: 0.4,
+                },
+                {
+                  title: "Skew",
+                  text: "It should be noted that the sample is heavily skewed towards fourth and fifth year students, making up almost half of the responses.",
+                  stop: 0.7,
                 },
               ]}
             >
@@ -142,10 +147,19 @@ export default async function Home() {
               22 of the 30 undeclared students being lower year student, while
               the design concentrations being cleary the most popular.
             </p>
-            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
-              Clearly a heavy bias in our data set as our means to reach out to
-              students was through the lens of us as visual design students
-            </p>
+            <ScrollyVisContainer
+              background={false}
+              height={400}
+              captions={[
+                {
+                  title: "Sample",
+                  text: "From the 40 design students, we asked them to rate their confidence in their visual design skills on a 5 point Likert scale.",
+                  stop: 0.25,
+                },
+              ]}
+            >
+              <ParticipantsNew data={data} />
+            </ScrollyVisContainer>
           </section>
           <section
             id="act2"
