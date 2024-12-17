@@ -52,7 +52,7 @@ export const ParticipantsNew = ({
     box: "border-box",
   }).width;
 
-  const DOT_RADIUS = isClient && matches ? 24 : matchesXS ? 16 : 12;
+  const DOT_RADIUS = isClient && matches ? 24 : isClient && matchesXS ? 16 : 12;
   const xLength = matchesSM && isClient ? 11 : 7;
 
   useEffect(() => {
