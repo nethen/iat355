@@ -143,7 +143,7 @@ export const StackedBarConfidence = ({
 
   const colorScale = scaleOrdinal()
     .domain(["unconfident", "neutral", "confident"])
-    .range([red, gray, blue]);
+    .range([red, "rgb(var(--midground) / 0.2)", blue]);
   // console.log(yScale.ticks());
 
   return (
