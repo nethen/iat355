@@ -158,7 +158,7 @@ export default async function Home() {
                 },
               ]}
             >
-              <DotSample data={data} />
+              {/* <DotSample data={data} /> */}
             </ScrollyVisContainer>
           </section>
           <section

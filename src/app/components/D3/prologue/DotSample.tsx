@@ -1,7 +1,10 @@
 "use client";
 import { motion, useTransform } from "motion/react";
 // import { useEffect, useState } from "react";
-import { useScrollYProgress } from "../../Visualization/ScrollyVisContainer";
+import {
+  useHasCaption,
+  useScrollYProgress,
+} from "../../Visualization/ScrollyVisContainer";
 import { DSVRowArray } from "d3-dsv";
 import { scaleLinear, scaleSequential } from "d3-scale";
 import { ascending } from "d3-array";
@@ -39,7 +42,6 @@ export const DotSample = ({
   marginRight = 36,
   // marginBottom = 36,
   marginLeft = 36,
-  captions,
 }: D3VisProps) => {
   //   const [extents, setExtents] = useState<number[] | undefined[]>([
   //     undefined,
@@ -47,6 +49,7 @@ export const DotSample = ({
   //   ]);
   const isClient = useIsClient();
   const size = useWindowSize();
+  const captions = useHasCaption();
   const matchesXS = useMediaQuery("(min-width: 480px)");
   const matchesSM = useMediaQuery("(min-width: 640px)");
   const matches = useMediaQuery("(min-width: 1024px)");
@@ -126,13 +129,20 @@ export const DotSample = ({
                 index={i}
                 maxIndices={data.length}
                 radius={DOT_RADIUS}
-                dim={d.concentrations.includes("not declared") ? 0.1 : 1}
+                conditions={[
+                  d.isDesign == "1" ? 1 : 0.1,
+                  d.isDesign == "1"
+                    ? parseInt(d.year_of_study) < 3
+                      ? 2
+                      : 1
+                    : 0,
+                ]}
                 // opacity={opacity}
                 key={`participant-${i}`}
               />
             ))}
       </g>
-      <g>
+      {/* <g>
         {[1, 2, 3, 4, 5].map((d, i) => (
           <text
             x={
@@ -150,7 +160,7 @@ export const DotSample = ({
             dtst
           </text>
         ))}
-      </g>
+      </g> */}
     </motion.svg>
   );
 };
@@ -162,7 +172,7 @@ const Circle = ({
   y,
   fill,
   radius,
-  dim,
+  conditions,
 }: {
   index: number;
   maxIndices: number;
@@ -170,16 +180,42 @@ const Circle = ({
   y: number;
   fill: string;
   radius: number;
-  dim: number;
+  conditions: number[];
 }) => {
+  const captions = useHasCaption();
+
+  const stopDependentOpacityCurve = () => {
+    if (captions) {
+      return [0, captions[0].stop, captions[1].stop, captions[1].stop + 0.075];
+    }
+    return [
+      0.1 + (0.1 * index) / maxIndices,
+      0.25 + (0.25 * index) / maxIndices,
+      0.6,
+      0.8,
+    ];
+  };
+
+  const opacityCurve = [0, 1, conditions[0], conditions[1] ? 1 : 0.1];
+  const fillCurve = [
+    fill,
+    conditions[1] ? (conditions[1] == 2 ? "#ff3333" : "#888888") : "#888888",
+  ];
+
   const scrollYProgress = useScrollYProgress();
   const opacity = useTransform(
     scrollYProgress,
-    [0.1 + (0.1 * index) / maxIndices, 0.25 + (0.25 * index) / maxIndices, 0.6],
-    [0, 1, dim]
+    stopDependentOpacityCurve(),
+    opacityCurve
+  );
+
+  const newFill = useTransform(
+    scrollYProgress,
+    captions ? [captions[1].stop + 0.1, captions[2].stop] : [0.75, 1],
+    fillCurve
   );
 
   return (
-    <motion.circle cx={x} cy={y} fill={fill} r={radius} opacity={opacity} />
+    <motion.circle cx={x} cy={y} fill={newFill} r={radius} opacity={opacity} />
   );
 };
