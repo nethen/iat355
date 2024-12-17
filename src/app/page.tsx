@@ -61,59 +61,36 @@ export default async function Home() {
               <h2 className="text-r-xs md:text-r-sm">Prologue</h2>
             </hgroup>
             <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground text-r-xs md:text-r-sm">
-              There is no question that artificial intelligence is changing the
-              way we design.
+              This exploration started with one question: how do students
+              perceive their quality of education within SIAT?
             </p>
-            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3  text-midground">
-              Starting with early 2023 with the growth of ChatGPT, a wide array
-              of generative AI tools have been gaining traction towards future
-              optimizations to digital design pipelines. Look no further than{" "}
-              <a
-                href="https://openai.com/sora"
-                target="_blank"
-                className="text-blue-500"
-              >
-                OpenAI&apos;s own Sora
-              </a>
-              &mdash;an upcoming text-to-video software with the ability to edit
-              and create entire sequences from a single prompt.
+            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
+              As an interdisciplinary program, Simon Fraser University&apos;
+              (SFU) curriculum within their School of Interactive Arts and
+              Technology (SIAT) intends to cover a breadth of topics across
+              design, human-computer interaction and media studies.
+            </p>
+            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
+              Anecdotally, this variety of topics is intended for students to
+              explore their interests and find their niche within their future
+              industries. However, this may also lead to students feeling
+              uncertain about their expertise and skillset.
+            </p>
+            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 mb-[2.25em] text-midground">
+              To explore more specific insights on this topic, we set out to
+              survey fellow undergraduate students within SIAT. However, because
+              of the aforementioned breadth of topics that SIAT provides, we
+              were unsure of how to best approach this question.
             </p>
 
-            <VisContainer></VisContainer>
-            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
-              Another tangible example of generative AI in the industry is
-              illustrated by the web development for rising health startup{" "}
-              <a
-                href="https://superpower.com/"
-                target="_blank"
-                className="text-blue-500"
-              >
-                Superpower
-              </a>
-              , designed by Canadian studio{" "}
-              <a
-                href="https://daybreak.studio"
-                target="_blank"
-                className="text-blue-500"
-              >
-                Daybreak
-              </a>{" "}
-              with the help of Midjourney to storyboard a stunning series of
-              motion design assets.
-            </p>
-            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground mb-[2.25em]">
-              Even Figma having disrupted the design tool market with real-time
-              collaboration, has implemented their own suite of generative AI
-              features for brainstorming, summarization and copywriting.
-            </p>
             <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground text-r-xs md:text-r-sm">
-              Amidst all of this change, it is also important to recognize the
-              rapid adoption of these tools within design academia.
+              We began by framing our study on visual design competency and
+              self-perceived confidence.
             </p>
             <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
-              Anecdotally, the number of students using generative AI within
-              their coursework has also grown as these technologies become more
-              accessible.
+              To find gaps between the quality of education and how students
+              felt about their prospects, we initially researched a variety of
+              testing instruments.
             </p>
             <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
               Because of this, it is uncertain whether or not the integrity of
@@ -218,10 +195,28 @@ export default async function Home() {
               {/* <DotSample data={data} /> */}
             </ScrollyVisContainer>
             <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground text-r-xs">
-              Anecdotally, this is to be expected&mdash;in SIAT&apos;s upper
-              years, the focus tends to be on building digital products and
-              artifacts.
+              When students claimed to be{" "}
+              <span className="text-blue-500">more confident</span>, they tended
+              to cite more higher-level skills (UX design, UI design, etc.)
             </p>
+            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
+              Anecdotally, this is to be expected as SIAT&apos;s upper years,
+              tend to focus on building digital products and artifacts. As a
+              discipline, UI design incorporates visual design skills
+            </p>
+            <VisContainer></VisContainer>
+            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground text-r-xs">
+              When students claimed to be{" "}
+              <span className="text-red-500">less confident</span>, less
+              confident
+            </p>
+            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
+              When students reported lower confidence in more foundational
+              graphic skills (typography, color, layout), it could suggest a
+              lack of confidence in more expressive contexts like art direction
+              and visual identity.
+            </p>
+            <VisContainer></VisContainer>
             <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
               When students reported lower confidence in more foundational
               graphic skills (typography, color, layout), it could suggest a
@@ -269,6 +264,57 @@ export default async function Home() {
           </section>
 
           <section className="col-span-full grid grid-cols-subgrid gap-[inherit] pt-[2.25em] pb-[4.5em]">
+            <hgroup className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 ">
+              <span className="font-bold">Part III</span>
+              <h2 className="text-r-xs md:text-r-sm">Supplements</h2>
+            </hgroup>
+            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground text-r-xs md:text-r-sm">
+              There is no question that artificial intelligence is changing the
+              way we design.
+            </p>
+            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3  text-midground">
+              Starting with early 2023 with the growth of ChatGPT, a wide array
+              of generative AI tools have been gaining traction towards future
+              optimizations to digital design pipelines. Look no further than{" "}
+              <a
+                href="https://openai.com/sora"
+                target="_blank"
+                className="text-blue-500"
+              >
+                OpenAI&apos;s own Sora
+              </a>
+              &mdash;an upcoming text-to-video software with the ability to edit
+              and create entire sequences from a single prompt.
+            </p>
+
+            <VisContainer></VisContainer>
+            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
+              Another tangible example of generative AI in the industry is
+              illustrated by the web development for rising health startup{" "}
+              <a
+                href="https://superpower.com/"
+                target="_blank"
+                className="text-blue-500"
+              >
+                Superpower
+              </a>
+              , designed by Canadian studio{" "}
+              <a
+                href="https://daybreak.studio"
+                target="_blank"
+                className="text-blue-500"
+              >
+                Daybreak
+              </a>{" "}
+              with the help of Midjourney to storyboard a stunning series of
+              motion design assets.
+            </p>
+            <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground mb-[2.25em]">
+              Even Figma having disrupted the design tool market with real-time
+              collaboration, has implemented their own suite of generative AI
+              features for brainstorming, summarization and copywriting.
+            </p>
+
             <hgroup className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-center">
               <h2 className="text-r-md">Student sentiments toward AI</h2>
               <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
