@@ -58,7 +58,7 @@ export default async function Home() {
           <SectionSample data={data} />
           <SectionSkills data={data} />
           <SectionStudyHabits data={data} />
-          <SectionResources data={data} />
+          {/* <SectionResources data={data} /> */}
           <SectionAIUsage data={data} />
           <SectionTakeaways />
         </main>

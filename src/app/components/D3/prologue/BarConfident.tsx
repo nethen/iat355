@@ -76,7 +76,7 @@ export const BarConfident = ({
     .paddingInner(0.2);
 
   const xScale = scaleLinear()
-    .domain([0, max(dataCount, (d) => d.value) ?? 0])
+    .domain([0, 40])
     .range([width ? Math.max(width * 0.1, 120) : 0, width ? width - 20 : 0]);
 
   return (

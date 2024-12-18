@@ -6,7 +6,7 @@ import { StackedBarConfidence } from "../D3/prologue/StackedBarConfidence";
 import { VastHour } from "../D3/prologue/VastHour";
 import { ScrollyVisContainer } from "../Visualization/ScrollyVisContainer";
 import { VisContainer } from "../Visualization/VisContainer";
-
+import Image from "next/image";
 export const SectionSkills = ({ data }: { data: any }) => {
   return (
     <section
@@ -24,7 +24,7 @@ export const SectionSkills = ({ data }: { data: any }) => {
         building digital products and artifacts. As a discipline, UI design
         incorporates visual design skills
       </p>
-      <VisContainer>
+      <VisContainer background={false}>
         <BarConfident data={data} />
       </VisContainer>
       <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground text-r-xs">
@@ -37,7 +37,7 @@ export const SectionSkills = ({ data }: { data: any }) => {
         confidence in more expressive contexts like art direction and visual
         identity.
       </p>
-      <VisContainer>
+      <VisContainer background={false}>
         <BarUnconfident data={data} />
       </VisContainer>
       <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground mb-[2.25em]">
@@ -57,7 +57,9 @@ export const SectionSkills = ({ data }: { data: any }) => {
         testing individual&apos;s ability to measure an image&apos;s adherence
         to external visual standards.
       </p>
-      <VisContainer></VisContainer>
+      <VisContainer>
+        <Image src="/vast.jpg" alt="VAST" fill className="object-cover" />
+      </VisContainer>
       <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
         To see potential gaps in perceived and actual skill, we asked students
         to compare 25 images based visual guidelines set by 3 examples. The
@@ -75,7 +77,14 @@ export const SectionSkills = ({ data }: { data: any }) => {
           },
           {
             title: "Skew",
-            text: "After thorough analysis, we found no obvious correlations between VAST-R test scores, as indicated by the scattering of points around mean VAST-R and reported confidences. ",
+            text: (
+              <>
+                After thorough analysis, we found no obvious correlations
+                between VAST-R test scores, as indicated by the scattering of
+                points around <span className="text-blue-500">mean VAST-R</span>{" "}
+                and <span className="text-red-500">reported confidences</span>.
+              </>
+            ),
             stop: 0.5,
           },
           {

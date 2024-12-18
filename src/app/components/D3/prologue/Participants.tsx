@@ -112,18 +112,19 @@ export const Participants = ({
       className="w-full "
       width={innerWidth ? innerWidth + marginRight + marginLeft : 0}
       height={innerHeight ? innerHeight + marginTop + marginBottom : 0}
-      animate={{
-        background: filteredData
-          ? hasCaption
-            ? "transparent"
-            : "blue"
-          : "red",
-      }}
+      // animate={{
+      //   background: filteredData
+      //     ? hasCaption
+      //       ? "transparent"
+      //       : "blue"
+      //     : "red",
+      // }}
     >
       <g transform={`translate(${marginLeft},${marginTop})`}>
         <g>
           <motion.line
-            stroke="blue"
+            // stroke="blue"
+            className="stroke-blue-500"
             strokeWidth={3}
             x1={0}
             x2={useTransform(scrollYProgress, [0.125, 0.375], [0, innerWidth])}
@@ -131,7 +132,8 @@ export const Participants = ({
             y2={y(avgVast as any)}
           />
           <motion.line
-            stroke="red"
+            // stroke="red"
+            className="stroke-red-500"
             y1={innerHeight}
             y2={useTransform(scrollYProgress, [0.125, 0.375], [innerHeight, 0])}
             strokeWidth={3}

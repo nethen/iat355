@@ -228,28 +228,9 @@ export const Nav = ({ sectionsInView }: NavProps) => {
             <p>Study Habits</p>
           </motion.div>
         </Link>
-
+        {/*  */}
         <Link
           href="#4"
-          onClick={() => toggleNavOff()}
-          className="pointer-events-auto"
-        >
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{
-              opacity: 1,
-            }}
-            whileHover={{
-              opacity: 0.5,
-            }}
-            exit={{ opacity: 0 }}
-          >
-            {/* <div className="font-bold">Part IV</div> */}
-            <p>Resources</p>
-          </motion.div>
-        </Link>
-        <Link
-          href="#5"
           onClick={() => toggleNavOff()}
           className="pointer-events-auto"
         >

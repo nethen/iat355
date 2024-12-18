@@ -117,8 +117,9 @@ export const DotSample = ({
       captions ? captions[2].stop : 1,
       captions ? captions[2].stop + 0.1 : 1,
       captions ? captions[3].stop : 1,
+      captions ? captions[3].stop + 0.1 : 1,
     ],
-    [1, 1, 1, 0.2, 0.2, 1]
+    [1, 1, 1, 0.2, 0.2, 1, 1]
   );
   const opacity3 = useTransform(
     scrollYProgress,
@@ -129,8 +130,9 @@ export const DotSample = ({
       captions ? captions[2].stop : 1,
       captions ? captions[2].stop + 0.1 : 1,
       captions ? captions[3].stop : 1,
+      captions ? captions[3].stop + 0.1 : 1,
     ],
-    [1, 1, 1, 1, 0.2, 0.2]
+    [1, 1, 1, 1, 1, 0.2, 0.2]
   );
   const fillNew = useTransform(
     scrollYProgress,

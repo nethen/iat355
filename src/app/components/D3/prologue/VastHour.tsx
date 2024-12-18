@@ -133,13 +133,13 @@ export const VastHour = ({
       className="w-full h-full"
       width={innerWidth ? innerWidth + marginRight + marginLeft : 0}
       height={innerHeight ? innerHeight + marginTop + marginBottom : 0}
-      animate={{
-        background: filteredData
-          ? hasCaption
-            ? "transparent"
-            : "blue"
-          : "red",
-      }}
+      // animate={{
+      //   background: filteredData
+      //     ? hasCaption
+      //       ? "transparent"
+      //       : "blue"
+      //     : "red",
+      // }}
     >
       <g transform={`translate(${marginLeft},${marginTop})`}>
         <g>
