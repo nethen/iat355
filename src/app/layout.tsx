@@ -14,29 +14,9 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "A Design Confidence Index",
+  title: "How SIAT Feels",
   description:
-    "A Design Confidence Index pulls insights from 69 polled undergraduate students from Simon Fraser University’s School of Interactive Arts and Technology (SIAT), asking the sample for insights into their perceptions and practices in visual design, creativity, and AI usage.",
-
-  openGraph: {
-    title: "A Design Confidence Index",
-    description:
-      "A Design Confidence Index pulls insights from 69 polled undergraduate students from Simon Fraser University’s School of Interactive Arts and Technology (SIAT), asking the sample for insights into their perceptions and practices in visual design, creativity, and AI usage.",
-    type: "website",
-    images: {
-      url: "/opengraph-image.png",
-      width: 1200,
-      height: 630,
-      alt: "A Design Confidence Index",
-    },
-  },
-  authors: [
-    {
-      name: "Michael Dresler",
-      url: "https://www.linkedin.com/in/michael-dresler/",
-    },
-    { name: "Nathan Lew", url: "https://linkedin.com/in/nathan-lew" },
-  ],
+    "We polled 77 undergraduate students from Simon Fraser University’s School of Interactive Arts and Technology (SIAT), asking the sample for insights into their perceptions and practices in visual design, creativity, and AI usage.",
 };
 
 export default function RootLayout({
