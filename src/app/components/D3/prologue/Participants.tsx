@@ -35,8 +35,8 @@ export const Participants = ({
 
   const filteredData = data?.filter((row) => row.isDesign === "1"); // Filter by inDesign column
 
-  const avgVast = mean(filteredData, (d) => d.score_percent);
-  const avgVC = mean(filteredData, (d) => d.visual_confidence_score);
+  const avgVast = mean(filteredData ?? [], (d: any) => d.score_percent);
+  const avgVC = mean(filteredData ?? [], (d: any) => d.visual_confidence_score);
 
   const resizeObserver = useResizeObserverContext();
 
@@ -63,27 +63,53 @@ export const Participants = ({
 
   console.log(innerWidth);
 
-  const y = scaleLinear().domain([0, 1]).range([innerHeight, 0]); // Flip the range
+  const y = scaleLinear()
+    .domain([0, 1])
+    .range([innerHeight ?? 0, 0]); // Flip the range
 
-  const x = scaleLinear().domain([0, 35]).range([0, innerWidth]);
+  const x = scaleLinear()
+    .domain([0, 35])
+    .range([0, innerWidth ?? 0]);
 
   // Calculate frequency of (score_percent, visual_confidence_score) pairs
   const frequencyMap = new Map<string, number>();
+
   filteredData?.forEach((d) => {
     const key = `${d.score_percent},${d.visual_confidence_score}`;
     frequencyMap.set(key, (frequencyMap.get(key) || 0) + 1);
   });
+  console.log(frequencyMap)
 
-  // Function to calculate size based on frequency
   const getSizeBasedOnFrequency = (d: any) => {
-    const key = `${d.score_percent},${d.visual_confidence_score}`;
-    const frequency = frequencyMap.get(key) || 1; // Default to 1 if frequency is not found
-    const screenScaleFactor = Math.min(innerWidth / 1200, innerHeight / 800); // Example: Scale down for smaller screens
-
-    // Apply the scaling factor to adjust the size
-    const scaledSize = Math.min(frequency * 3, 20); // Original size calculation
-    return Math.min(5 + scaledSize * screenScaleFactor, 40); // Scale the size based on screen size, capped at 50
+    const id = `${d.score_percent},${d.visual_confidence_score}`;
+    const frequency = frequencyMap.get(id) || 1; // Default frequency to 1
+  
+    // Safely cap the scaling factor to a reasonable limit
+    const screenScaleFactor = Math.min(
+      Math.min(innerWidth ?? 0, 1200) / 1200, // Cap width scaling at 1
+      Math.min(innerHeight ?? 0, 800) / 800   // Cap height scaling at 1
+    );
+  
+    // Apply scaling factor with a proper cap for size
+    const scaledSize = Math.min(frequency * 3, 20); // Base scaling (cap at 20)
+    return 5 + scaledSize * screenScaleFactor; // Final size with screen scaling
   };
+
+
+
+  const Circle = ({ cx, cy, d }: { cx: number; cy: number, d:any }) => {
+
+    console.log(getSizeBasedOnFrequency(d))
+    const radius = useTransform(
+      scrollYProgress,
+      [0.25, 0.5],
+      [0, getSizeBasedOnFrequency(d)]
+    );
+    return (
+      <motion.circle cx={cx} cy={cy} fill="#1058c4" opacity={0.75} r={radius} />
+    );
+  };
+  
 
   return (
     <motion.svg
@@ -105,20 +131,20 @@ export const Participants = ({
             strokeWidth={3}
             x1={0}
             x2={useTransform(scrollYProgress, [0.125, 0.375], [0, innerWidth])}
-            y1={y(avgVast)}
-            y2={y(avgVast)}
+            y1={y(avgVast as any)}
+            y2={y(avgVast as any)}
           />
           <motion.line
             stroke="red"
-            y1={innerHeight }
+            y1={innerHeight}
             y2={useTransform(scrollYProgress, [0.125, 0.375], [innerHeight, 0])}
             strokeWidth={3}
-            x1={x(avgVC)}
-            x2={x(avgVC)}
+            x1={x(avgVC as any)}
+            x2={x(avgVC as any)}
           />
           <text
-            x={innerWidth / 2} // Adjust to position the text left of the axis
-            y={innerHeight + 60} // Keep aligned with the tick
+            x={innerWidth ? innerWidth / 2 : 0} // Adjust to position the text left of the axis
+            y={innerHeight ? innerHeight + 60 : 0} // Keep aligned with the tick
             textAnchor="middle" // Align text to the end of the position
             // style={{ fontSize: "3rem", fill: "black" }}
             className="text-[2rem] fill-midground"
@@ -131,7 +157,9 @@ export const Participants = ({
             textAnchor="center" // Align text to the end of the position
             // style={{ fontSize: "3rem", fill: "black" }}
             className="text-[2rem] fill-midground"
-            transform={`translate(0,${innerHeight / 2}) rotate(270)`}
+            transform={`translate(0,${
+              innerHeight ? innerHeight / 2 : 0
+            }) rotate(270)`}
           >
             Vast Score
           </text>
@@ -172,7 +200,7 @@ export const Participants = ({
               {/* <line stroke="gray" x={0} y1={0} y2={0} /> */}
               <text
                 x={0} // Adjust to position the text left of the axis
-                y={innerHeight + 20} // Keep aligned with the tick
+                y={innerHeight ? innerHeight + 20 : 0} // Keep aligned with the tick
                 textAnchor="end" // Align text to the end of the position
                 className="text-[1rem] fill-midground"
               >
@@ -184,20 +212,15 @@ export const Participants = ({
 
         {filteredData &&
           filteredData.map((d, i) => (
-            <motion.circle
+            <Circle
               cx={x(parseFloat(d.visual_confidence_score))}
               cy={y(parseFloat(d.score_percent))}
-              fill="#1058c4"
-              opacity={0.75}
-              r={useTransform(
-                scrollYProgress,
-                [0.25, 0.5],
-                [0, getSizeBasedOnFrequency(d)]
-              )}
               key={`participant-${i}`}
+              d={d}
             />
           ))}
       </g>
     </motion.svg>
   );
 };
+

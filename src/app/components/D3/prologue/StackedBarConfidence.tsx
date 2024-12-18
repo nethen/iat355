@@ -140,25 +140,6 @@ export const StackedBarConfidence = ({ data }: D3VisProps) => {
   return (
     <svg className="w-full h-full">
       <g>
-        {/* {xScale.ticks().map((tickValue) => (
-          <g key={tickValue} transform={`translate(0,0)`}>
-            <text
-              style={{ textAnchor: "middle" }}
-              fill="green"
-              y={yScale(tickValue) ?? 0}
-            >
-              {tickValue}
-            </text>
-
-            <line
-              y1={0}
-              y2={height ?? 0}
-              fill="green"
-              stroke="green"
-              opacity={0.1}
-            />
-          </g>
-        ))} */}
         {yScale.domain().map((tickValue, index) => (
           <g key={index} transform={`translate(0, ${yScale(tickValue) ?? 0})`}>
             <text
@@ -178,11 +159,11 @@ export const StackedBarConfidence = ({ data }: D3VisProps) => {
         ))}
       </g>
       {series.map((Data) =>
-        Data.map((d, i) => (
+        Data.map((d: any, i: any) => (
           <Bar
             x={xScale(d[0])}
             // y={0}
-            y={yScale(d.data.skill_name)}
+            y={yScale(d.data.skill_name) ?? 0}
             // x={D.}
             // y={yScale(d.skill_name)}
             key={`${Data.key}--${i}`}
@@ -197,14 +178,12 @@ export const StackedBarConfidence = ({ data }: D3VisProps) => {
 };
 
 const Bar = ({
-  index,
   x,
   y,
   width,
   height,
   fill,
 }: {
-  index: number;
   x: number;
   y: number;
   width: number;

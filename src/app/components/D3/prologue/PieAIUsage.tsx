@@ -46,22 +46,10 @@ type D3VisProps = {
   }[];
 };
 
-export const PieAIUsage = ({
-  data,
-  // marginTop = 36,
-  marginRight = 36,
-  // marginBottom = 36,
-  marginLeft = 36,
-}: D3VisProps) => {
-  const isClient = useIsClient();
-  const size = useWindowSize();
+export const PieAIUsage = ({ data }: D3VisProps) => {
   const captions = useHasCaption();
-  const matchesXS = useMediaQuery("(min-width: 480px)");
-  const matchesSM = useMediaQuery("(min-width: 640px)");
-  const matches = useMediaQuery("(min-width: 1024px)");
 
-  const arcNew = arc().innerRadius(50).outerRadius(100);
-  const filteredData = data?.filter((d) => d.isDesign == "1");
+  const filteredData = data?.filter((d) => parseInt(d.isDesign) == 1);
 
   const filteredGroups = groups(filteredData ?? [], (d) =>
     parseInt(d.frequency_of_ai_tool_use)
@@ -71,10 +59,6 @@ export const PieAIUsage = ({
       key: d[0],
     };
   });
-
-  console.log(filteredGroups);
-
-  const pieNew = pie().value((d) => d.length);
 
   const resizeObserver = useResizeObserverContext();
 
@@ -87,7 +71,7 @@ export const PieAIUsage = ({
   });
 
   // The code that checks how big the parent element is
-  const sizeNew = useResizeObserver({
+  useResizeObserver({
     ref: resizeObserver || { current: null },
     box: "content-box",
     onResize: (entry) => {
@@ -100,98 +84,126 @@ export const PieAIUsage = ({
   });
 
   const createPie = pie()
-    .value((d) => d.value)
+    .value((d: any) => d.value)
     .sort(null);
   const createArc = arc()
     // .innerRadius(Math.min(width ?? 0, height ?? 0) * 0.25)
     .innerRadius(0)
-    .outerRadius(Math.min(width ?? 0, height ?? 0) * 0.3);
+    .outerRadius(Math.min(width ?? 0, height ?? 0) * 0.2);
   const colors = scaleOrdinal([
     "#f1eef6",
     "#bdc9e1",
     "#74a9cf",
-    "#2b8cbe",
     "#045a8d",
+    "#2b8cbe",
   ]);
   const formatNew = format("i");
-  const dataArc = createPie(filteredGroups);
+  const dataArc = createPie(
+    filteredGroups.sort((a, b) => a.key - b.key) as any
+  );
   console.log(dataArc);
 
   const highlightAngle = dataArc[1].endAngle - dataArc[0].startAngle / 2;
+  const scrollYProgress = useScrollYProgress();
+
+  const scale = useTransform(
+    scrollYProgress,
+    [captions ? captions[1].stop : 0.1, captions ? captions[2].stop : 0.1],
+    [1, 1.3]
+  );
 
   return (
-    <motion.svg
-      className="w-full h-full"
-      // animate={{ background: data ? "green" : "red" }}
-    >
+    <motion.svg className="w-full h-full">
       <g
         transform={`translate(${width ? width / 2 : 0}, ${
           height ? height / 2 : 0
         })`}
       >
-        {dataArc.map((d, i) => (
-          <Arc
-            key={i}
-            data={d}
-            index={i}
-            createArc={createArc}
-            colors={colors}
-            format={formatNew}
-            outerRadius={Math.min(width ?? 0, height ?? 0) * 0.45}
-          />
-        ))}
+        <motion.g style={{ scale: scale }}>
+          {dataArc.map((d, i) => (
+            <Arc
+              key={i}
+              data={d}
+              index={i}
+              createArc={createArc}
+              colors={colors}
+              format={formatNew}
+              outerRadius={Math.min(width ?? 0, height ?? 0) * 0.3}
+            />
+          ))}
+        </motion.g>
       </g>
-      <text
-        transform={`translate(${(3 * (width ?? 0)) / 4}, ${(height ?? 0) / 4})`}
-        // ${
-        //   -Math.sin(highlightAngle) * Math.min(width ?? 0, height ?? 0) * 0.45
-        // })`}
-        textAnchor="middle"
-        alignmentBaseline="middle"
-        fill="rgb(var(--midground))"
-        fontSize="1em"
-      >
-        13 in 20 students claim to rarely or never use AI tools in their
-        workflow."
-      </text>
     </motion.svg>
   );
 };
 
-const Arc = ({ data, index, createArc, colors, format, outerRadius }) => {
+const Arc = ({
+  data,
+  index,
+  createArc,
+  colors,
+  format,
+  outerRadius,
+}: {
+  data: any;
+  index: number;
+  createArc: any;
+  colors: any;
+  format: any;
+  outerRadius: number;
+}) => {
   const angle = data.startAngle + (data.endAngle - data.startAngle) / 2;
   // console.log(angle);
-  const keys = ["Never", "Rarely", "Sometimes", "Often", "Always"];
-  const opacity = useTransform(useScrollYProgress(), [0, 1], [0.2, 1]);
+  const scrollYProgress = useScrollYProgress();
+  const keys = ["Never", "Rarely", "Monthly", "Weekly", "Daily"];
+  const captions = useHasCaption();
+  const opacity = useTransform(
+    scrollYProgress,
+    [captions ? captions[0].stop : 0.1, captions ? captions[1].stop : 0.1],
+    [1, 0]
+  );
+  const fillCurve = useTransform(
+    scrollYProgress,
+    [captions ? captions[0].stop : 0.1, captions ? captions[1].stop : 0.1],
+    [colors(data.index), data.index < 2 ? colors(0) : colors(4)]
+  );
 
   return (
     <g key={index} className="arc">
       <motion.path
         className="arc"
         d={createArc(data)}
-        fill={colors(index)}
-        style={{ opacity }}
+        // fill={colors(index)}
+        style={{ fill: fillCurve }}
       />
-      <text
-        transform={`translate(${createArc.centroid(data)})`}
-        textAnchor="middle"
-        alignmentBaseline="middle"
-        fill="white"
-        fontSize="1em"
-      >
-        {format(data.value)}
-      </text>
-      <text
+      <g
         transform={`translate(${Math.sin(angle) * outerRadius}, ${
           -Math.cos(angle) * outerRadius
         })`}
-        textAnchor="middle"
-        alignmentBaseline="middle"
-        fill="rgb(var(--midground))"
-        fontSize="1em"
       >
-        {keys[data.index]}
-      </text>
+        <motion.text
+          textAnchor="start"
+          alignmentBaseline="middle"
+          fill="rgb(var(--midground))"
+          fontSize="1em"
+          style={{ opacity }}
+          x={-16}
+          y={-16}
+        >
+          {keys[data.index]}
+        </motion.text>
+        <motion.text
+          textAnchor="start"
+          alignmentBaseline="middle"
+          fill="rgb(var(--midground))"
+          fontSize="2em"
+          style={{ opacity }}
+          x={-16}
+          y={16}
+        >
+          {format(data.value)}
+        </motion.text>
+      </g>
     </g>
   );
 };

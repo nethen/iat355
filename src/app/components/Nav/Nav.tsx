@@ -110,7 +110,7 @@ export const Nav = ({ sectionsInView }: NavProps) => {
   return (
     <motion.nav
       {...(!matches && isClient && { "data-lenis-prevent": true })}
-      className="text-r-base fixed z-50 inset-x-0 grid md:sticky top-0 md:!h-svh max-md:grid-rows-[min-content_auto] max-md:bg-[#BD3C00] max-md:text-background overflow-hidden"
+      className="max-md:hidden text-r-base fixed z-50 inset-x-0 grid md:sticky top-0 md:!h-svh max-md:grid-rows-[min-content_auto] max-md:bg-[#BD3C00] max-md:text-background overflow-hidden"
       initial={{
         height: "4.5em",
         opacity: 0,
