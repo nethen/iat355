@@ -40,7 +40,7 @@ export const SectionAIUsage = ({ data }: { data: any }) => {
         <PieAIUsage data={data} />
       </ScrollyVisContainer>
       <ScrollyVisContainer
-        background={true}
+        background={false}
         captions={[
           {
             title: "Stacked Bar",

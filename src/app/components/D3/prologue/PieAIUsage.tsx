@@ -108,8 +108,8 @@ export const PieAIUsage = ({ data }: D3VisProps) => {
 
   const scale = useTransform(
     scrollYProgress,
-    [captions ? captions[1].stop : 0.1, captions ? captions[2].stop : 0.1],
-    [1, 1.3]
+    [captions ? captions[0].stop : 0.1, captions ? captions[1].stop : 0.1],
+    [1, 2]
   );
 
   return (
