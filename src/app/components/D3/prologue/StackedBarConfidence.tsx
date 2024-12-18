@@ -60,6 +60,8 @@ export const StackedBarConfidence = ({ data }: D3VisProps) => {
       // console.log(entry);
     },
   });
+  const scrollYProgress = useScrollYProgress();
+  const scale = useTransform(scrollYProgress, [0.25, 0.8], [0, 1]);
 
   const skills_columns = [
     { field: "typography_skills", name: "Typography" },
@@ -125,7 +127,7 @@ export const StackedBarConfidence = ({ data }: D3VisProps) => {
 
   const yScale = scaleBand()
     .domain(result.map((d) => d.skill_name))
-    .range([0, height ?? 0])
+    .range([0, height-150 ?? 0])
     .paddingInner(0.2);
 
   const xScale = scaleLinear()
@@ -139,41 +141,117 @@ export const StackedBarConfidence = ({ data }: D3VisProps) => {
 
   return (
     <svg className="w-full h-full">
-      <g>
-        {yScale.domain().map((tickValue, index) => (
-          <g key={index} transform={`translate(0, ${yScale(tickValue) ?? 0})`}>
-            <text
-              style={{ textAnchor: "end" }}
-              className="fill-midground select-none"
-              opacity={0.8}
-              dy={".3em"}
-              fontSize={14}
-              fontWeight={500}
-              x={Math.max(0.1 * (width ?? 0), 120) - 16}
-              y={yScale.bandwidth() / 2}
-            >
-              {skills_columns[index].name}
-            </text>
-            <line y1={0} y2={height} fill="green" opacity={0.2} />
-          </g>
-        ))}
+  {/* Legend */}
+
+   {/* Legend */}
+   <g transform={`translate(${Math.max(0.1 * (width ?? 0), 120)}, 20)`}>
+    {/* Legend Container */}
+    {/* Unconfident */}
+    <g transform="translate(0, 0)">
+      <rect
+        width={20}
+        height={20}
+        fill={colorScale("unconfident")}
+        rx={4}
+        ry={4}
+      />
+      <text
+        x={30}
+        y={15}
+        fontSize={14}
+        fontWeight="regular"
+        fill="currentColor"
+      >
+        Not Confident
+      </text>
+    </g>
+    {/* Neutral */}
+    <g transform="translate(0, 30)">
+      <rect
+        width={20}
+        height={20}
+        fill={colorScale("neutral")}
+        rx={4}
+        ry={4}
+      />
+      <text
+        x={30}
+        y={15}
+        fontSize={14}
+        fontWeight="regular"
+        fill="currentColor"
+      >
+        Neutral
+      </text>
+    </g>
+    {/* Confident */}
+    <g transform="translate(0, 60)">
+      <rect
+        width={20}
+        height={20}
+        fill={colorScale("confident")}
+        rx={4}
+        ry={4}
+      />
+      <text
+        x={30}
+        y={15}
+        fontSize={14}
+        fontWeight="regular"
+        fill="currentColor"
+      >
+        Confident
+      </text>
+    </g>
+  </g>
+
+   
+
+  {/* Main Visualization */}
+  <g transform={`translate(0, ${120})`}> {/* Add offset to push main visualization down */}
+    {/* Your existing visualization code */}
+    {yScale.domain().map((tickValue, index) => (
+      <g key={index} transform={`translate(0, ${yScale(tickValue) ?? 0})`}>
+        <text
+          style={{ textAnchor: "end" }}
+          className="fill-midground select-none"
+          opacity={0.8}
+          dy={".3em"}
+          fontSize={14}
+          fontWeight={500}
+          x={Math.max(0.1 * (width ?? 0), 120) - 16}
+          y={yScale.bandwidth() / 2}
+        >
+          {skills_columns[index].name}
+        </text>
+        <line y1={0} y2={height} fill="green" opacity={0.2} />
       </g>
-      {series.map((Data) =>
-        Data.map((d: any, i: any) => (
+    ))}
+    {series.map((Data) =>
+      Data.map((d: any, i: any) => (
+        <g key={`${Data.key}--${i}`}>
           <Bar
             x={xScale(d[0])}
-            // y={0}
             y={yScale(d.data.skill_name) ?? 0}
-            // x={D.}
-            // y={yScale(d.skill_name)}
-            key={`${Data.key}--${i}`}
             width={xScale(d[1]) - xScale(d[0])}
             height={yScale.bandwidth()}
             fill={colorScale(Data.key) as any}
           />
-        ))
-      )}
-    </svg>
+          <motion.text
+            className="fill-white z-40 text-[1rem] md:text-[1.5rem]"
+            x={(xScale(d[0]) + xScale(d[1])) / 2}
+            y={(yScale(d.data.skill_name) ?? 0) + yScale.bandwidth() / 2}
+            textAnchor="middle"
+            alignmentBaseline="middle"
+            opacity={scale}
+          >
+            {d[1] - d[0]}
+          </motion.text>
+        </g>
+      ))
+    )}
+  </g>
+</svg>
   );
 };
 
