@@ -248,7 +248,7 @@ export const Nav = ({ sectionsInView }: NavProps) => {
             <p>AI Usage</p>
           </motion.div>
         </Link>
-        <Link
+        {/* <Link
           href="#takeaways"
           onClick={() => toggleNavOff()}
           className="pointer-events-auto"
@@ -265,7 +265,7 @@ export const Nav = ({ sectionsInView }: NavProps) => {
           >
             <div className="font-bold">Takeaways</div>
           </motion.div>
-        </Link>
+        </Link> */}
       </motion.div>
 
       {/* </motion.div> */}
