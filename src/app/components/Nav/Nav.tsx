@@ -132,13 +132,13 @@ export const Nav = ({ sectionsInView }: NavProps) => {
       }}
       // onAnimationComplete={() => reloading.setFalse()}
     >
-      <motion.div
+      {/* <motion.div
         className="md:hidden col-span-full text-center my-[1.125em] cursor-pointer"
         onClick={() => toggleNav()}
       >
         <div className="font-bold">Act I</div>
         <p>Population</p>
-      </motion.div>
+      </motion.div> */}
       {/* <motion.div
         ref={scrollContainerRef}
         data-scroll-locked
@@ -161,7 +161,10 @@ export const Nav = ({ sectionsInView }: NavProps) => {
             className="font-bold"
             initial={{ opacity: 0 }}
             animate={{
-              opacity: visible.value || matches ? (state == 0 ? 1 : 0.5) : 0,
+              opacity: 1,
+            }}
+            whileHover={{
+              opacity: 0.5,
             }}
             exit={{ opacity: 0 }}
           >
@@ -169,65 +172,121 @@ export const Nav = ({ sectionsInView }: NavProps) => {
           </motion.div>
         </Link>
         <Link
-          href="#act1"
+          href="#1"
           onClick={() => toggleNavOff()}
           className="pointer-events-auto"
         >
           <motion.div
             initial={{ opacity: 0 }}
             animate={{
-              opacity: visible.value || matches ? (state == 1 ? 1 : 0.5) : 0,
+              opacity: 1,
+            }}
+            whileHover={{
+              opacity: 0.5,
             }}
             exit={{ opacity: 0 }}
           >
-            <div className="font-bold">Act I</div>
-            <p>Population</p>
+            {/* <div className="font-bold">Act I</div> */}
+            <p>Sample</p>
           </motion.div>
         </Link>
         <Link
-          href="#act2"
+          href="#2"
           onClick={() => toggleNavOff()}
           className="pointer-events-auto"
         >
           <motion.div
             initial={{ opacity: 0 }}
             animate={{
-              opacity: visible.value || matches ? (state == 2 ? 1 : 0.5) : 0,
+              opacity: 1,
+            }}
+            whileHover={{
+              opacity: 0.5,
             }}
             exit={{ opacity: 0 }}
           >
-            <div className="font-bold">Act II</div>
-            <p>Program</p>
+            {/* <div className="font-bold">Part II</div> */}
+            <p>Confidence</p>
           </motion.div>
         </Link>
         <Link
-          href="#act3"
+          href="#3"
           onClick={() => toggleNavOff()}
           className="pointer-events-auto"
         >
           <motion.div
             initial={{ opacity: 0 }}
             animate={{
-              opacity: visible.value || matches ? (state == 3 ? 1 : 0.5) : 0,
+              opacity: 1,
+            }}
+            whileHover={{
+              opacity: 0.5,
             }}
             exit={{ opacity: 0 }}
           >
-            <div className="font-bold">Act III</div>
-            <p>Practices</p>
+            {/* <div className="font-bold">Part III</div> */}
+            <p>Study Habits</p>
           </motion.div>
         </Link>
-        {/* <div className="min-h-[150vh]" /> */}
-        {/* <Link href="/" className="md:mt-auto pointer-events-auto mb-[5.75em]">
+
+        <Link
+          href="#4"
+          onClick={() => toggleNavOff()}
+          className="pointer-events-auto"
+        >
           <motion.div
             initial={{ opacity: 0 }}
-            animate={{ opacity: visible.value || matches ? 1 : 0 }}
+            animate={{
+              opacity: 1,
+            }}
+            whileHover={{
+              opacity: 0.5,
+            }}
             exit={{ opacity: 0 }}
-            className="font-bold"
           >
-            Sources
+            {/* <div className="font-bold">Part IV</div> */}
+            <p>Resources</p>
           </motion.div>
-        </Link> */}
+        </Link>
+        <Link
+          href="#5"
+          onClick={() => toggleNavOff()}
+          className="pointer-events-auto"
+        >
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{
+              opacity: 1,
+            }}
+            whileHover={{
+              opacity: 0.5,
+            }}
+            exit={{ opacity: 0 }}
+          >
+            {/* <div className="font-bold">Part V</div> */}
+            <p>AI Usage</p>
+          </motion.div>
+        </Link>
+        <Link
+          href="#takeaways"
+          onClick={() => toggleNavOff()}
+          className="pointer-events-auto"
+        >
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{
+              opacity: 1,
+            }}
+            whileHover={{
+              opacity: 0.5,
+            }}
+            exit={{ opacity: 0 }}
+          >
+            <div className="font-bold">Takeaways</div>
+          </motion.div>
+        </Link>
       </motion.div>
+
       {/* </motion.div> */}
     </motion.nav>
   );

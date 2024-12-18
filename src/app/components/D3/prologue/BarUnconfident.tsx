@@ -1,10 +1,7 @@
 "use client";
 import { motion, useTransform } from "motion/react";
 // import { useEffect, useState } from "react";
-import {
-  useResizeObserverContext,
-  useScrollYProgress,
-} from "../../Visualization/ScrollyVisContainer";
+import { useResizeObserverContext } from "../../Visualization/VisContainer";
 import { DSVRowArray } from "d3-dsv";
 import { scaleBand, scaleLinear, scaleSequential } from "d3-scale";
 import { ascending, max } from "d3-array";
@@ -15,9 +12,8 @@ import {
   useResizeObserver,
   useWindowSize,
 } from "usehooks-ts";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { svg } from "d3";
-import { g } from "motion/react-client";
+import colors from "tailwindcss/colors";
+import { useState } from "react";
 
 type D3VisProps = {
   data: DSVRowArray<string> | null;
@@ -31,7 +27,7 @@ type D3VisProps = {
   yLength?: number;
 };
 
-export const AIusage = ({
+export const BarUnconfident = ({
   data,
   // marginTop = 36,
   marginRight = 36,
@@ -40,14 +36,14 @@ export const AIusage = ({
   xLength = 9,
 }: D3VisProps) => {
   const dataCount = [
-    { task: "Ideation", value: 30 },
-    { task: "Receiving feedback", value: 16 },
-    { task: "Copywriting", value: 7 },
-    { task: "Image generation", value: 6 },
-    { task: "Color palettes", value: 4 },
-    { task: "Learning", value: 2 },
-    { task: "Coding", value: 1 },
+    { task: "Color theory", value: 19 },
+    { task: "UX design", value: 14 },
+    { task: "Layout", value: 11 },
+    { task: "Typography", value: 11 },
+    { task: "UI design", value: 9 },
+    { task: "Prototyping", value: 8 },
   ];
+  const red = colors.red[500];
 
   const resizeObserver = useResizeObserverContext();
 
@@ -68,9 +64,10 @@ export const AIusage = ({
         width: entry.width ?? 0,
         height: entry.height ?? 0,
       });
-      // console.log(entry);
     },
   });
+
+  console.log(width, height);
 
   const yScale = scaleBand()
     .domain(dataCount.map((d) => d.task))
@@ -94,7 +91,7 @@ export const AIusage = ({
           y={yScale(d.task)}
           width={xScale(d.value) - xScale(0)}
           height={yScale.bandwidth()}
-          fill="#b949ff"
+          fill={red}
         />
       ))}
 

@@ -16,6 +16,7 @@ import { SectionStudyHabits } from "./components/Sections/SectionStudyHabits";
 import { SectionResources } from "./components/Sections/SectionResources";
 import { SectionAIUsage } from "./components/Sections/SectionAIUsage";
 import { SectionTakeaways } from "./components/Sections/SectionTakeaways";
+import { SectionSkills } from "./components/Sections/SectionSkills";
 
 export default async function Home() {
   // const viewRefs = Array.from({ length: 4 }, () => createRef<HTMLDivElement>());
@@ -45,9 +46,9 @@ export default async function Home() {
     <SmoothScroll>
       <Grid />
       <div className="grid-r font-[family-name:var(--font-geist-sans)]">
-        <header className="col-span-full min-h-[90svh] grid grid-cols-subgrid max-md:grid-rows-[min-content_auto] auto-rows-min gap-[1.125em] max-md:pt-[4.5em] max-md:pb-[2.25em]">
-          <h1 className="col-span-full md:col-span-4 lg:col-span-6 text-r-sm sm:text-r-md lg:text-r-lg font-light">
-            How do SIAT students perceive their visual design learning?
+        <header className="col-span-full min-h-[90svh] grid grid-cols-subgrid max-md:grid-rows-[auto] auto-rows-min gap-[1.125em] max-md:pb-[2.25em]">
+          <h1 className="col-span-full md:col-span-4 lg:col-span-6 text-r-sm sm:text-r-md lg:text-r-lg font-light max-md:my-auto py-[1.125rem]">
+            How do SIAT students feel about their visual design education?
           </h1>
         </header>
         {/* <Nav sectionsInView={isInView} /> */}
@@ -55,6 +56,7 @@ export default async function Home() {
         <main className="col-span-full md:col-span-5 lg:col-span-8 grid grid-cols-subgrid auto-rows-min gap-y-[1.125em]">
           <SectionPrologue />
           <SectionSample data={data} />
+          <SectionSkills data={data} />
           <SectionStudyHabits data={data} />
           <SectionResources data={data} />
           <SectionAIUsage data={data} />
