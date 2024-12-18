@@ -9,13 +9,8 @@ export const SectionStudyHabits = ({ data }: { data: any }) => {
       className="col-span-full grid grid-cols-subgrid gap-[inherit] pt-[2.25em] pb-[4.5em]"
       // ref={viewRefs[2]}
     >
-      {/* <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
-        Based on the students' self-reported habits, we can also see that
-        increased satisfaction with the program tends to result in less
-        extracurricular studies.
-      </p> */}
-
       <ScrollyVisContainer
+        background={false}
         captions={[
           {
             title: "Skew",

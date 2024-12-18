@@ -10,6 +10,10 @@ export const SectionAIUsage = ({ data }: { data: any }) => {
       id="5"
       // ref={viewRefs[2]}
     >
+      <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground text-r-xs">
+        With the rise of AI tools, we wanted to see how students were using them
+        in their visual design workflow.
+      </p>
       <ScrollyVisContainer
         height={400}
         background={false}
