@@ -20,8 +20,8 @@ type NavProps = {
 
 export const Nav = ({ sectionsInView }: NavProps) => {
   const reloading = useBoolean(true);
-  const inView = useBoolean(false);
-  const visible = useBoolean(false);
+  const inView = useBoolean(true);
+  const visible = useBoolean(true);
   const matches = useMediaQuery("(min-width: 768px)");
   const isClient = useIsClient();
   const locker = useScrollLock({ autoLock: false });
@@ -118,7 +118,7 @@ export const Nav = ({ sectionsInView }: NavProps) => {
       }}
       animate={{
         height: (visible.value || matches) && isClient ? "100vh" : "4.5em",
-        opacity: inView.value ? 1 : 0,
+        opacity: 1,
         y: (inView.value || matches) && isClient ? "0%" : "-100%",
       }}
       exit={{
