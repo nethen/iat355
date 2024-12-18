@@ -7,6 +7,7 @@ export const SectionAIUsage = ({ data }: { data: any }) => {
   return (
     <section
       className="col-span-full grid grid-cols-subgrid gap-[inherit] pt-[2.25em] pb-[4.5em]"
+      id="5"
       // ref={viewRefs[2]}
     >
       <ScrollyVisContainer

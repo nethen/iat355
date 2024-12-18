@@ -31,7 +31,7 @@ VisContainerProps) => {
       >
         <figure
           className={clsx(
-            "col-span-full max-w-full rounded-lg md:p-8",
+            "col-span-full max-w-full rounded-lg md:p-8  min-h-[24rem]",
             background && "bg-diagram"
           )}
           ref={figureRef}

@@ -72,11 +72,9 @@ export const StudyExpectation = ({
         innerWidth: entry.width ? entry.width - marginLeft - marginRight : 0,
         innerHeight: entry.height ? entry.height - marginTop - marginBottom : 0,
       });
-      console.log(entry);
+      // console.log(entry);
     },
   });
-
-
 
   const y = scaleLinear()
     .domain([0, 6])
@@ -86,47 +84,41 @@ export const StudyExpectation = ({
     .domain([0, 5])
     .range([0, innerWidth ?? 0]);
 
+  // Calculate frequency of (score_percent, visual_confidence_score) pairs
+  const frequencyMap = new Map<string, number>();
 
+  filteredData?.forEach((d) => {
+    const key = `${d.score_percent},${d.visual_confidence_score}`;
+    frequencyMap.set(key, (frequencyMap.get(key) || 0) + 1);
+  });
+  // console.log(frequencyMap);
 
- // Calculate frequency of (score_percent, visual_confidence_score) pairs
- const frequencyMap = new Map<string, number>();
+  const getSizeBasedOnFrequency = (d: any) => {
+    const id = `${d.score_percent},${d.visual_confidence_score}`;
+    const frequency = frequencyMap.get(id) || 1; // Default frequency to 1
 
- filteredData?.forEach((d) => {
-   const key = `${d.score_percent},${d.visual_confidence_score}`;
-   frequencyMap.set(key, (frequencyMap.get(key) || 0) + 1);
- });
- console.log(frequencyMap)
+    // Safely cap the scaling factor to a reasonable limit
+    const screenScaleFactor = Math.min(
+      Math.min(innerWidth ?? 0, 1200) / 1200, // Cap width scaling at 1
+      Math.min(innerHeight ?? 0, 800) / 800 // Cap height scaling at 1
+    );
 
- const getSizeBasedOnFrequency = (d: any) => {
-   const id = `${d.score_percent},${d.visual_confidence_score}`;
-   const frequency = frequencyMap.get(id) || 1; // Default frequency to 1
- 
-   // Safely cap the scaling factor to a reasonable limit
-   const screenScaleFactor = Math.min(
-     Math.min(innerWidth ?? 0, 1200) / 1200, // Cap width scaling at 1
-     Math.min(innerHeight ?? 0, 800) / 800   // Cap height scaling at 1
-   );
- 
-   // Apply scaling factor with a proper cap for size
-   const scaledSize = Math.min(frequency * 3, 20); // Base scaling (cap at 20)
-   return 5 + scaledSize * screenScaleFactor; // Final size with screen scaling
- };
+    // Apply scaling factor with a proper cap for size
+    const scaledSize = Math.min(frequency * 3, 20); // Base scaling (cap at 20)
+    return 5 + scaledSize * screenScaleFactor; // Final size with screen scaling
+  };
 
-
-
- const Circle = ({ cx, cy, d }: { cx: number; cy: number, d:any }) => {
-
-   console.log(getSizeBasedOnFrequency(d))
-   const radius = useTransform(
-     scrollYProgress,
-     [0.25, 0.5],
-     [0, getSizeBasedOnFrequency(d)]
-   );
-   return (
-     <motion.circle cx={cx} cy={cy} fill="#1058c4" opacity={0.75} r={radius} />
-   );
- };
- 
+  const Circle = ({ cx, cy, d }: { cx: number; cy: number; d: any }) => {
+    // console.log(getSizeBasedOnFrequency(d));
+    const radius = useTransform(
+      scrollYProgress,
+      [0.25, 0.5],
+      [0, getSizeBasedOnFrequency(d)]
+    );
+    return (
+      <motion.circle cx={cx} cy={cy} fill="#1058c4" opacity={0.75} r={radius} />
+    );
+  };
 
   return (
     <motion.svg
@@ -145,12 +137,12 @@ export const StudyExpectation = ({
         <g>
           <text
             x={innerWidth / 2} // Adjust to position the text left of the axis
-            y={innerHeight + marginBottom/1.25} // Keep aligned with the tick
+            y={innerHeight + marginBottom / 1.25} // Keep aligned with the tick
             textAnchor="middle" // Align text to the end of the position
             // style={{ fontSize: "3rem", fill: "black" }}
             className="text-[2rem] fill-midground"
           >
-            Does SIAT meet your expectations for learning visual design? 
+            Does SIAT meet your expectations for learning visual design?
           </text>
           <text
             x={-70} // Adjust to position the text left of the axis
@@ -158,12 +150,14 @@ export const StudyExpectation = ({
             textAnchor="middle" // Align text to the end of the position
             // style={{ fontSize: "3rem", fill: "black" }}
             className="text-[2rem] fill-midground"
-            transform={`translate(${-marginLeft/4},${innerHeight / 2.5}) rotate(270)`}
+            transform={`translate(${-marginLeft / 4},${
+              innerHeight / 2.5
+            }) rotate(270)`}
           >
-            Time spent learning outside of school 
+            Time spent learning outside of school
           </text>
 
-          {y.ticks(6).map((tickValue,index) => (
+          {y.ticks(6).map((tickValue, index) => (
             <g transform={`translate(0, ${y(tickValue)})`} key={tickValue}>
               <line
                 stroke="gray"
@@ -184,7 +178,6 @@ export const StudyExpectation = ({
             </g>
           ))}
         </g>
-
         <g>
           {x.ticks(5).map((tickValue, index) => (
             <g transform={`translate(${x(tickValue)},0)`} key={tickValue}>
@@ -212,8 +205,8 @@ export const StudyExpectation = ({
         {filteredData &&
           filteredData.map((d, i) => (
             <Circle
-              cx={x(parseFloat(d.visual_design_expectations) )}
-              cy={y(parseFloat(d.hours_per_week_visual_design) + 1 )}
+              cx={x(parseFloat(d.visual_design_expectations))}
+              cy={y(parseFloat(d.hours_per_week_visual_design) + 1)}
               d={d}
               key={`participant-${i}`}
             />

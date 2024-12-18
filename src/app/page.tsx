@@ -16,6 +16,7 @@ import { SectionStudyHabits } from "./components/Sections/SectionStudyHabits";
 import { SectionResources } from "./components/Sections/SectionResources";
 import { SectionAIUsage } from "./components/Sections/SectionAIUsage";
 import { SectionTakeaways } from "./components/Sections/SectionTakeaways";
+import { SectionSkills } from "./components/Sections/SectionSkills";
 
 export default async function Home() {
   // const viewRefs = Array.from({ length: 4 }, () => createRef<HTMLDivElement>());
@@ -55,6 +56,7 @@ export default async function Home() {
         <main className="col-span-full md:col-span-5 lg:col-span-8 grid grid-cols-subgrid auto-rows-min gap-y-[1.125em]">
           <SectionPrologue />
           <SectionSample data={data} />
+          <SectionSkills data={data} />
           <SectionStudyHabits data={data} />
           <SectionResources data={data} />
           <SectionAIUsage data={data} />

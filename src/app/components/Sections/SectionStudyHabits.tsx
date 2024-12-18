@@ -5,7 +5,7 @@ import { ScrollyVisContainer } from "../Visualization/ScrollyVisContainer";
 export const SectionStudyHabits = ({ data }: { data: any }) => {
   return (
     <section
-      id="act2"
+      id="3"
       className="col-span-full grid grid-cols-subgrid gap-[inherit] pt-[2.25em] pb-[4.5em]"
       // ref={viewRefs[2]}
     >

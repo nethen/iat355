@@ -27,7 +27,7 @@ type D3VisProps = {
   yLength?: number;
 };
 
-export const BarConfident = ({
+export const BarUnconfident = ({
   data,
   // marginTop = 36,
   marginRight = 36,
@@ -36,15 +36,14 @@ export const BarConfident = ({
   xLength = 9,
 }: D3VisProps) => {
   const dataCount = [
-    { task: "Prototyping", value: 27 },
-    { task: "UX design", value: 21 },
-    { task: "UI design", value: 21 },
-
-    { task: "Layout", value: 19 },
-    { task: "Typography", value: 16 },
-    { task: "Color theory", value: 13 },
+    { task: "Color theory", value: 19 },
+    { task: "UX design", value: 14 },
+    { task: "Layout", value: 11 },
+    { task: "Typography", value: 11 },
+    { task: "UI design", value: 9 },
+    { task: "Prototyping", value: 8 },
   ];
-  const blue = colors.blue[500];
+  const red = colors.red[500];
 
   const resizeObserver = useResizeObserverContext();
 
@@ -92,7 +91,7 @@ export const BarConfident = ({
           y={yScale(d.task)}
           width={xScale(d.value) - xScale(0)}
           height={yScale.bandwidth()}
-          fill={blue}
+          fill={red}
         />
       ))}
 
