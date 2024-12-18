@@ -31,7 +31,7 @@ export const VastHour = ({
 }: D3VisProps) => {
   const scrollYProgress = useScrollYProgress();
   const hasCaption = useHasCaption();
-  const scale = useTransform(scrollYProgress, [0.25, 0.75], [0, 10]);
+
 
   const filteredData = data?.filter((row) => row.isDesign === "1"); // Filter by inDesign column
 
@@ -45,8 +45,6 @@ export const VastHour = ({
     "16+ hours",
   ];
 
-  const avgVast = mean(filteredData, (d) => d.score_percent);
-  const avgVC = mean(filteredData, (d) => d.visual_confidence_score);
 
   const resizeObserver = useResizeObserverContext();
   const [{ innerWidth, innerHeight }, setSize] = useState<{
@@ -78,23 +76,60 @@ export const VastHour = ({
     .domain([0, hourNames.length])
     .range([0, innerWidth ?? 0]);
 
-  // Calculate frequency of (score_percent, visual_confidence_score) pairs
-  const frequencyMap = new Map<string, number>();
-  filteredData?.forEach((d) => {
-    const key = `${d.score_percent},${d.hours_per_week_visual_design}`;
-    frequencyMap.set(key, (frequencyMap.get(key) || 0) + 1);
-  });
+  // // Calculate frequency of (score_percent, visual_confidence_score) pairs
+  // const frequencyMap = new Map<string, number>();
+  // filteredData?.forEach((d) => {
+  //   const key = `${d.score_percent},${d.hours_per_week_visual_design}`;
+  //   frequencyMap.set(key, (frequencyMap.get(key) || 0) + 1);
+  // });
 
-  // Function to calculate size based on frequency
-  const getSizeBasedOnFrequency = (d: any, i: number) => {
-    const key = `${d.score_percent},${d.hours_per_week_visual_design}`;
-    const frequency = frequencyMap.get(key) || 1; // Default to 1 if frequency is not found
-    const screenScaleFactor = Math.min(innerWidth / 1200, innerHeight / 800); // Example: Scale down for smaller screens
+  // // Function to calculate size based on frequency
+  // const getSizeBasedOnFrequency = (d: any, i: number) => {
+  //   const key = `${d.score_percent},${d.hours_per_week_visual_design}`;
+  //   const frequency = frequencyMap.get(key) || 1; // Default to 1 if frequency is not found
+  //   const screenScaleFactor = Math.min(innerWidth / 1200, innerHeight / 800); // Example: Scale down for smaller screens
 
-    // Apply the scaling factor to adjust the size
-    const scaledSize = Math.min(frequency * 3, 20); // Original size calculation
-    return Math.min(5 + scaledSize * screenScaleFactor, 40); // Scale the size based on screen size, capped at 50
-  };
+  //   // Apply the scaling factor to adjust the size
+  //   const scaledSize = Math.min(frequency * 3, 20); // Original size calculation
+  //   return Math.min(5 + scaledSize * screenScaleFactor, 40); // Scale the size based on screen size, capped at 50
+  // };
+
+    // Calculate frequency of (score_percent, visual_confidence_score) pairs
+    const frequencyMap = new Map<string, number>();
+
+    filteredData?.forEach((d) => {
+      const key = `${d.score_percent},${d.hours_per_week_visual_design}`;
+      frequencyMap.set(key, (frequencyMap.get(key) || 0) + 1);
+    });
+    console.log(frequencyMap)
+  
+    const getSizeBasedOnFrequency = (d: any) => {
+      const id = `${d.score_percent},${d.hours_per_week_visual_design}`;
+      const frequency = frequencyMap.get(id) || 1; // Default frequency to 1
+    
+      // Safely cap the scaling factor to a reasonable limit
+      const screenScaleFactor = Math.min(
+        Math.min(innerWidth ?? 0, 1200) / 1200, // Cap width scaling at 1
+        Math.min(innerHeight ?? 0, 800) / 800   // Cap height scaling at 1
+      );
+    
+      // Apply scaling factor with a proper cap for size
+      const scaledSize = Math.min(frequency * 3, 20); // Base scaling (cap at 20)
+      return 5 + scaledSize * screenScaleFactor; // Final size with screen scaling
+    };
+  
+    const Circle = ({ cx, cy, d }: { cx: number; cy: number, d:any }) => {
+  
+      console.log(getSizeBasedOnFrequency(d))
+      const radius = useTransform(
+        scrollYProgress,
+        [0.25, 0.5],
+        [0, getSizeBasedOnFrequency(d)]
+      );
+      return (
+        <motion.circle cx={cx} cy={cy} fill="#1058c4" opacity={0.75} r={radius} />
+      );
+    };
 
   return (
     <motion.svg
@@ -179,17 +214,12 @@ export const VastHour = ({
 
         {filteredData &&
           filteredData.map((d, i) => (
-            <motion.circle
+            
+            <Circle
               cx={x(parseFloat(d.hours_per_week_visual_design) + 1)}
               cy={y(parseFloat(d.score_percent))}
-              fill="#1058c4"
-              opacity={0.5}
-              r={useTransform(
-                scrollYProgress,
-                [0.25, 0.75],
-                [0, getSizeBasedOnFrequency(d, i)]
-              )}
               key={`participant-${i}`}
+              d={d}
             />
           ))}
       </g>

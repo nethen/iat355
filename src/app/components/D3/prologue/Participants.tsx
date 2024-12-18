@@ -73,24 +73,43 @@ export const Participants = ({
 
   // Calculate frequency of (score_percent, visual_confidence_score) pairs
   const frequencyMap = new Map<string, number>();
+
   filteredData?.forEach((d) => {
     const key = `${d.score_percent},${d.visual_confidence_score}`;
     frequencyMap.set(key, (frequencyMap.get(key) || 0) + 1);
   });
+  console.log(frequencyMap)
 
-  // Function to calculate size based on frequency
   const getSizeBasedOnFrequency = (d: any) => {
-    const key = `${d.score_percent},${d.visual_confidence_score}`;
-    const frequency = frequencyMap.get(key) || 1; // Default to 1 if frequency is not found
+    const id = `${d.score_percent},${d.visual_confidence_score}`;
+    const frequency = frequencyMap.get(id) || 1; // Default frequency to 1
+  
+    // Safely cap the scaling factor to a reasonable limit
     const screenScaleFactor = Math.min(
-      innerWidth ?? 0 / 1200,
-      innerHeight ?? 0 / 800
-    ); // Example: Scale down for smaller screens
-
-    // Apply the scaling factor to adjust the size
-    const scaledSize = Math.min(frequency * 3, 20); // Original size calculation
-    return Math.min(5 + scaledSize * screenScaleFactor, 40); // Scale the size based on screen size, capped at 50
+      Math.min(innerWidth ?? 0, 1200) / 1200, // Cap width scaling at 1
+      Math.min(innerHeight ?? 0, 800) / 800   // Cap height scaling at 1
+    );
+  
+    // Apply scaling factor with a proper cap for size
+    const scaledSize = Math.min(frequency * 3, 20); // Base scaling (cap at 20)
+    return 5 + scaledSize * screenScaleFactor; // Final size with screen scaling
   };
+
+
+
+  const Circle = ({ cx, cy, d }: { cx: number; cy: number, d:any }) => {
+
+    console.log(getSizeBasedOnFrequency(d))
+    const radius = useTransform(
+      scrollYProgress,
+      [0.25, 0.5],
+      [0, getSizeBasedOnFrequency(d)]
+    );
+    return (
+      <motion.circle cx={cx} cy={cy} fill="#1058c4" opacity={0.75} r={radius} />
+    );
+  };
+  
 
   return (
     <motion.svg
@@ -197,6 +216,7 @@ export const Participants = ({
               cx={x(parseFloat(d.visual_confidence_score))}
               cy={y(parseFloat(d.score_percent))}
               key={`participant-${i}`}
+              d={d}
             />
           ))}
       </g>
@@ -204,19 +224,3 @@ export const Participants = ({
   );
 };
 
-const Circle = ({ cx, cy, key }: { cx: number; cy: number; key: string }) => {
-  const scrollYProgress = useScrollYProgress();
-  // const getSizeBasedOnFrequency = (d: any) => {
-  //   const frequency = frequencyMap.get(key) || 1; // Default to 1 if frequency is not found
-  //   const screenScaleFactor = Math.min(
-  //     innerWidth ?? 0 / 1200,
-  //     innerHeight ?? 0 / 800
-  //   ); // Example: Scale down for smaller screens
-  // };
-  // const radius = useTransform(
-  //   scrollYProgress,
-  //   [0.25, 0.5],
-  //   [0, getSizeBasedOnFrequency(d)]
-  // );
-  return <motion.circle cx={cx} cy={cy} fill="#1058c4" opacity={0.75} />;
-};
