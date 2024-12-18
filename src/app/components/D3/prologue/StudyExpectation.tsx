@@ -125,13 +125,6 @@ export const StudyExpectation = ({
       className="w-full h-full"
       width={innerWidth ? innerWidth + marginRight + marginLeft : 0}
       height={innerHeight ? innerHeight + marginTop + marginBottom : 0}
-      animate={{
-        background: filteredData
-          ? hasCaption
-            ? "transparent"
-            : "blue"
-          : "red",
-      }}
     >
       <g transform={`translate(${marginLeft},${marginTop})`}>
         <g>
@@ -140,7 +133,7 @@ export const StudyExpectation = ({
             y={innerHeight ? innerHeight + marginBottom / 1.25 : 0} // Keep aligned with the tick
             textAnchor="middle" // Align text to the end of the position
             // style={{ fontSize: "3rem", fill: "black" }}
-            className="text-[2rem] fill-midground"
+            className="text-sm fill-midground"
           >
             Does SIAT meet your expectations for learning visual design?
           </text>
@@ -149,7 +142,7 @@ export const StudyExpectation = ({
             y={-70} // Keep aligned with the tick
             textAnchor="middle" // Align text to the end of the position
             // style={{ fontSize: "3rem", fill: "black" }}
-            className="text-[2rem] fill-midground"
+            className="text-sm fill-midground"
             transform={`translate(${-marginLeft / 4},${
               innerHeight ? innerHeight / 2.5 : 0
             }) rotate(270)`}
@@ -171,7 +164,7 @@ export const StudyExpectation = ({
                 x={-5} // Adjust to position the text left of the axis
                 y={0} // Keep aligned with the tick
                 textAnchor="end" // Align text to the end of the position
-                className="text-[1rem] fill-midground"
+                className="text-sm fill-midground"
               >
                 {hourNames[index]}
               </text>
@@ -194,7 +187,7 @@ export const StudyExpectation = ({
                 x={0} // Adjust to position the text left of the axis
                 y={innerHeight ? innerHeight + 20 : 0} // Keep aligned with the tick
                 textAnchor="middle" // Align text to the end of the position
-                className="text-[1rem] fill-midground"
+                className="text-sm fill-midground"
               >
                 {expectationNames[index]}
               </text>

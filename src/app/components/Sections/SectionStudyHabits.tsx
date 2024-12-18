@@ -9,16 +9,23 @@ export const SectionStudyHabits = ({ data }: { data: any }) => {
       className="col-span-full grid grid-cols-subgrid gap-[inherit] pt-[2.25em] pb-[4.5em]"
       // ref={viewRefs[2]}
     >
-      <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground text-r-xs md:text-r-sm">
-        Based on how often students are studying
-      </p>
-      <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground"></p>
+      {/* <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground">
+        Based on the students' self-reported habits, we can also see that
+        increased satisfaction with the program tends to result in less
+        extracurricular studies.
+      </p> */}
 
       <ScrollyVisContainer
         captions={[
           {
             title: "Skew",
-            text: "We compared the VAST-R scores to the students' self-reported confidence scores. Here, larger dots represent higher counts of repeated results.",
+            text: (
+              <>
+                Based on the students' self-reported habits, we can also see
+                that increased satisfaction with the program tends to result in{" "}
+                <span className="font-bold">less extracurricular studies.</span>
+              </>
+            ),
             stop: 0.3,
           },
         ]}
