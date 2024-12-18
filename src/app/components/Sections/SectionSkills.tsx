@@ -40,12 +40,6 @@ export const SectionSkills = ({ data }: { data: any }) => {
       <VisContainer background={false}>
         <BarUnconfident data={data} />
       </VisContainer>
-      <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground mb-[2.25em]">
-        When students reported lower confidence in more foundational graphic
-        skills (typography, color, layout), it could suggest a lack of
-        confidence in more expressive contexts like art direction and visual
-        identity.
-      </p>
       <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground text-r-xs">
         After asking students to rate their confidence, we tried to quantify
         their visual design competency by looking into several testing

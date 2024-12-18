@@ -60,7 +60,7 @@ export default async function Home() {
           <SectionStudyHabits data={data} />
           {/* <SectionResources data={data} /> */}
           <SectionAIUsage data={data} />
-          <SectionTakeaways />
+          {/* <SectionTakeaways /> */}
         </main>
       </div>
     </SmoothScroll>
