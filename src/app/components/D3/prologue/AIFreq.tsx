@@ -46,7 +46,7 @@ export const AIFreq = ({
     [5, "daily"],
   ]);
 
-  const binneddata = bin().value((d) => d["frequency_of_ai_tool_use"]);
+  // const binneddata = bin().value((d) => d["frequency_of_ai_tool_use"]);
   // console.log(binneddata);
 
   const yScale = scaleBand()

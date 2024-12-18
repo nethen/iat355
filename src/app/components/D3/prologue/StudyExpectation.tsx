@@ -136,8 +136,8 @@ export const StudyExpectation = ({
       <g transform={`translate(${marginLeft},${marginTop})`}>
         <g>
           <text
-            x={innerWidth / 2} // Adjust to position the text left of the axis
-            y={innerHeight + marginBottom / 1.25} // Keep aligned with the tick
+            x={innerWidth ? innerWidth / 2 : 0} // Adjust to position the text left of the axis
+            y={innerHeight ? innerHeight + marginBottom / 1.25 : 0} // Keep aligned with the tick
             textAnchor="middle" // Align text to the end of the position
             // style={{ fontSize: "3rem", fill: "black" }}
             className="text-[2rem] fill-midground"
@@ -151,7 +151,7 @@ export const StudyExpectation = ({
             // style={{ fontSize: "3rem", fill: "black" }}
             className="text-[2rem] fill-midground"
             transform={`translate(${-marginLeft / 4},${
-              innerHeight / 2.5
+              innerHeight ? innerHeight / 2.5 : 0
             }) rotate(270)`}
           >
             Time spent learning outside of school
@@ -192,7 +192,7 @@ export const StudyExpectation = ({
               {/* <line stroke="gray" x={0} y1={0} y2={0} /> */}
               <text
                 x={0} // Adjust to position the text left of the axis
-                y={innerHeight + 20} // Keep aligned with the tick
+                y={innerHeight ? innerHeight + 20 : 0} // Keep aligned with the tick
                 textAnchor="middle" // Align text to the end of the position
                 className="text-[1rem] fill-midground"
               >

@@ -44,6 +44,11 @@ export const VastHour = ({
     "16+ hours",
   ];
 
+  hourNames.forEach((name, index) => {
+    console.log(name, index);
+    console.log(parseInt(name[0] + name[1]));
+  });
+
   const resizeObserver = useResizeObserverContext();
   const [{ innerWidth, innerHeight }, setSize] = useState<{
     innerWidth: number | undefined;
@@ -116,7 +121,35 @@ export const VastHour = ({
     return 5 + scaledSize * screenScaleFactor; // Final size with screen scaling
   };
 
-  const Circle = ({ cx, cy, d }: { cx: number; cy: number; d: any }) => {
+  const captions = useHasCaption();
+  const fillUpdate = useTransform(
+    scrollYProgress,
+    [captions ? captions[1].stop + 0.075 : 0, captions ? captions[2].stop : 1],
+    [0.75, 0.1]
+  );
+
+  const opacityLine = useTransform(
+    scrollYProgress,
+    [
+      captions ? captions[0].stop + 0.075 : 0,
+      captions ? captions[1].stop : 0,
+      captions ? captions[1].stop + 0.075 : 0,
+      captions ? captions[2].stop : 1,
+    ],
+    [0, 1, 1, 0]
+  );
+
+  const Circle = ({
+    cx,
+    cy,
+    d,
+    dim,
+  }: {
+    cx: number;
+    cy: number;
+    d: any;
+    dim: number;
+  }) => {
     // console.log(getSizeBasedOnFrequency(d));
     const radius = useTransform(
       scrollYProgress,
@@ -124,7 +157,13 @@ export const VastHour = ({
       [0, getSizeBasedOnFrequency(d)]
     );
     return (
-      <motion.circle cx={cx} cy={cy} fill="#1058c4" opacity={0.75} r={radius} />
+      <motion.circle
+        cx={cx}
+        cy={cy}
+        fill="#1058c4"
+        opacity={dim != 1 ? fillUpdate : 0.75}
+        r={radius}
+      />
     );
   };
 
@@ -141,14 +180,25 @@ export const VastHour = ({
       //     : "red",
       // }}
     >
+      <motion.line
+        x1={x(0.6)}
+        x2={innerWidth}
+        y1={y(0.6)}
+        y2={0}
+        className="stroke-red-500"
+        strokeWidth={5}
+        style={{
+          opacity: opacityLine,
+        }}
+      />
       <g transform={`translate(${marginLeft},${marginTop})`}>
         <g>
           <text
-            x={innerWidth / 2} // Adjust to position the text left of the axis
-            y={innerHeight + 60} // Keep aligned with the tick
+            x={innerWidth ? innerWidth / 2 : 0} // Adjust to position the text left of the axis
+            y={innerHeight ? innerHeight + 60 : 0} // Keep aligned with the tick
             textAnchor="middle" // Align text to the end of the position
             // style={{ fontSize: "3rem", fill: "black" }}
-            className="text-[2rem] fill-midground"
+            className="text-xs fill-midground"
           >
             Time spent learning outside of school
           </text>
@@ -157,8 +207,10 @@ export const VastHour = ({
             y={-70} // Keep aligned with the tick
             textAnchor="center" // Align text to the end of the position
             // style={{ fontSize: "3rem", fill: "black" }}
-            className="text-[2rem] fill-midground"
-            transform={`translate(0,${innerHeight / 2}) rotate(270)`}
+            className="text-xs fill-midground"
+            transform={`translate(0,${
+              innerHeight ? innerHeight / 2 : 0
+            }) rotate(270)`}
           >
             Vast Score
           </text>
@@ -199,9 +251,9 @@ export const VastHour = ({
               {/* <line stroke="gray" x={0} y1={0} y2={0} /> */}
               <text
                 x={0} // Adjust to position the text left of the axis
-                y={innerHeight + 20} // Keep aligned with the tick
+                y={innerHeight ? innerHeight + 20 : 0} // Keep aligned with the tick
                 textAnchor="middle" // Align text to the end of the position
-                className="text-[1rem] fill-midground"
+                className="text-xs fill-midground"
               >
                 {hourNames[index]}
               </text>
@@ -216,6 +268,10 @@ export const VastHour = ({
               cy={y(parseFloat(d.score_percent))}
               key={`participant-${i}`}
               d={d}
+              dim={parseInt(
+                d.hours_per_week_visual_design[0] +
+                  d.hours_per_week_visual_design[1]
+              )}
             />
           ))}
       </g>
