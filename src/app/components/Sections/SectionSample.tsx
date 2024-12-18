@@ -1,3 +1,4 @@
+import { BarConfident } from "../D3/prologue/BarConfident";
 import { DotSample } from "../D3/prologue/DotSample";
 import { Participants } from "../D3/prologue/Participants";
 import { StackedBarConfidence } from "../D3/prologue/StackedBarConfidence";
@@ -76,7 +77,9 @@ export const SectionSample = ({ data }: { data: any }) => {
         building digital products and artifacts. As a discipline, UI design
         incorporates visual design skills
       </p>
-      <VisContainer></VisContainer>
+      <VisContainer>
+        <BarConfident data={data} />
+      </VisContainer>
       <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground text-r-xs">
         When students claimed to be{" "}
         <span className="text-red-500">less confident</span>, less confident
@@ -118,16 +121,6 @@ export const SectionSample = ({ data }: { data: any }) => {
         background={false}
         height={500}
         captions={[
-          // {
-          //   title: "Sample",
-          //   text: "In an effort to quantify and evaluate students visual design skills, we employed a Visual Aesthetic Sensity test, also known as VAST.",
-          //   stop: 0.1,
-          // },
-          // {
-          //   title: "Sample",
-          //   text: "During the test, Participants view pairs of visual stimuli (like shapes, drawings, or artwork variations), and they must judge which of the two is more aesthetically pleasing based on implicit artistic principles (e.g., balance, proportion).",
-          //   stop: 0.3,
-          // },
           {
             title: "Skew",
             text: "We compared the VAST-R scores to the students' self-reported confidence scores. Here, larger dots represent higher counts of repeated results.",
@@ -154,16 +147,6 @@ export const SectionSample = ({ data }: { data: any }) => {
         background={false}
         height={500}
         captions={[
-          // {
-          //   title: "Sample",
-          //   text: "In an effort to quantify and evaluate students visual design skills, we employed a Visual Aesthetic Sensity test, also known as VAST.",
-          //   stop: 0.1,
-          // },
-          // {
-          //   title: "Sample",
-          //   text: "During the test, Participants view pairs of visual stimuli (like shapes, drawings, or artwork variations), and they must judge which of the two is more aesthetically pleasing based on implicit artistic principles (e.g., balance, proportion).",
-          //   stop: 0.3,
-          // },
           {
             title: "Skew",
             text: "For instance, we would imagine that students who spend more time studying would have higher VAST-R scores",
