@@ -1,4 +1,5 @@
 import { Participants } from "../D3/prologue/Participants";
+import { StudyExpectation } from "../D3/prologue/StudyExpectation";
 import { ScrollyVisContainer } from "../Visualization/ScrollyVisContainer";
 
 export const SectionStudyHabits = ({ data }: { data: any }) => {
@@ -22,6 +23,17 @@ export const SectionStudyHabits = ({ data }: { data: any }) => {
         ]}
       >
         <Participants data={data} />
+      </ScrollyVisContainer>
+      <ScrollyVisContainer
+        captions={[
+          {
+            title: "Skew",
+            text: "We compared the VAST-R scores to the students' self-reported confidence scores. Here, larger dots represent higher counts of repeated results.",
+            stop: 0.3,
+          },
+        ]}
+      >
+        <StudyExpectation data={data} />
       </ScrollyVisContainer>
     </section>
   );
