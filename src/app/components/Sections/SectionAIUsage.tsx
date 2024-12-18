@@ -38,9 +38,23 @@ export const SectionAIUsage = ({ data }: { data: any }) => {
       >
         <PieAIUsage data={data} />
       </ScrollyVisContainer>
-      {/* <ScrollyVisContainer background={true}>
+      <ScrollyVisContainer
+        background={true}
+        captions={[
+          {
+            title: "Stacked Bar",
+            text: "After asking about their particular use cases for AI in their workflow, generating visual compositions or UI was not listed.",
+            stop: 0.25,
+          },
+          {
+            title: "Stacked Bar",
+            text: "Instead, these AI tools were used at a higher level for generating and refining content.",
+            stop: 0.5,
+          },
+        ]}
+      >
         <AIusage data={data} />
-      </ScrollyVisContainer> */}
+      </ScrollyVisContainer>
     </section>
   );
 };

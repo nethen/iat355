@@ -13,17 +13,7 @@ export const SectionStudyHabits = ({ data }: { data: any }) => {
         Based on how often students are studying
       </p>
       <p className="col-span-full md:col-start-2 md:col-span-3 lg:col-start-3 lg:col-span-3 text-midground"></p>
-      <ScrollyVisContainer
-        captions={[
-          {
-            title: "Skew",
-            text: "We compared the VAST-R scores to the students' self-reported confidence scores. Here, larger dots represent higher counts of repeated results.",
-            stop: 0.3,
-          },
-        ]}
-      >
-        <Participants data={data} />
-      </ScrollyVisContainer>
+
       <ScrollyVisContainer
         captions={[
           {

@@ -47,7 +47,7 @@ export const AIFreq = ({
   ]);
 
   const binneddata = bin().value((d) => d["frequency_of_ai_tool_use"]);
-  console.log(binneddata);
+  // console.log(binneddata);
 
   const yScale = scaleBand()
     .domain(data ? data.map((d) => d.frequency_of_ai_tool_use) : "9")
@@ -112,19 +112,6 @@ export const AIFreq = ({
             <line y1={0} y2={height} fill="white" opacity={0.2} />
           </g>
         ))}
-
-        {/* {data? data.map((d, index) => (
-          <rect
-            rx={4}
-            ry={4}
-            key={index}
-            x={0}
-            y={yScale(d.task)}
-            width={xScale(d.value)}
-            height={yScale.bandwidth()}
-            fill="#b949ff"
-          />
-        ))} */}
       </g>
     </svg>
   );
