@@ -29,7 +29,7 @@ export const ScrollyVisContainer = ({
     offset: ["start end", "end start"],
   });
 
-  console.log(background);
+  // console.log(background);
 
   // const scale = useTransform(scrollYProgress, [0.25, 1], [0, 1]);
 

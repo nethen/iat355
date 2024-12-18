@@ -79,7 +79,7 @@ export const PieAIUsage = ({ data }: D3VisProps) => {
         width: entry.width,
         height: entry.height,
       });
-      console.log(entry);
+      // console.log(entry);
     },
   });
 
@@ -101,7 +101,7 @@ export const PieAIUsage = ({ data }: D3VisProps) => {
   const dataArc = createPie(
     filteredGroups.sort((a, b) => a.key - b.key) as any
   );
-  console.log(dataArc);
+  // console.log(dataArc);
 
   const highlightAngle = dataArc[1].endAngle - dataArc[0].startAngle / 2;
   const scrollYProgress = useScrollYProgress();

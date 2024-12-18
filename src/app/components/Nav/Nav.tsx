@@ -88,15 +88,15 @@ export const Nav = ({ sectionsInView }: NavProps) => {
   }, [visible.value]);
 
   const toggleNav = () => {
-    console.log(visible.value);
+    // console.log(visible.value);
     if (!visible.value) {
       locker.lock();
       lenis?.stop();
-      console.log("locking");
+      // console.log("locking");
     } else {
       locker.unlock();
       lenis?.start();
-      console.log("unlocking");
+      // console.log("unlocking");
     }
     visible.toggle();
   };

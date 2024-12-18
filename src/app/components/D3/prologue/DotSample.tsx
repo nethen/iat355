@@ -102,6 +102,41 @@ export const DotSample = ({
         : width - marginRight,
     ]);
 
+  const scrollYProgress = useScrollYProgress();
+  const opacity = useTransform(
+    scrollYProgress,
+    [captions ? captions[0].stop : 1, captions ? captions[1].stop : 1],
+    [1, 0.2]
+  );
+  const opacity2 = useTransform(
+    scrollYProgress,
+    [
+      captions ? captions[0].stop : 1,
+      captions ? captions[1].stop : 1,
+      captions ? captions[1].stop + 0.1 : 1,
+      captions ? captions[2].stop : 1,
+      captions ? captions[2].stop + 0.1 : 1,
+      captions ? captions[3].stop : 1,
+    ],
+    [1, 1, 1, 0.2, 0.2, 1]
+  );
+  const opacity3 = useTransform(
+    scrollYProgress,
+    [
+      captions ? captions[0].stop : 1,
+      captions ? captions[1].stop : 1,
+      captions ? captions[1].stop + 0.1 : 1,
+      captions ? captions[2].stop : 1,
+      captions ? captions[2].stop + 0.1 : 1,
+      captions ? captions[3].stop : 1,
+    ],
+    [1, 1, 1, 1, 0.2, 0.2]
+  );
+  const fillNew = useTransform(
+    scrollYProgress,
+    [captions ? captions[3].stop : 1, 1],
+    ["#6cb3d3", "#6cb3d3"]
+  );
   const c = scaleSequential(interpolateCustom()).domain([1, 5]);
 
   return (
@@ -138,9 +173,9 @@ export const DotSample = ({
               />
             ))}
       </g>
-      {/* <g>
+      <g>
         {[1, 2, 3, 4, 5].map((d, i) => (
-          <text
+          <motion.text
             x={
               rWidth
                 ? DOT_RADIUS * 1.5 +
@@ -149,14 +184,16 @@ export const DotSample = ({
                   rWidth / 2
                 : width - marginRight
             }
-            y={y(i + 1)}
+            y={y(i)}
             fill={c(i + 1)}
+            className="font-bold"
+            style={{ opacity: i < 1 ? opacity : i > 1 ? opacity2 : opacity3 }}
             key={`participants-new__label-${i}`}
           >
-            dtst
-          </text>
+            Year {i + 1}
+          </motion.text>
         ))}
-      </g> */}
+      </g>
     </motion.svg>
   );
 };
@@ -197,8 +234,8 @@ const Circle = ({
     fill,
     conditions[1] ? (conditions[1] == 2 ? fill : "#888888") : "#888888",
     conditions[1] ? (conditions[1] == 2 ? fill : "#888888") : "#888888",
-    conditions[1] ? (conditions[1] == 2 ? "#888888" : "#00ccaa") : "#888888",
-    conditions[1] ? (conditions[1] == 2 ? "#888888" : "#00ccaa") : "#888888",
+    conditions[1] ? (conditions[1] == 2 ? "#888888" : fill) : "#888888",
+    conditions[1] ? (conditions[1] == 2 ? "#888888" : fill) : "#888888",
   ];
 
   const scrollYProgress = useScrollYProgress();

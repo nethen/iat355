@@ -57,11 +57,11 @@ export const Participants = ({
         innerWidth: entry.width ? entry.width - marginLeft - marginRight : 0,
         innerHeight: entry.height ? entry.height - marginTop - marginBottom : 0,
       });
-      console.log(entry);
+      // console.log(entry);
     },
   });
 
-  console.log(innerWidth);
+  // console.log(innerWidth);
 
   const y = scaleLinear()
     .domain([0, 1])
@@ -78,28 +78,25 @@ export const Participants = ({
     const key = `${d.score_percent},${d.visual_confidence_score}`;
     frequencyMap.set(key, (frequencyMap.get(key) || 0) + 1);
   });
-  console.log(frequencyMap)
+  // console.log(frequencyMap)
 
   const getSizeBasedOnFrequency = (d: any) => {
     const id = `${d.score_percent},${d.visual_confidence_score}`;
     const frequency = frequencyMap.get(id) || 1; // Default frequency to 1
-  
+
     // Safely cap the scaling factor to a reasonable limit
     const screenScaleFactor = Math.min(
       Math.min(innerWidth ?? 0, 1200) / 1200, // Cap width scaling at 1
-      Math.min(innerHeight ?? 0, 800) / 800   // Cap height scaling at 1
+      Math.min(innerHeight ?? 0, 800) / 800 // Cap height scaling at 1
     );
-  
+
     // Apply scaling factor with a proper cap for size
     const scaledSize = Math.min(frequency * 3, 20); // Base scaling (cap at 20)
     return 5 + scaledSize * screenScaleFactor; // Final size with screen scaling
   };
 
-
-
-  const Circle = ({ cx, cy, d }: { cx: number; cy: number, d:any }) => {
-
-    console.log(getSizeBasedOnFrequency(d))
+  const Circle = ({ cx, cy, d }: { cx: number; cy: number; d: any }) => {
+    // console.log(getSizeBasedOnFrequency(d))
     const radius = useTransform(
       scrollYProgress,
       [0.25, 0.5],
@@ -109,7 +106,6 @@ export const Participants = ({
       <motion.circle cx={cx} cy={cy} fill="#1058c4" opacity={0.75} r={radius} />
     );
   };
-  
 
   return (
     <motion.svg
@@ -223,4 +219,3 @@ export const Participants = ({
     </motion.svg>
   );
 };
-

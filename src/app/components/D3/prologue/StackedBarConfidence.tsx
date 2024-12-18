@@ -57,7 +57,7 @@ export const StackedBarConfidence = ({ data }: D3VisProps) => {
         width: entry.width,
         height: entry.height,
       });
-      console.log(entry);
+      // console.log(entry);
     },
   });
 
